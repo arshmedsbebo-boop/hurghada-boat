@@ -1,4 +1,4 @@
-﻿
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -468,16 +468,18 @@
         /* Glass card effect */
         .glass-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+            will-change: transform, background, border-color;
+            backface-visibility: hidden;
         }
 
         .glass-card:hover {
             background: rgba(255, 255, 255, 0.09);
             border-color: rgba(255, 255, 255, 0.16);
-            transform: translateY(-6px);
+            transform: translate3d(0, -6px, 0);
             box-shadow: 0 22px 55px -18px rgba(0, 0, 0, 0.25);
         }
 
@@ -1136,7 +1138,8 @@
             width: max-content;
             padding-bottom: 1rem;
             will-change: transform;
-            scroll-behavior: smooth;
+            scroll-behavior: auto;
+            touch-action: pan-x;
         }
 
         .feedback-card {
@@ -1152,10 +1155,12 @@
             gap: 1.2rem;
             color: #f8f8ff;
             overflow: hidden;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
             border-image: conic-gradient(from 180deg, rgba(212, 175, 55, 0.85), rgba(255, 223, 118, 0.9), rgba(255, 255, 255, 0.65), rgba(212, 175, 55, 0.35)) 1;
-            transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease, filter 0.35s ease;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease, filter 0.25s ease;
+            will-change: transform;
+            backface-visibility: hidden;
         }
 
         .feedback-card::before {
@@ -1169,7 +1174,7 @@
 
         .feedback-card:hover,
         .feedback-card.feedback-card-active {
-            transform: scale(1.05) translateY(-6px);
+            transform: translate3d(0, -6px, 0) scale(1.03);
             box-shadow: 0 45px 110px rgba(255, 175, 50, 0.2), 0 20px 45px rgba(0, 0, 0, 0.24);
             filter: saturate(1.05);
             border-color: rgba(255, 215, 0, 0.6);
@@ -1310,7 +1315,8 @@
             position: absolute;
             inset: 0;
             background: rgba(1, 8, 24, 0.88);
-            backdrop-filter: blur(16px);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
         }
 
         .review-modal-panel {
@@ -1322,8 +1328,10 @@
             border-radius: 2rem;
             padding: 2rem 2rem 1.5rem;
             box-shadow: 0 40px 120px rgba(0, 0, 0, 0.35);
-            backdrop-filter: blur(24px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             color: #fff;
+            will-change: contents;
         }
 
         .review-modal-close {
@@ -1392,11 +1400,16 @@
                 overflow-x: auto;
                 scroll-snap-type: x mandatory;
                 padding-bottom: 0.75rem;
+                -webkit-overflow-scrolling: touch;
+                touch-action: pan-x;
+                scroll-padding: 0.75rem;
             }
 
             .feedback-card {
                 flex: 0 0 82vw;
                 scroll-snap-align: start;
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
             }
         }
 
@@ -1444,8 +1457,10 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             padding-bottom: 1rem;
-            scroll-behavior: smooth;
+            scroll-behavior: auto;
             -webkit-overflow-scrolling: touch;
+            will-change: scroll-position;
+            touch-action: pan-x;
         }
 
         .carousel-track::-webkit-scrollbar {
@@ -1508,18 +1523,20 @@
             border-radius: 32px;
             background: rgba(255, 255, 255, 0.06);
             border: 0.5px solid rgba(255, 255, 255, 0.18);
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 35px 70px rgba(0, 0, 0, 0.18);
             padding: 2rem 1.75rem 1.75rem;
             display: grid;
             gap: 1rem;
-            transition: transform 0.45s ease, box-shadow 0.45s ease, border-color 0.45s ease;
-            transform-style: preserve-3d;
+            transition: transform 0.3s cubic-bezier(0.4, 0.0, 0.2, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+            transform: translate3d(0, 0, 0);
+            will-change: transform, box-shadow;
+            backface-visibility: hidden;
         }
 
         .feature-card:hover {
-            transform: translateY(-8px) rotateX(1deg) rotateY(3deg);
+            transform: translate3d(0, -8px, 0);
             border-color: rgba(212, 175, 55, 0.35);
             box-shadow: 0 45px 95px rgba(0, 0, 0, 0.24);
         }
@@ -1538,10 +1555,10 @@
             display: grid;
             place-items: center;
             background: linear-gradient(180deg, rgba(212, 175, 55, 0.95), rgba(212, 175, 55, 0.22));
-            box-shadow: 0 0 35px rgba(212, 175, 55, 0.28);
+            box-shadow: 0 0 18px rgba(212, 175, 55, 0.28);
             color: #041828;
-            animation: pulseGold 4s ease-in-out infinite;
             flex-shrink: 0;
+            will-change: box-shadow;
         }
 
         .feature-card-label {
@@ -1616,8 +1633,8 @@
             border-radius: 999px;
             border: 0.5px solid rgba(255, 255, 255, 0.18);
             background: rgba(255, 255, 255, 0.06);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             padding: 1.2rem 1.4rem;
             display: grid;
             gap: 0.6rem;
@@ -1625,6 +1642,8 @@
             color: #F7F7F7;
             cursor: pointer;
             transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+            will-change: transform;
+            backface-visibility: hidden;
         }
 
         .timeline-node:hover,
@@ -1655,10 +1674,11 @@
             border-radius: 32px;
             background: rgba(255, 255, 255, 0.07);
             border: 0.5px solid rgba(255, 255, 255, 0.16);
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             box-shadow: 0 35px 80px rgba(0, 0, 0, 0.22);
             overflow: hidden;
+            will-change: contents;
         }
 
         .timeline-preview-image {
@@ -1698,10 +1718,7 @@
             line-height: 1.8;
         }
 
-        @keyframes pulseGold {
-            0%, 100% { filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.28)); }
-            50% { filter: drop-shadow(0 0 30px rgba(212, 175, 55, 0.38)); }
-        }
+
 
         @media (max-width: 1024px) {
             .timeline-line-container {
@@ -1715,12 +1732,21 @@
                 gap: 1rem;
                 padding-left: 0.75rem;
                 padding-right: 0.75rem;
+                scroll-snap-type: x mandatory;
+                scroll-padding: 0.75rem;
             }
 
             .feature-card {
                 min-width: 260px;
                 max-width: 280px;
                 padding: 1.75rem 1.4rem 1.4rem;
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                transition: transform 0.2s cubic-bezier(0.4, 0.0, 0.2, 1), box-shadow 0.2s ease;
+            }
+
+            .feature-card:active {
+                transform: translate3d(0, -4px, 0);
             }
 
             .timeline-shell {
@@ -1729,6 +1755,8 @@
 
             .timeline-preview-card {
                 grid-template-columns: 1fr;
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
             }
 
             .timeline-preview-image {
@@ -1745,8 +1773,16 @@
                 opacity: 0.12;
             }
 
+            .carousel-shell {
+                -webkit-user-select: none;
+                user-select: none;
+            }
+
             .feature-card {
                 min-width: 240px;
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
+                scroll-snap-align: start;
             }
 
             .timeline-line-container {
@@ -1755,10 +1791,14 @@
 
             .timeline-node {
                 min-width: 180px;
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
             }
 
             .timeline-preview-card {
                 padding: 1.25rem;
+                backdrop-filter: blur(6px);
+                -webkit-backdrop-filter: blur(6px);
             }
 
             .timeline-preview-image {
@@ -1767,13 +1807,46 @@
         }
 
         @media (max-width: 480px) {
+            .carousel-track {
+                scroll-snap-type: x mandatory;
+                scroll-padding: 0.5rem;
+            }
+
             .feature-card {
                 min-width: 220px;
                 padding: 1.4rem 1.2rem 1.2rem;
+                backdrop-filter: blur(4px);
+                -webkit-backdrop-filter: blur(4px);
             }
 
             .timeline-line-container {
                 min-width: 500px;
+            }
+        }
+
+        /* Mobile optimization for ultra-small screens */
+        @media (max-width: 375px) {
+            .carousel-track,
+            .feedback-track,
+            .timeline-scroll {
+                -webkit-overflow-scrolling: touch;
+                touch-action: pan-x;
+                scroll-behavior: auto;
+            }
+
+            .feature-card,
+            .feedback-card,
+            .timeline-node,
+            .trip-card {
+                backdrop-filter: blur(4px) !important;
+                -webkit-backdrop-filter: blur(4px) !important;
+            }
+
+            .feature-card:hover,
+            .feedback-card:hover,
+            .feedback-card.feedback-card-active,
+            .trip-card:hover {
+                transform: translate3d(0, -4px, 0) !important;
             }
         }
 
@@ -1838,19 +1911,21 @@
         .trip-card {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.10);
-            backdrop-filter: blur(32px);
-            -webkit-backdrop-filter: blur(32px);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
             overflow: hidden;
             border-radius: 28px;
-            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
             box-shadow: 0 14px 32px rgba(0, 0, 0, 0.14);
             display: flex;
             flex-direction: column;
             height: 100%;
+            will-change: transform;
+            backface-visibility: hidden;
         }
 
         .trip-card:hover {
-            transform: translateY(-10px);
+            transform: translate3d(0, -10px, 0);
             border-color: rgba(255, 255, 255, 0.18);
             box-shadow: 0 34px 96px rgba(255, 140, 30, 0.18), 0 18px 48px rgba(0, 0, 0, 0.20);
         }
@@ -1866,8 +1941,9 @@
             width: calc(100% + 2rem);
             height: 100%;
             object-fit: cover;
-            transition: transform 1s ease;
+            transition: transform 0.5s ease;
             transform-origin: center;
+            will-change: transform;
         }
 
         .trip-card:hover .trip-card-media img {
@@ -4470,9 +4546,6 @@
         <div class="booking-page-backdrop"></div>
         <div class="booking-page-panel">
             <button type="button" class="booking-page-close" aria-label="Close booking page"><i class="fas fa-times"></i></button>
-            <div class="experience-header">
-                <span>Welcome to the Adventure Cruise Party 🌊</span>
-            </div>
             <div class="experience-grid">
                 <section class="experience-left">
                     <div class="media-carousel" aria-label="Yacht media carousel">
@@ -5338,9 +5411,8 @@
 
     // Booking form submission
     const bookingForm = document.getElementById('bookingForm');
-    const toast = document.getElementById('toast');
 
-    if (bookingForm && toast) {
+    if (bookingForm) {
         bookingForm.addEventListener('submit', function(e) {
             e.preventDefault();
 
@@ -5357,20 +5429,8 @@
                 return;
             }
 
-            // Show toast
-            toast.classList.add('show');
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 4000);
-
-            // Reset form
-            bookingForm.reset();
-
-            // Scroll to top of form
-            const bookSection = document.getElementById('book');
-            if (bookSection) {
-                bookSection.scrollIntoView({ behavior: 'smooth' });
-            }
+            // Redirect to Stripe payment
+            window.location.href = 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03';
         });
     }
 
@@ -5747,7 +5807,7 @@
         }
 
         event.preventDefault();
-        alert('Booking request received. Our team will contact you with the next steps.');
+        window.location.href = 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03';
     });
 
     openMapsButton?.addEventListener('click', () => {
@@ -5782,10 +5842,7 @@
         document.getElementById('booking-gender').value = btn.getAttribute('data-gender');
     }
 
-    /* ── Booking: WhatsApp + Google Sheets ── */
-    const WA_NUMBER  = '447767058307';
-    const SHEETS_URL = 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE'; // ← paste your Web App URL
-
+    /* ── Booking: Direct Stripe Payment ── */
     const bookingPageForm = document.getElementById('booking-page-form');
     if (bookingPageForm) {
         bookingPageForm.addEventListener('submit', function (e) {
@@ -5793,18 +5850,6 @@
 
             const nameEl    = document.getElementById('booking-name');
             const hotelEl   = document.getElementById('booking-hotel');
-            const guestEl   = document.getElementById('guest-count');
-            const dateEl    = document.getElementById('booking-date');
-            const emailEl   = document.getElementById('booking-email');
-            const phoneEl   = document.getElementById('booking-phone');
-            const btn       = document.getElementById('book-now-btn');
-
-            const name   = nameEl  ? nameEl.value.trim()  : '';
-            const hotel  = hotelEl ? hotelEl.value.trim() : '';
-            const guests = guestEl ? guestEl.value        : '2';
-            const date   = dateEl  ? dateEl.value.trim()  : 'May 9, 2026';
-            const email  = emailEl ? emailEl.value.trim() : '';
-            const phone  = phoneEl ? phoneEl.value.trim() : '';
 
             // Validate required fields
             let valid = true;
@@ -5819,47 +5864,8 @@
             });
             if (!valid) return;
 
-            // Loading state
-            const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<span class="booking-spinner"></span> Processing...';
-            btn.disabled = true;
-
-            // Build WhatsApp message
-            const msg = [
-                'Hello! I would like to book the Adventure Cruise Party. Here are my details:',
-                `- Name: ${name}`,
-                `- Hotel: ${hotel}`,
-                `- Date: ${date}`,
-                `- Guests: ${guests}`,
-                'Please confirm my booking and send me the payment details.'
-            ].join('\n');
-
-            const waUrl = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
-
-            // Send to Google Sheets (non-blocking)
-            const payload = JSON.stringify({
-                name: name, hotel: hotel, date: date,
-                guests: guests, email: email, phone: phone
-            });
-
-            const doRedirect = () => {
-                setTimeout(() => {
-                    window.open(waUrl, '_blank');
-                    btn.innerHTML = originalHTML;
-                    btn.disabled = false;
-                }, 1500);
-            };
-
-            if (SHEETS_URL && SHEETS_URL !== 'YOUR_GOOGLE_APPS_SCRIPT_URL_HERE') {
-                fetch(SHEETS_URL, {
-                    method: 'POST',
-                    mode: 'no-cors',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: payload
-                }).catch(() => {}).finally(doRedirect);
-            } else {
-                doRedirect();
-            }
+            // Redirect to Stripe payment
+            window.location.href = 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03';
         });
 
         // Remove red border on input focus
