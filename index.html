@@ -5,7 +5,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boat Party Hurghada</title>
-    <meta name="description" content="Boat Party Hurghada>
+    <meta name="description" content="AQUATICA Boat Party Hurghada: The most exclusive After Sandbox Event with Luxury Red Sea Cruise, VIP Boat Trips Egypt with snorkeling and diving Hurghada.">
+    <!-- Meta description variants for future language targeting:
+         English: AQUATICA Boat Party Hurghada: The most exclusive After Sandbox Event with Luxury Red Sea Cruise, VIP Boat Trips Egypt with snorkeling and diving Hurghada.
+         Deutsch: Luxus-Bootsparty und VIP-Erlebnisse in Hurghada: After Sandbox Event auf einer Luxury Red Sea Cruise, VIP Boat Trips Egypt mit Snorkeling & Diving Hurghada.
+         Русский: Лучшая вечеринка на яхте в Хургаде - VIP отдых, After Sandbox Event на Luxury Red Sea Cruise, VIP Boat Trips Egypt с snorkeling & diving Hurghada.
+         Français: La soirée privée la plus luxueuse de la Mer Rouge: After Sandbox Event en Luxury Red Sea Cruise, VIP Boat Trips Egypt avec snorkeling & diving.
+         Español: Fiesta náutica VIP en Hurghada para After Sandbox Event, Luxury Red Sea Cruise y VIP Boat Trips Egypt con snorkeling y diving.
+         Italiano: Festa in barca di lusso a Hurghada After Sandbox, Luxury Red Sea Cruise e VIP Boat Trips Egypt con snorkeling e diving.
+         العربية: أفضل حفل بوت في الغردقة - VIP Luxury Red Sea Cruise و After Sandbox Event مع snorkeling و diving.
+         中文: 胡尔加达顶级游艇派对，豪华红海邮轮 After Sandbox Event，VIP Egypt 船游与浮潜潜水体验。
+         Português: Festa de barco de luxo em Hurghada, After Sandbox Event com Luxury Red Sea Cruise e VIP Boat Trips Egypt para snorkeling e mergulho.
+         日本語: フルガダの最高級ボートパーティー、After Sandbox Event、Luxury Red Sea Cruise、VIP Boat Trips Egypt でスノーケリングとダイビング。
+         한국어: 후르가다 VIP 보트 파티, After Sandbox Event, Luxury Red Sea Cruise 및 VIP Boat Trips Egypt 스노클링 다이빙.
+         Nederlands: Exclusieve bootparty in Hurghada met After Sandbox Event, Luxury Red Sea Cruise en VIP Boat Trips Egypt voor snorkelen en duiken.
+         Svenska: Lyxig båtfest i Hurghada, After Sandbox Event på Luxury Red Sea Cruise och VIP Boat Trips Egypt med snorkling och dykning.
+    -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -2866,6 +2881,7 @@
             font-size: 0.95rem;
             outline: none;
             transition: border-color 0.25s ease, box-shadow 0.25s ease;
+            position: relative;
         }
 
         .booking-form input::placeholder {
@@ -2876,6 +2892,91 @@
         .booking-form select:focus {
             border-color: rgba(212, 175, 55, 0.85);
             box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.1);
+        }
+
+        .email-note {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin: 0.5rem 0;
+            font-style: italic;
+        }
+
+        .booking-form input.email-matched {
+            border-color: #D4AF37;
+            box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.3);
+        }
+
+        .booking-form .email-matched + .email-checkmark {
+            opacity: 1;
+        }
+
+        .confirmation-section {
+            margin: 1rem 0;
+        }
+
+        .confirmation-label {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .confirmation-label input[type="checkbox"] {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .custom-checkmark {
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .confirmation-label input[type="checkbox"]:checked + .custom-checkmark {
+            background: #D4AF37;
+            border-color: #D4AF37;
+        }
+
+        .custom-checkmark::after {
+            content: '';
+            position: absolute;
+            left: 6px;
+            top: 2px;
+            width: 6px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        .confirmation-label input[type="checkbox"]:checked + .custom-checkmark::after {
+            opacity: 1;
+        }
+
+        .confirmation-text {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.4;
+            margin-top: 2px;
+        }
+
+        .booking-submit:not(:disabled) {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            animation: button-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes button-glow {
+            from { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+            to { box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
         }
 
 
@@ -4656,7 +4757,14 @@
                             </label>
                             <label>
                                 <span class="field-label"><i class="fas fa-envelope"></i> Email Address</span>
-                                <input id="booking-email" name="email" type="email" placeholder="Email Address" />
+                                <input id="booking-email" name="email" type="email" placeholder="Email Address" required />
+                            </label>
+                            <label>
+                                <span class="field-label"><i class="fas fa-envelope"></i> Confirm Email</span>
+                                <div style="position: relative;">
+                                    <input id="booking-confirm-email" name="confirm_email" type="email" placeholder="Confirm Email Address" required />
+                                    <span class="email-checkmark" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #28a745; font-weight: bold; font-size: 1.1rem; opacity: 0; transition: opacity 0.3s ease;">✓</span>
+                                </div>
                             </label>
                             <label class="phone-field">
                                 <span class="field-label"><i class="fab fa-whatsapp"></i> WhatsApp Number</span>
@@ -4874,7 +4982,7 @@
                                         <option value="+256">+256 Uganda</option>
                                         <option value="+380">+380 Ukraine</option>
                                         <option value="+971">+971 United Arab Emirates</option>
-                                        <option value="+44">+44 United Kingdom</option>
+                                        <option value="+44" selected="selected">+44 United Kingdom</option>
                                         <option value="+1">+1 United States</option>
                                         <option value="+598">+598 Uruguay</option>
                                         <option value="+998">+998 Uzbekistan</option>
@@ -4891,17 +4999,15 @@
                                 </div>
                             </label>
 
-                            <div class="guest-counter" style="margin-bottom: 0.5rem;">
-                                <label style="display:block; margin-bottom: 0.6rem;"><span class="field-label"><i class="fas fa-venus-mars"></i> Gender</span></label>
-                                <div style="display:flex; gap: 0.6rem;">
-                                    <button type="button" class="gender-btn" data-gender="female" onclick="selectGender(this)" style="flex:1; padding: 0.65rem 0.5rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">Female</button>
-                                    <button type="button" class="gender-btn" data-gender="male" onclick="selectGender(this)" style="flex:1; padding: 0.65rem 0.5rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">Male</button>
-                                    <button type="button" class="gender-btn" data-gender="other" onclick="selectGender(this)" style="flex:1; padding: 0.65rem 0.5rem; border-radius: 14px; border: 1.5px solid rgba(255,255,255,0.15); background: rgba(255,255,255,0.05); color: #fff; font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.2s;">Other</button>
-                                </div>
-                                <input type="hidden" id="booking-gender" name="gender" />
+                            <div class="confirmation-section">
+                                <label class="confirmation-label">
+                                    <input type="checkbox" id="email-confirmation" />
+                                    <span class="custom-checkmark"></span>
+                                    <span class="confirmation-text">I confirm that my iformation is correct and I understand that my VIP Ticket will be sent to my email immediately after payment. ✅</span>
+                                </label>
                             </div>
 
-                            <button type="submit" id="book-now-btn" class="btn-primary booking-submit">BOOK NOW</button>
+                            <button type="submit" id="book-now-btn" class="btn-primary booking-submit" disabled>BOOK NOW</button>
                         </form>
 
                         <p class="trust-copy">Join 100+ guests from UK, Germany, and USA this Saturday.</p>
@@ -5830,30 +5936,54 @@
         }
     });
 
-    function selectGender(btn) {
-        document.querySelectorAll('.gender-btn').forEach(b => {
-            b.style.background = 'rgba(255,255,255,0.05)';
-            b.style.borderColor = 'rgba(255,255,255,0.15)';
-            b.style.color = '#fff';
-        });
-        btn.style.background = 'rgba(212,175,55,0.2)';
-        btn.style.borderColor = '#D4AF37';
-        btn.style.color = '#D4AF37';
-        document.getElementById('booking-gender').value = btn.getAttribute('data-gender');
-    }
-
     /* ── Booking: Direct Stripe Payment ── */
     const bookingPageForm = document.getElementById('booking-page-form');
     if (bookingPageForm) {
+        const emailInput = document.getElementById('booking-email');
+        const confirmEmailInput = document.getElementById('booking-confirm-email');
+        const confirmationCheckbox = document.getElementById('email-confirmation');
+        const bookNowBtn = document.getElementById('book-now-btn');
+
+        const validateForm = () => {
+            const email = emailInput.value.trim();
+            const confirmEmail = confirmEmailInput.value.trim();
+            const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            const emailsMatch = email === confirmEmail && email !== '' && confirmEmail !== '';
+            const isConfirmed = confirmationCheckbox.checked;
+            const isValid = emailsMatch && isValidEmail && isConfirmed;
+            if (emailsMatch && isValidEmail) {
+                confirmEmailInput.classList.add('email-matched');
+            } else {
+                confirmEmailInput.classList.remove('email-matched');
+            }
+            bookNowBtn.disabled = !isValid;
+        };
+
+        // Disable paste on confirm email
+        confirmEmailInput.addEventListener('paste', (e) => {
+            e.preventDefault();
+        });
+
+        // Validate on input and change
+        emailInput.addEventListener('input', validateForm);
+        confirmEmailInput.addEventListener('input', validateForm);
+        confirmationCheckbox.addEventListener('change', validateForm);
+
+        // Initially disable button
+        bookNowBtn.disabled = true;
+
         bookingPageForm.addEventListener('submit', function (e) {
             e.preventDefault();
 
             const nameEl    = document.getElementById('booking-name');
             const hotelEl   = document.getElementById('booking-hotel');
+            const emailEl   = document.getElementById('booking-email');
+            const confirmEmailEl = document.getElementById('booking-confirm-email');
+            const confirmationEl = document.getElementById('email-confirmation');
 
             // Validate required fields
             let valid = true;
-            [nameEl, hotelEl].forEach(el => {
+            [nameEl, hotelEl, emailEl, confirmEmailEl].forEach(el => {
                 if (!el) return;
                 if (!el.value.trim()) {
                     el.classList.add('field-error');
@@ -5862,6 +5992,19 @@
                     el.classList.remove('field-error');
                 }
             });
+
+            // Check emails match
+            if (emailEl.value.trim() !== confirmEmailEl.value.trim()) {
+                emailEl.classList.add('field-error');
+                confirmEmailEl.classList.add('field-error');
+                valid = false;
+            }
+
+            // Check confirmation
+            if (!confirmationEl.checked) {
+                valid = false;
+            }
+
             if (!valid) return;
 
             // Redirect to Stripe payment
@@ -6008,18 +6151,18 @@
             'termasuk','apa saja','makanan','minuman',
             // sw
             'inajumuisha','nini kipo','chakula','kinywaji'],
-        transfer:  ['transfer','pickup','pick up','pick-up','elgouna','transport','bus','meet','collect','shuttle','pick',
-            'توصيل','نقل','باص','استقبال','ايصال',
-            'abholung','abholen','transport','treffen','shuttle',
-            'transfert','ramassage','transport','navette',
-            'трансфер','автобус','встреча','забрать',
-            'traslado','recogida','transporte','autobús',
-            'trasferimento','raccolta','trasporto','navetta',
-            '接送','接客','交通','接车',
-            '送迎','ピックアップ','バス',
-            '픽업','이동','교통','셔틀',
+        transfer:  ['transfer','pickup','pick up','pick-up','elgouna','transport','bus','meet','collect','shuttle','pick','time','how long','minutes','45','hurghada','gouna',
+            'توصيل','نقل','باص','استقبال','ايصال','وقت','كم','دقائق','45','الغردقة','الجونة',
+            'abholung','abholen','transport','treffen','shuttle','zeit','wie lange','minuten','45','hurghada','elgouna',
+            'transfert','ramassage','transport','navette','temps','combien','minutes','45','hurghada','elgouna',
+            'трансфер','автобус','встреча','забрать','время','сколько','минут','45','хургады','эль-гуна',
+            'traslado','recogida','transporte','autobús','tiempo','cuánto','minutos','45','hurghada','elgouna',
+            'trasferimento','raccolta','trasporto','navetta','tempo','quanto','minuti','45','hurghada','elgouna',
+            '接送','接客','交通','接车','时间','多久','分钟','45','赫尔格达','埃尔古纳',
+            '送迎','ピックアップ','バス','時間','どのくらい','分','45','フルガダ','エルグナ',
+            '픽업','이동','교통','셔틀','시간','얼마나','분','45','후르가다','엘구나',
             // fa
-            'انتقال','ایاب','رفت و آمد',
+            'انتقال','ایاب','رفت و آمد','زمان','چقدر','دقیقه','45','حرقاده','الجونه',
             // he
             'הסעה','איסוף','תחבורה',
             // uk
@@ -6076,20 +6219,20 @@
             'harga','berapa','biaya',
             // sw
             'bei','gharama','pesa ngapi'],
-        location:  ['where','location','meet','marina','depart','start','place','address','port','from',
-            'أين','مكان','ميناء','انطلاق','مارينا',
-            'wo','ort','hafen','marina','abfahrt','treffen',
-            'où','lieu','port','marina','départ','endroit',
-            'где','место','порт','марина','отправление',
-            'dónde','donde','lugar','puerto','marina','salida',
-            'dove','luogo','porto','marina','partenza',
-            '在哪','地点','港口','出发','码头',
-            'どこ','場所','港','出発','マリーナ',
-            '어디','장소','항구','출발','마리나',
+        location:  ['where','location','meet','marina','depart','start','place','address','port','from','hurghada',
+            'أين','مكان','ميناء','انطلاق','مارينا','الغردقة',
+            'wo','ort','hafen','marina','abfahrt','treffen','hurghada',
+            'où','lieu','port','marina','départ','endroit','hurghada',
+            'где','место','порт','марина','отправление','hurghada',
+            'dónde','donde','lugar','puerto','marina','salida','hurghada',
+            'dove','luogo','porto','marina','partenza','hurghada',
+            '在哪','地点','港口','出发','码头','hurghada',
+            'どこ','場所','港','出発','マリーナ','hurghada',
+            '어디','장소','항구','출발','마리나','hurghada',
             // fa
-            'کجا','مکان','بندر','مارینا',
+            'کجا','مکان','بندر','مارینا','hurghada',
             // he
-            'איפה','מקום','נמל','מרינה',
+            'איפה','מקום','נמל','מרינה','hurghada',
             // uk
             'де','місце','порт','марина',
             // el
@@ -6303,7 +6446,7 @@
     var ANSWERS_ALL = {
         en: {
             included:  'Your ticket covers EVERYTHING: ✅ Free transfer (Elgouna gate 10 AM) ✅ Food made by order ✅ Unlimited cocktails & drinks ✅ Snorkelling tools & spot ✅ Swimming pool ✅ Submarine experience ✅ Live DJ all day ✅ Life jacket ✅ Security & lifeguard ✅ Chill floor ✅ Toilet ✅ AC. Truly all-inclusive! 🎉',
-            transfer:  'We offer <strong>FREE pickup from Elgouna gate at 10:00 AM</strong> and drop-off after the trip. Zero extra cost — fully included! 🚐',
+            transfer:  'We offer <strong>FREE pickup from Elgouna gate at 10:00 AM (about 45 minutes from Hurghada Marina)</strong> and drop-off after the trip. Zero extra cost — fully included! 🚐',
             price:     'The trip starts from <strong>€140 for 2 guests</strong> (fully all-inclusive — everything covered). WhatsApp us for group discounts: <strong>+44 7767 058307</strong> 🏷️',
             location:  'We depart from <strong>Hurghada Marina</strong>. Pickup is from <strong>Elgouna gate at 10:00 AM</strong>. After booking we send the exact meeting point. 📍',
             time:      'The trip runs <strong>10 AM to 5 PM</strong> (7 full hours of sun, sea & fun). Pickup at Elgouna gate is at <strong>10:00 AM sharp</strong>. ⏰',
@@ -6323,7 +6466,7 @@
         },
         ar: {
             included:  'تذكرتك تشمل كل شيء: ✅ توصيل مجاني (بوابة الجونة 10 ص) ✅ طعام حسب الطلب ✅ مشروبات وكوكتيلات غير محدودة ✅ أدوات الغطس ✅ مسبح ✅ تجربة الغواصة ✅ دي جي طوال اليوم ✅ سترة نجاة ✅ حراسة وإنقاذ ✅ منطقة راحة ✅ دورة مياه ✅ تكييف. رحلة شاملة بالكامل! 🎉',
-            transfer:  'نقدم <strong>توصيلاً مجانياً من بوابة الجونة الساعة 10:00 صباحاً</strong> وإعادتك بعد الرحلة. بدون تكاليف إضافية — مشمول بالكامل! 🚐',
+            transfer:  'نقدم <strong>توصيلاً مجانياً من بوابة الجونة الساعة 10:00 صباحاً (حوالي 45 دقيقة من مارينا الغردقة)</strong> وإعادتك بعد الرحلة. بدون تكاليف إضافية — مشمول بالكامل! 🚐',
             price:     'تبدأ الرحلة من <strong>€140 لشخصين</strong> (شاملة كل شيء). تواصل معنا على واتساب للحصول على خصومات المجموعات: <strong>+44 7767 058307</strong> 🏷️',
             location:  'ننطلق من <strong>مارينا الغردقة</strong>. الاستقبال من <strong>بوابة الجونة الساعة 10:00 صباحاً</strong>. بعد الحجز نرسل نقطة التلاقي بالتفصيل. 📍',
             time:      'الرحلة من <strong>10 صباحاً إلى 5 مساءً</strong> (7 ساعات كاملة). الاستقبال من بوابة الجونة الساعة <strong>10:00 صباحاً بالضبط</strong>. ⏰',
@@ -6343,7 +6486,7 @@
         },
         de: {
             included:  'Dein Ticket deckt ALLES ab: ✅ Kostenloser Transfer (Elgouna Tor 10 Uhr) ✅ Essen nach Bestellung ✅ Unbegrenzte Cocktails & Getränke ✅ Schnorchelausrüstung ✅ Schwimmbad ✅ U-Boot-Erlebnis ✅ Live-DJ ganzen Tag ✅ Schwimmweste ✅ Security & Rettungsschwimmer ✅ Chill-Bereich ✅ Toilette ✅ Klimaanlage. Wirklich all-inclusive! 🎉',
-            transfer:  'Wir bieten <strong>KOSTENLOSEN Transfer vom Elgouna Tor um 10:00 Uhr</strong> und Rückfahrt nach dem Trip. Keine Extrakosten — alles inklusive! 🚐',
+            transfer:  'Wir bieten <strong>KOSTENLOSEN Transfer vom Elgouna Tor um 10:00 Uhr (ca. 45 Minuten von der Hurghada Marina)</strong> und Rückfahrt nach dem Trip. Keine Extrakosten — alles inklusive! 🚐',
             price:     'Der Trip startet ab <strong>€140 für 2 Gäste</strong> (vollständig all-inclusive). WhatsApp uns für Gruppenrabatte: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Wir starten von der <strong>Hurghada Marina</strong>. Abholung am <strong>Elgouna Tor um 10:00 Uhr</strong>. Nach der Buchung senden wir den Treffpunkt. 📍',
             time:      'Der Trip läuft <strong>von 10 bis 17 Uhr</strong> (7 volle Stunden Sonne, Meer & Spaß). Abholung am Elgouna Tor <strong>pünktlich um 10:00 Uhr</strong>. ⏰',
@@ -6363,7 +6506,7 @@
         },
         fr: {
             included:  'Ton billet couvre TOUT: ✅ Transfert gratuit (porte Elgouna 10h) ✅ Nourriture sur commande ✅ Cocktails & boissons illimités ✅ Équipement snorkeling ✅ Piscine ✅ Expérience sous-marine ✅ DJ live toute la journée ✅ Gilet de sauvetage ✅ Sécurité & maître-nageur ✅ Zone lounge ✅ Toilettes ✅ Climatisation. Vraiment tout-inclus! 🎉',
-            transfer:  'Nous offrons un <strong>transfert GRATUIT depuis la porte Elgouna à 10h00</strong> et le retour après le trip. Zéro coût supplémentaire — tout inclus! 🚐',
+            transfer:  'Nous offrons un <strong>transfert GRATUIT depuis la porte Elgouna à 10h00 (environ 45 minutes depuis la Marina Hurghada)</strong> et le retour après le trip. Zéro coût supplémentaire — tout inclus! 🚐',
             price:     'Le trip commence à partir de <strong>€140 pour 2 personnes</strong> (tout-inclus complet). Écrivez-nous sur WhatsApp pour les réductions de groupe: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Nous partons de la <strong>Marina de Hurghada</strong>. Ramassage à la <strong>porte Elgouna à 10h00</strong>. Après la réservation nous envoyons le point de rendez-vous exact. 📍',
             time:      'Le trip dure <strong>de 10h à 17h</strong> (7 heures complètes de soleil, mer & fun). Ramassage à la porte Elgouna à <strong>10h00 précises</strong>. ⏰',
@@ -6383,7 +6526,7 @@
         },
         ru: {
             included:  'Ваш билет включает ВСЁ: ✅ Бесплатный трансфер (ворота Эль-Гуна 10:00) ✅ Еда под заказ ✅ Безлимитные коктейли и напитки ✅ Снаряжение для сноркелинга ✅ Бассейн ✅ Подводная лодка ✅ Живой DJ весь день ✅ Спасательный жилет ✅ Охрана и спасатель ✅ Зона отдыха ✅ Туалет ✅ Кондиционер. Настоящий всё включено! 🎉',
-            transfer:  'Мы предлагаем <strong>БЕСПЛАТНЫЙ трансфер от ворот Эль-Гуна в 10:00</strong> и обратно после поездки. Без лишних затрат — всё включено! 🚐',
+            transfer:  'Мы предлагаем <strong>БЕСПЛАТНЫЙ трансфер от ворот Эль-Гуна в 10:00 (около 45 минут от Marina Hurghada)</strong> и обратно после поездки. Без лишних затрат — всё включено! 🚐',
             price:     'Поездка начинается от <strong>€140 на 2 человека</strong> (полностью всё включено). Напишите нам в WhatsApp для групповых скидок: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Отправляемся из <strong>Marina Hurghada</strong>. Подбор от <strong>ворот Эль-Гуна в 10:00</strong>. После бронирования отправляем точную точку встречи. 📍',
             time:      'Поездка с <strong>10:00 до 17:00</strong> (7 часов солнца, моря и веселья). Подбор у ворот Эль-Гуна в <strong>10:00 точно</strong>. ⏰',
@@ -6403,7 +6546,7 @@
         },
         es: {
             included:  'Tu entrada cubre TODO: ✅ Traslado gratis (puerta Elgouna 10h) ✅ Comida por pedido ✅ Cócteles y bebidas ilimitados ✅ Equipo de snorkel ✅ Piscina ✅ Experiencia de submarino ✅ DJ en vivo todo el día ✅ Chaleco salvavidas ✅ Seguridad y socorrista ✅ Zona chill ✅ Baño ✅ Aire acondicionado. ¡Todo incluido de verdad! 🎉',
-            transfer:  'Ofrecemos <strong>traslado GRATUITO desde la puerta Elgouna a las 10:00 h</strong> y regreso después del viaje. Sin costo extra — ¡totalmente incluido! 🚐',
+            transfer:  'Ofrecemos <strong>traslado GRATUITO desde la puerta Elgouna a las 10:00 h (aproximadamente 45 minutos desde la Marina Hurghada)</strong> y regreso después del viaje. Sin costo extra — ¡totalmente incluido! 🚐',
             price:     'El viaje comienza desde <strong>€140 para 2 personas</strong> (todo incluido completamente). Escríbenos por WhatsApp para descuentos de grupo: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Salimos desde la <strong>Marina de Hurghada</strong>. Recogida en la <strong>puerta Elgouna a las 10:00 h</strong>. Después de la reserva enviamos el punto de encuentro exacto. 📍',
             time:      'El viaje va <strong>de las 10h a las 17h</strong> (7 horas completas de sol, mar y diversión). Recogida en puerta Elgouna a las <strong>10:00 h en punto</strong>. ⏰',
@@ -6423,7 +6566,7 @@
         },
         it: {
             included:  'Il tuo biglietto copre TUTTO: ✅ Trasferimento gratuito (cancello Elgouna ore 10) ✅ Cibo su ordinazione ✅ Cocktail e bevande illimitati ✅ Attrezzatura snorkeling ✅ Piscina ✅ Esperienza sottomarino ✅ DJ live tutto il giorno ✅ Giubbotto salvagente ✅ Sicurezza e bagnino ✅ Zona relax ✅ Bagno ✅ Aria condizionata. Davvero all-inclusive! 🎉',
-            transfer:  'Offriamo <strong>trasferimento GRATUITO dal cancello Elgouna alle 10:00</strong> e ritorno dopo il viaggio. Zero costi extra — completamente incluso! 🚐',
+            transfer:  'Offriamo <strong>trasferimento GRATUITO dal cancello Elgouna alle 10:00 (circa 45 minuti dalla Marina Hurghada)</strong> e ritorno dopo il viaggio. Zero costi extra — completamente incluso! 🚐',
             price:     'Il viaggio parte da <strong>€140 per 2 ospiti</strong> (completamente all-inclusive). Scrivici su WhatsApp per sconti di gruppo: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Partiamo dalla <strong>Marina di Hurghada</strong>. Raccolta al <strong>cancello Elgouna alle 10:00</strong>. Dopo la prenotazione inviamo il punto di incontro esatto. 📍',
             time:      'Il viaggio dura <strong>dalle 10 alle 17</strong> (7 ore complete di sole, mare e divertimento). Raccolta al cancello Elgouna alle <strong>10:00 precise</strong>. ⏰',
@@ -6443,7 +6586,7 @@
         },
         zh: {
             included:  '您的票包含一切：✅ 免费接送（Elgouna门早10点）✅ 按需点餐 ✅ 无限鸡尾酒和饮料 ✅ 浮潜装备 ✅ 游泳池 ✅ 潜水艇体验 ✅ 全天现场DJ ✅ 救生衣 ✅ 安保和救生员 ✅ 休闲区 ✅ 卫生间 ✅ 空调。真正的全包！🎉',
-            transfer:  '我们提供<strong>从Elgouna门早上10:00的免费接送</strong>和旅行后的返程。零额外费用——完全包含！🚐',
+            transfer:  '我们提供<strong>从Elgouna门早上10:00的免费接送（大约45分钟从赫尔格达Marina）</strong>和旅行后的返程。零额外费用——完全包含！🚐',
             price:     '行程从<strong>2位客人€140</strong>起（完全全包）。WhatsApp联系我们获取团体折扣：<strong>+44 7767 058307</strong> 🏷️',
             location:  '我们从<strong>赫尔格达Marina</strong>出发。在<strong>Elgouna门早上10:00</strong>接客。预订后我们发送确切集合点。📍',
             time:      '行程从<strong>早10点到下午5点</strong>（7小时阳光、大海和乐趣）。Elgouna门接客时间<strong>准时早上10:00</strong>。⏰',
@@ -6463,7 +6606,7 @@
         },
         ja: {
             included:  'チケットにはすべて含まれています：✅ 無料送迎（エルグナゲート10時）✅ 注文制食事 ✅ カクテル・ドリンク飲み放題 ✅ シュノーケル用具 ✅ プール ✅ 潜水艦体験 ✅ 終日ライブDJ ✅ 救命胴衣 ✅ セキュリティ・ライフガード ✅ チルエリア ✅ トイレ ✅ エアコン。本当のオールインクルーシブ！🎉',
-            transfer:  '<strong>エルグナゲートから10:00に無料送迎</strong>と旅行後のお送りを提供しています。追加費用ゼロ — 完全込み！🚐',
+            transfer:  '<strong>エルグナゲートから10:00（Hurghada Marinaから約45分）に無料送迎</strong>と旅行後のお送りを提供しています。追加費用ゼロ — 完全込み！🚐',
             price:     'ツアーは<strong>2名様€140から</strong>（完全オールインクルーシブ）。グループ割引はWhatsAppへ：<strong>+44 7767 058307</strong> 🏷️',
             location:  '<strong>フルガダマリーナ</strong>出発。<strong>エルグナゲートにて10:00</strong>お迎え。ご予約後に正確な集合場所をお送りします。📍',
             time:      'ツアーは<strong>10時から17時</strong>（太陽、海、楽しさの7時間）。エルグナゲートでの送迎は<strong>10:00ちょうど</strong>。⏰',
@@ -6483,7 +6626,7 @@
         },
         ko: {
             included:  '티켓에는 모든 것이 포함됩니다：✅ 무료 픽업 (엘구나 게이트 오전 10시) ✅ 주문식 음식 ✅ 무제한 칵테일 및 음료 ✅ 스노클링 장비 ✅ 수영장 ✅ 잠수함 체험 ✅ 하루 종일 라이브 DJ ✅ 구명조끼 ✅ 보안 및 인명구조원 ✅ 휴식 공간 ✅ 화장실 ✅ 에어컨. 진정한 올인클루시브! 🎉',
-            transfer:  '<strong>엘구나 게이트에서 오전 10:00에 무료 픽업</strong>과 여행 후 귀환을 제공합니다. 추가 비용 없음 — 완전 포함! 🚐',
+            transfer:  '<strong>엘구나 게이트에서 오전 10:00 (Hurghada Marina에서 약 45분)에 무료 픽업</strong>과 여행 후 귀환을 제공합니다. 추가 비용 없음 — 완전 포함! 🚐',
             price:     '여행은 <strong>2명 기준 €140부터</strong> 시작합니다 (완전 올인클루시브). 그룹 할인은 WhatsApp으로 문의: <strong>+44 7767 058307</strong> 🏷️',
             location:  '<strong>후르가다 마리나</strong>에서 출발합니다. <strong>엘구나 게이트 오전 10:00</strong>에 픽업. 예약 후 정확한 집합 장소를 알려드립니다. 📍',
             time:      '여행은 <strong>오전 10시부터 오후 5시까지</strong> (태양, 바다, 즐거움의 7시간). 엘구나 게이트 픽업은 <strong>정확히 오전 10:00</strong>입니다. ⏰',
@@ -6503,7 +6646,7 @@
         },
         fa: {
             included:  'بلیت شما همه چیز را شامل می‌شود: ✅ انتقال رایگان (دروازه الجونه ساعت 10 صبح) ✅ غذا بر اساس سفارش ✅ کوکتل و نوشیدنی نامحدود ✅ تجهیزات اسنورکل ✅ استخر ✅ تجربه زیردریایی ✅ DJ زنده تمام روز ✅ جلیقه نجات ✅ امنیت و نجات‌غریق ✅ فضای استراحت ✅ دستشویی ✅ کولر. واقعاً همه چیز شامل است! 🎉',
-            transfer:  'ما <strong>انتقال رایگان از دروازه الجونه ساعت 10:00</strong> و بازگشت پس از سفر ارائه می‌دهیم. هیچ هزینه اضافی — کاملاً شامل! 🚐',
+            transfer:  'ما <strong>انتقال رایگان از دروازه الجونه ساعت 10:00 (حدود 45 دقیقه از مارینا حرقاده)</strong> و بازگشت پس از سفر ارائه می‌دهیم. هیچ هزینه اضافی — کاملاً شامل! 🚐',
             price:     'سفر از <strong>€140 برای 2 نفر</strong> شروع می‌شود (کاملاً همه چیز شامل). برای تخفیف گروهی واتساپ کنید: <strong>+44 7767 058307</strong> 🏷️',
             location:  'از <strong>مارینا حرقاده</strong> حرکت می‌کنیم. سوار شدن از <strong>دروازه الجونه ساعت 10:00</strong>. بعد از رزرو نقطه ملاقات را می‌فرستیم. 📍',
             time:      'سفر از <strong>10 صبح تا 5 بعدازظهر</strong> (7 ساعت کامل). سوار شدن در دروازه الجونه <strong>دقیقاً ساعت 10:00</strong>. ⏰',
@@ -6523,7 +6666,7 @@
         },
         he: {
             included:  'הכרטיס שלך כולל הכל: ✅ הסעה חינמית (שער אלגונה 10 בבוקר) ✅ אוכל לפי הזמנה ✅ קוקטיילים ומשקאות ללא הגבלה ✅ ציוד שנורקל ✅ בריכת שחייה ✅ חוויית צוללת ✅ DJ חי כל היום ✅ אפוד הצלה ✅ אבטחה ומציל ✅ אזור ישיבה ✅ שירותים ✅ מיזוג אוויר. אמיתי הכל כלול! 🎉',
-            transfer:  'אנחנו מציעים <strong>הסעה חינמית משער אלגונה ב-10:00</strong> והחזרה אחרי הטיול. אפס עלות נוספת — כלול לגמרי! 🚐',
+            transfer:  'אנחנו מציעים <strong>הסעה חינמית משער אלגונה ב-10:00 (כ-45 דקות ממרינת הורגדה)</strong> והחזרה אחרי הטיול. אפס עלות נוספת — כלול לגמרי! 🚐',
             price:     'הטיול מתחיל מ-<strong>€140 לזוג</strong> (הכל כלול לגמרי). שלח לנו WhatsApp להנחות קבוצתיות: <strong>+44 7767 058307</strong> 🏷️',
             location:  'אנחנו יוצאים מ<strong>מרינת הורגדה</strong>. איסוף מ<strong>שער אלגונה ב-10:00</strong>. אחרי ההזמנה נשלח את נקודת המפגש המדויקת. 📍',
             time:      'הטיול רץ <strong>מ-10 עד 17:00</strong> (7 שעות שלמות של שמש, ים וכיף). איסוף בשער אלגונה <strong>בדיוק ב-10:00</strong>. ⏰',
@@ -6543,7 +6686,7 @@
         },
         uk: {
             included:  'Ваш квиток включає ВСЕ: ✅ Безкоштовний трансфер (ворота Ель-Гуна 10:00) ✅ Їжа на замовлення ✅ Безлімітні коктейлі та напої ✅ Спорядження для сноркелінгу ✅ Басейн ✅ Підводний човен ✅ Живий DJ весь день ✅ Рятівний жилет ✅ Охорона та рятувальник ✅ Зона відпочинку ✅ Туалет ✅ Кондиціонер. Справжнє все включено! 🎉',
-            transfer:  'Ми пропонуємо <strong>БЕЗКОШТОВНИЙ трансфер від воріт Ель-Гуна о 10:00</strong> і зворотній трансфер після поїздки. Жодних додаткових витрат — все включено! 🚐',
+            transfer:  'Ми пропонуємо <strong>БЕЗКОШТОВНИЙ трансфер від воріт Ель-Гуна о 10:00 (близько 45 хвилин від Marina Hurghada)</strong> і зворотній трансфер після поїздки. Жодних додаткових витрат — все включено! 🚐',
             price:     'Поїздка починається від <strong>€140 на 2 особи</strong> (повністю все включено). Напишіть нам у WhatsApp для групових знижок: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Відправляємось з <strong>Marina Hurghada</strong>. Забір від <strong>воріт Ель-Гуна о 10:00</strong>. Після бронювання надсилаємо точне місце зустрічі. 📍',
             time:      'Поїздка з <strong>10:00 до 17:00</strong> (7 годин сонця, моря та веселощів). Забір у воріт Ель-Гуна <strong>рівно о 10:00</strong>. ⏰',
@@ -6563,7 +6706,7 @@
         },
         el: {
             included:  'Το εισιτήριό σου καλύπτει ΤΑ ΠΑΝΤΑ: ✅ Δωρεάν μεταφορά (πύλη Elgouna 10 πμ) ✅ Φαγητό κατ\'απαίτηση ✅ Απεριόριστα κοκτέιλ & ποτά ✅ Εξοπλισμός σνόρκελ ✅ Πισίνα ✅ Εμπειρία υποβρυχίου ✅ Live DJ όλη μέρα ✅ Σωσίβιο ✅ Ασφάλεια & ναυαγοσώστης ✅ Χώρος χαλάρωσης ✅ Τουαλέτα ✅ Κλιματισμός. Αληθινά all-inclusive! 🎉',
-            transfer:  'Προσφέρουμε <strong>ΔΩΡΕΑΝ μεταφορά από την πύλη Elgouna στις 10:00</strong> και επιστροφή μετά το ταξίδι. Μηδέν επιπλέον κόστος — πλήρως συμπεριλαμβάνεται! 🚐',
+            transfer:  'Προσφέρουμε <strong>ΔΩΡΕΑΝ μεταφορά από την πύλη Elgouna στις 10:00 (περίπου 45 λεπτά από τη Marina Hurghada)</strong> και επιστροφή μετά το ταξίδι. Μηδέν επιπλέον κόστος — πλήρως συμπεριλαμβάνεται! 🚐',
             price:     'Το ταξίδι ξεκινά από <strong>€140 για 2 άτομα</strong> (πλήρως all-inclusive). Στείλτε μας WhatsApp για εκπτώσεις ομάδας: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Αναχωρούμε από <strong>Marina Hurghada</strong>. Παραλαβή από <strong>πύλη Elgouna στις 10:00</strong>. Μετά την κράτηση στέλνουμε το ακριβές σημείο συνάντησης. 📍',
             time:      'Το ταξίδι διαρκεί <strong>από 10 πμ έως 5 μμ</strong> (7 ολόκληρες ώρες). Παραλαβή στην πύλη Elgouna <strong>ακριβώς στις 10:00</strong>. ⏰',
@@ -6583,7 +6726,7 @@
         },
         hi: {
             included:  'आपके टिकट में सब कुछ शामिल है: ✅ मुफ्त ट्रांसफर (Elgouna गेट सुबह 10 बजे) ✅ ऑर्डर पर खाना ✅ असीमित कॉकटेल और पेय ✅ स्नोर्केलिंग उपकरण ✅ स्विमिंग पूल ✅ पनडुब्बी अनुभव ✅ पूरे दिन लाइव DJ ✅ लाइफ जैकेट ✅ सुरक्षा और लाइफगार्ड ✅ चिल एरिया ✅ शौचालय ✅ AC. सच में सब कुछ शामिल! 🎉',
-            transfer:  'हम <strong>Elgouna गेट से सुबह 10:00 बजे मुफ्त पिकअप</strong> और यात्रा के बाद ड्रॉप-ऑफ प्रदान करते हैं। कोई अतिरिक्त खर्च नहीं — पूरी तरह शामिल! 🚐',
+            transfer:  'हम <strong>Elgouna गेट से सुबह 10:00 बजे मुफ्त पिकअप (Hurghada Marina से लगभग 45 मिनट)</strong> और यात्रा के बाद ड्रॉप-ऑफ प्रदान करते हैं। कोई अतिरिक्त खर्च नहीं — पूरी तरह शामिल! 🚐',
             price:     'यात्रा <strong>2 मेहमानों के लिए €140 से</strong> शुरू होती है (पूरी तरह ऑल-इनक्लूसिव)। ग्रुप छूट के लिए WhatsApp करें: <strong>+44 7767 058307</strong> 🏷️',
             location:  'हम <strong>Hurghada Marina</strong> से रवाना होते हैं। <strong>Elgouna गेट पर सुबह 10:00 बजे</strong> पिकअप। बुकिंग के बाद हम सटीक मिलने की जगह भेजते हैं। 📍',
             time:      'यात्रा <strong>सुबह 10 से शाम 5 बजे तक</strong> चलती है (7 पूरे घंटे)। Elgouna गेट पर पिकअप <strong>ठीक 10:00 बजे</strong>। ⏰',
@@ -6603,7 +6746,7 @@
         },
         th: {
             included:  'ตั๋วของคุณครอบคลุมทุกอย่าง: ✅ รับส่งฟรี (ประตู Elgouna 10 โมงเช้า) ✅ อาหารตามสั่ง ✅ ค็อกเทลและเครื่องดื่มไม่จำกัด ✅ อุปกรณ์สนอร์เกิล ✅ สระว่ายน้ำ ✅ ประสบการณ์เรือดำน้ำ ✅ DJ สดตลอดวัน ✅ เสื้อชูชีพ ✅ รักษาความปลอดภัยและนักว่ายน้ำกู้ภัย ✅ พื้นที่พักผ่อน ✅ ห้องน้ำ ✅ แอร์. ออลอินคลูซีฟจริงๆ! 🎉',
-            transfer:  'เราให้บริการ<strong>รับส่งฟรีจากประตู Elgouna เวลา 10:00 น.</strong>และส่งกลับหลังจากทริป ไม่มีค่าใช้จ่ายเพิ่มเติม — รวมทั้งหมด! 🚐',
+            transfer:  'เราให้บริการ<strong>รับส่งฟรีจากประตู Elgouna เวลา 10:00 น. (ประมาณ 45 นาทีจาก Marina Hurghada)</strong>และส่งกลับหลังจากทริป ไม่มีค่าใช้จ่ายเพิ่มเติม — รวมทั้งหมด! 🚐',
             price:     'ทริปเริ่มต้น<strong>€140 สำหรับ 2 คน</strong> (ออลอินคลูซีฟสมบูรณ์แบบ) WhatsApp เราสำหรับส่วนลดกลุ่ม: <strong>+44 7767 058307</strong> 🏷️',
             location:  'เราออกเดินทางจาก<strong>มาริน่าเฮอร์กาดา</strong> รับจาก<strong>ประตู Elgouna เวลา 10:00 น.</strong> หลังจองเราส่งจุดนัดพบที่แน่นอน 📍',
             time:      'ทริปดำเนิน<strong>ตั้งแต่ 10 โมงถึงบ่าย 5</strong> (7 ชั่วโมงเต็ม) รับที่ประตู Elgouna <strong>ตรง 10:00 น.</strong> ⏰',
@@ -6623,7 +6766,7 @@
         },
         nl: {
             included:  'Jouw ticket dekt ALLES: ✅ Gratis transfer (Elgouna poort 10 uur) ✅ Eten op bestelling ✅ Onbeperkte cocktails & drankjes ✅ Snorkeluitrusting ✅ Zwembad ✅ Onderzeeërbeleving ✅ Live DJ de hele dag ✅ Reddingsvest ✅ Beveiliging & redder ✅ Chill zone ✅ Toilet ✅ Airco. Echt all-inclusive! 🎉',
-            transfer:  'Wij bieden <strong>GRATIS transfer van de Elgouna poort om 10:00</strong> en terugbrengen na de trip. Nul extra kosten — volledig inbegrepen! 🚐',
+            transfer:  'Wij bieden <strong>GRATIS transfer van de Elgouna poort om 10:00 (ongeveer 45 minuten vanaf Hurghada Marina)</strong> en terugbrengen na de trip. Nul extra kosten — volledig inbegrepen! 🚐',
             price:     'De trip begint vanaf <strong>€140 voor 2 gasten</strong> (volledig all-inclusive). WhatsApp ons voor groepskortingen: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Wij vertrekken van <strong>Hurghada Marina</strong>. Ophalen bij <strong>Elgouna poort om 10:00</strong>. Na boeking sturen we het exacte ontmoetingspunt. 📍',
             time:      'De trip duurt <strong>van 10 tot 17 uur</strong> (7 volle uren zon, zee & plezier). Ophalen bij Elgouna poort <strong>stipt om 10:00</strong>. ⏰',
@@ -6643,7 +6786,7 @@
         },
         sv: {
             included:  'Din biljett täcker ALLT: ✅ Gratis transfer (Elgouna porten 10.00) ✅ Mat på beställning ✅ Obegränsade cocktails & drycker ✅ Snorkelutrustning ✅ Simbassäng ✅ Ubåtsupplevelse ✅ Live DJ hela dagen ✅ Flytväst ✅ Säkerhet & livräddare ✅ Chill-zon ✅ Toalett ✅ AC. Verkligt all-inclusive! 🎉',
-            transfer:  'Vi erbjuder <strong>GRATIS transfer från Elgouna porten kl. 10:00</strong> och hemsändning efter resan. Noll extra kostnad — fullt inkluderat! 🚐',
+            transfer:  'Vi erbjuder <strong>GRATIS transfer från Elgouna porten kl. 10:00 (cirka 45 minuter från Hurghada Marina)</strong> och hemsändning efter resan. Noll extra kostnad — fullt inkluderat! 🚐',
             price:     'Resan börjar från <strong>€140 för 2 gäster</strong> (helt all-inclusive). WhatsApp-a oss för grupparabatter: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Vi avgår från <strong>Hurghada Marina</strong>. Upphämtning vid <strong>Elgouna porten kl. 10:00</strong>. Efter bokning skickar vi den exakta mötesplatsen. 📍',
             time:      'Resan går <strong>10.00–17.00</strong> (7 fulla timmar sol, hav & kul). Upphämtning vid Elgouna porten <strong>exakt kl. 10:00</strong>. ⏰',
@@ -6663,7 +6806,7 @@
         },
         tr: {
             included:  'Biletiniz HER ŞEYİ kapsamaktadır: ✅ Ücretsiz transfer (Elgouna kapısı saat 10) ✅ Siparişe göre yemek ✅ Sınırsız kokteyl ve içecekler ✅ Şnorkel ekipmanı ✅ Yüzme havuzu ✅ Denizaltı deneyimi ✅ Tüm gün canlı DJ ✅ Cankurtaran yeleği ✅ Güvenlik ve cankurtaran ✅ Chill alanı ✅ Tuvalet ✅ Klima. Gerçekten her şey dahil! 🎉',
-            transfer:  '<strong>Elgouna kapısından saat 10:00\'da ÜCRETSİZ transfer</strong> ve gezi sonrası geri bırakma sunuyoruz. Sıfır ekstra maliyet — tamamen dahil! 🚐',
+            transfer:  '<strong>Elgouna kapısından saat 10:00\'da ÜCRETSİZ transfer (Hurghada Marina\'dan yaklaşık 45 dakika)</strong> ve gezi sonrası geri bırakma sunuyoruz. Sıfır ekstra maliyet — tamamen dahil! 🚐',
             price:     'Gezi <strong>2 misafir için €140\'dan</strong> başlıyor (tamamen her şey dahil). Grup indirimleri için WhatsApp\'ta bize yazın: <strong>+44 7767 058307</strong> 🏷️',
             location:  '<strong>Hurghada Marina</strong>\'dan hareket ediyoruz. <strong>Elgouna kapısında saat 10:00</strong>\'da buluşma. Rezervasyon sonrası tam buluşma noktasını göndeririz. 📍',
             time:      'Gezi <strong>sabah 10\'dan akşam 5\'e</strong> (7 saat dolu dolu). Elgouna kapısında buluşma <strong>tam saat 10:00\'da</strong>. ⏰',
@@ -6683,7 +6826,7 @@
         },
         pl: {
             included:  'Twój bilet obejmuje WSZYSTKO: ✅ Darmowy transfer (brama Elgouna 10:00) ✅ Jedzenie na zamówienie ✅ Nieograniczone koktajle i napoje ✅ Sprzęt do snorkelingu ✅ Basen ✅ Doświadczenie z łodzią podwodną ✅ Live DJ cały dzień ✅ Kamizelka ratunkowa ✅ Ochrona i ratownik ✅ Strefa relaksu ✅ Toaleta ✅ Klimatyzacja. Naprawdę all-inclusive! 🎉',
-            transfer:  'Oferujemy <strong>BEZPŁATNY transfer od bramy Elgouna o 10:00</strong> i powrót po wycieczce. Zero dodatkowych kosztów — w pełni wliczone! 🚐',
+            transfer:  'Oferujemy <strong>BEZPŁATNY transfer od bramy Elgouna o 10:00 (około 45 minut z Marina Hurghada)</strong> i powrót po wycieczce. Zero dodatkowych kosztów — w pełni wliczone! 🚐',
             price:     'Wycieczka zaczyna się od <strong>€140 za 2 osoby</strong> (w pełni all-inclusive). Napisz do nas na WhatsApp po zniżki grupowe: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Wyjeżdżamy z <strong>Marina Hurghada</strong>. Odbiór przy <strong>bramie Elgouna o 10:00</strong>. Po rezerwacji wysyłamy dokładne miejsce spotkania. 📍',
             time:      'Wycieczka trwa <strong>od 10:00 do 17:00</strong> (7 pełnych godzin słońca, morza i zabawy). Odbiór przy bramie Elgouna <strong>o 10:00 dokładnie</strong>. ⏰',
@@ -6703,7 +6846,7 @@
         },
         id: {
             included:  'Tiket Anda mencakup SEGALANYA: ✅ Transfer gratis (gerbang Elgouna jam 10 pagi) ✅ Makanan sesuai pesanan ✅ Koktail & minuman tak terbatas ✅ Perlengkapan snorkel ✅ Kolam renang ✅ Pengalaman kapal selam ✅ DJ live sepanjang hari ✅ Jaket pelampung ✅ Keamanan & penjaga pantai ✅ Zona santai ✅ Toilet ✅ AC. Benar-benar all-inclusive! 🎉',
-            transfer:  'Kami menawarkan <strong>antar-jemput GRATIS dari gerbang Elgouna pukul 10:00</strong> dan kembali setelah perjalanan. Tidak ada biaya tambahan — sudah termasuk sepenuhnya! 🚐',
+            transfer:  'Kami menawarkan <strong>antar-jemput GRATIS dari gerbang Elgouna pukul 10:00 (sekitar 45 menit dari Marina Hurghada)</strong> dan kembali setelah perjalanan. Tidak ada biaya tambahan — sudah termasuk sepenuhnya! 🚐',
             price:     'Perjalanan mulai dari <strong>€140 untuk 2 tamu</strong> (all-inclusive sepenuhnya). WhatsApp kami untuk diskon grup: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Kami berangkat dari <strong>Marina Hurghada</strong>. Penjemputan di <strong>gerbang Elgouna pukul 10:00</strong>. Setelah pemesanan kami kirim titik pertemuan yang tepat. 📍',
             time:      'Perjalanan berlangsung <strong>pukul 10 pagi hingga 5 sore</strong> (7 jam penuh). Penjemputan di gerbang Elgouna <strong>tepat pukul 10:00</strong>. ⏰',
@@ -6722,11 +6865,11 @@
             capacity:  'Kami menyambut individu, pasangan, keluarga & grup besar! Untuk grup 6+ kami menawarkan harga spesial. Hubungi kami: <strong>+44 7767 058307</strong> 👥',
         },
         sw: {
-            included:  'Tiketi yako inajumuisha KILA KITU: ✅ Usafiri wa bure (lango la Elgouna saa 4 asubuhi) ✅ Chakula kwa agizo ✅ Cocktails na vinywaji bila kikomo ✅ Vifaa vya kuogelea ✅ Bwawa la kuogelea ✅ Uzoefu wa manowari ✅ DJ wa moja kwa moja mchana mzima ✅ Koti la kuokoa maisha ✅ Usalama na mwokozi ✅ Eneo la kupumzika ✅ Choo ✅ AC. Kweli all-inclusive! 🎉',
-            transfer:  'Tunatoa <strong>usafiri wa BURE kutoka lango la Elgouna saa 4:00 asubuhi</strong> na kurudi baada ya safari. Hakuna gharama za ziada — imejumuishwa kabisa! 🚐',
+            included:  'Tiketi yako inajumuisha KILA KITU: ✅ Usafiri wa bure (lango la Elgouna saa 10 asubuhi) ✅ Chakula kwa agizo ✅ Cocktails na vinywaji bila kikomo ✅ Vifaa vya kuogelea ✅ Bwawa la kuogelea ✅ Uzoefu wa manowari ✅ DJ wa moja kwa moja mchana mzima ✅ Koti la kuokoa maisha ✅ Usalama na mwokozi ✅ Eneo la kupumzika ✅ Choo ✅ AC. Kweli all-inclusive! 🎉',
+            transfer:  'Tunatoa <strong>usafiri wa BURE kutoka lango la Elgouna saa 10:00 asubuhi (dakika 45 kutoka Marina Hurghada)</strong> na kurudi baada ya safari. Hakuna gharama za ziada — imejumuishwa kabisa! 🚐',
             price:     'Safari inaanza kutoka <strong>€140 kwa wageni 2</strong> (all-inclusive kamili). Tuma WhatsApp kwa punguzo la kikundi: <strong>+44 7767 058307</strong> 🏷️',
             location:  'Tunaondoka kutoka <strong>Marina Hurghada</strong>. Kuchukua kutoka <strong>lango la Elgouna saa 4:00 asubuhi</strong>. Baada ya kuorodhesha tunatuma mahali pa kukutana. 📍',
-            time:      'Safari inafanya kazi <strong>saa 4 asubuhi hadi saa 11 jioni</strong> (masaa 7 kamili). Kuchukua lango la Elgouna <strong>saa 4:00 asubuhi hasa</strong>. ⏰',
+            time:      'Safari inafanya kazi <strong>saa 10 asubuhi hadi saa 5 jioni</strong> (masaa 7 kamili). Kuchukua lango la Elgouna <strong>saa 10:00 asubuhi hasa</strong>. ⏰',
             book:      'Rahisi! Bofya <strong>WEKA NAFASI SASA</strong> kwenye ukurasa huu, jaza jina lako na hoteli, tuthibitishe kupitia WhatsApp mara moja. Au tuma ujumbe moja kwa moja: <strong>+44 7767 058307</strong> 🙌',
             animal:    'Kwa kila tiketi inayouzwa, paka na mbwa wanaotafuta chakula Hurghada wanalishwa. Uhifadhi wako unakuwa mlo kwa wanyama wanaohitaji. 🐾❤️',
             date:      'Tunasafiri kila <strong>Jumamosi</strong>! Safari zinazokuja: <strong>9 na 10 Mei 2026</strong>. Nafasi zinaisha haraka — weka nafasi sasa! 📅',
@@ -6734,7 +6877,7 @@
             contact:   'WhatsApp: <strong>+44 7767 058307</strong> — tunajibu mara moja, siku 7 kwa wiki! 💬',
             submarine: 'Ndiyo! <strong>Uzoefu wa manowari</strong> umejumuishwa kabisa bila gharama za ziada. Zama ndani ya Bahari ya Shamu! 🐠',
             pool:      'Ndiyo! Kuna <strong>bwawa la kuogelea melini</strong>, limejumuishwa kabisa! 🏊',
-            dj:        'Tuna <strong>DJ wa moja kwa moja mchana mzima</strong> akicheza Afro house, melodic house na tech house. Furaha isiyokoma kutoka saa 4 hadi 11! 🎧',
+            dj:        'Tuna <strong>DJ wa moja kwa moja mchana mzima</strong> akicheza Afro house, melodic house na tech house. Furaha isiyokoma kutoka saa 10 hadi 5! 🎧',
             safety:    'Usalama ni kipaumbele chetu. Tuna <strong>waokozi, wafanyakazi wa usalama na makoti ya kuokoa maisha</strong> kwa kila mgeni. Bahari ya Shamu ni ya utulivu na salama kwa kuogelea! ⛵',
             toilet:    'Ndiyo, <strong>vyoo safi melini</strong>, imejumuishwa kabisa! 🚻',
             ac:        'Ndiyo! <strong>AC</strong> inapatikana melini kwa starehe mchana mzima. ❄️',
@@ -6918,7 +7061,7 @@
 
     function sarahReply(userText) {
         var detected = detectLang(userText);
-        if (detected !== 'en') currentLang = detected;
+        currentLang = detected;
         var answers = ANSWERS_ALL[currentLang] || ANSWERS_ALL.en;
         var fallbacks = FALLBACKS_ALL[currentLang] || FALLBACKS_ALL.en;
         var topic = matchTopic(userText);
