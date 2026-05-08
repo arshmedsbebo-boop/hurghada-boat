@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#050507">
     <meta name="color-scheme" content="dark">
     <title>Boat Party Hurghada</title>
@@ -23,17 +23,21 @@
          Nederlands: Exclusieve bootparty in Hurghada met After Sandbox Event, Luxury Red Sea Cruise en VIP Boat Trips Egypt voor snorkelen en duiken.
          Svenska: Lyxig b?tfest i Hurghada, After Sandbox Event p? Luxury Red Sea Cruise och VIP Boat Trips Egypt med snorkling och dykning.
     -->
-    <!-- DNS & connection pre-warming -->
+    <!-- Preconnect: max 4 origins (Lighthouse warning threshold) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
+    <link rel="preconnect" href="https://js.stripe.com" crossorigin>
+    <!-- DNS prefetch for image CDNs (non-blocking) -->
     <link rel="dns-prefetch" href="https://i.ibb.co">
     <link rel="dns-prefetch" href="https://i.postimg.cc">
     <link rel="dns-prefetch" href="https://images.unsplash.com">
-    <link rel="dns-prefetch" href="https://randomuser.me">
-    <!-- LCP: preload hero poster so the background image loads in the first paint -->
+    <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
+    <!-- LCP: preload hero image at highest priority -->
     <link rel="preload" as="image" href="hero.jpg" fetchpriority="high">
+    <!-- CSP: basic XSS protection -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 
     <!-- Fonts — deferred so they never block render (font-display:swap in URL) -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -44,8 +48,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'" crossorigin="anonymous" referrerpolicy="no-referrer">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"></noscript>
 
-    <!-- Stripe preconnect for booking flow -->
-    <link rel="preconnect" href="https://js.stripe.com" crossorigin>
+    <!-- Stripe dns-prefetch (preconnect already above) -->
     <link rel="dns-prefetch" href="https://js.stripe.com">
 
     <!-- Tailwind CDN: config must be set before CDN loads, so keep synchronous -->
@@ -94,8 +97,8 @@
             }
         }
     </script>
-    <!-- Tailwind CDN loads after config is set -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind CDN: loaded async — config already set above on window.tailwind -->
+    <script src="https://cdn.tailwindcss.com" defer></script>
 
     <!-- Critical CSS: system font stack so text renders immediately (no FOIT) -->
     <style>
@@ -802,6 +805,7 @@
             background: linear-gradient(135deg, #B8870E 0%, #E8B84B 40%, #D4AF37 60%, #B8870E 100%);
             background-size: 200% 100%;
             box-shadow: 0 8px 35px rgba(212, 175, 55, 0.6), 0 0 0 4px rgba(255, 255, 255, 0.2), 0 0 60px rgba(212, 175, 55, 0.35);
+            will-change: transform;
             animation: float 3s ease-in-out infinite, pulseSoft 2s ease-in-out infinite, goldShimmer 3s ease-in-out infinite;
         }
         @keyframes goldShimmer {
@@ -1583,27 +1587,45 @@
         .timeline-shell {
             position: relative;
             z-index: 1;
-            /* Reserve space on both sides so arrows never touch the cards */
             padding: 0 3.75rem;
         }
 
+        /* ── Swipeable track — fully hardware accelerated ── */
         .carousel-track {
             display: flex;
             gap: 1.5rem;
             overflow-x: auto;
+            overflow-y: hidden;
             scroll-snap-type: x mandatory;
+            scroll-padding-left: 0;
             padding-bottom: 1rem;
-            scroll-behavior: auto;
+            scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            will-change: auto;
+            /* GPU compositing — smooth 60fps swipe on all devices */
+            will-change: scroll-position;
+            /* Allow horizontal pan, block vertical hijack */
             touch-action: pan-x;
+            /* Prevent any parent overlay blocking events */
+            pointer-events: auto;
+            position: relative;
+            z-index: 2;
+            /* Disable text selection during swipe */
+            user-select: none;
+            -webkit-user-select: none;
         }
 
-        .carousel-track::-webkit-scrollbar {
-            display: none;
-        }
+        .carousel-track::-webkit-scrollbar { display: none; }
+        .carousel-track { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* ── Arrow buttons — pinned to the outer edges of the shell padding ── */
+        /* Feature cards — tappable, not blocked */
+        .feature-card {
+            pointer-events: auto;
+            cursor: grab;
+            touch-action: pan-y;   /* cards allow vertical scroll passthrough */
+        }
+        .feature-card:active { cursor: grabbing; }
+
+        /* ── Desktop arrows ── */
         .carousel-nav {
             position: absolute;
             top: 50%;
@@ -1621,61 +1643,81 @@
             cursor: pointer;
             transition: background 0.22s ease, border-color 0.22s ease,
                         box-shadow 0.22s ease, transform 0.22s ease;
-            z-index: 5;
+            z-index: 10;
             box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35),
                         inset 0 1px 0 rgba(255, 255, 255, 0.07);
+            pointer-events: auto;
+            touch-action: manipulation;
         }
 
         .carousel-nav:hover {
             transform: translateY(-50%) scale(1.1);
             background: rgba(212, 175, 55, 0.14);
             border-color: rgba(212, 175, 55, 0.60);
-            box-shadow: 0 0 20px rgba(212, 175, 55, 0.22),
-                        0 6px 20px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.22), 0 6px 20px rgba(0, 0, 0, 0.4);
         }
 
-        /* Positioned at the very edge of the reserved padding zone */
         .carousel-nav-left  { left: 0.5rem; }
         .carousel-nav-right { right: 0.5rem; }
 
-        /* ── Mobile: arrows move to a centred row BELOW the cards ── */
+        /* ── Mobile: full-width swipe + arrows below ── */
         @media (max-width: 600px) {
-            /* Remove side padding — no space on phone screens */
             .carousel-shell {
                 padding: 0;
                 display: flex;
                 flex-direction: column;
                 align-items: stretch;
                 gap: 0;
+                flex-wrap: wrap;
+                overflow: visible;     /* never clip the track */
             }
 
-            /* Track first */
-            .carousel-track { order: 0; }
+            .carousel-track {
+                order: 0;
+                /* One card = full screen width minus side margin */
+                scroll-padding-left: 1rem;
+                padding-left: 1rem;
+                padding-right: 1rem;
+                gap: 0.875rem;
+                /* Ensure native scroll is not blocked */
+                touch-action: pan-x !important;
+                pointer-events: auto !important;
+                overscroll-behavior-x: contain;
+            }
 
-            /* Both arrows in a single flex row centred below cards */
+            .feature-card {
+                /* One card visible at a time — fills ~90vw */
+                min-width: min(82vw, 310px);
+                max-width: min(82vw, 310px);
+                scroll-snap-align: center;
+                touch-action: pan-y !important;
+                pointer-events: auto !important;
+            }
+
+            /* Arrows: large tap targets below the track */
             .carousel-nav-left,
             .carousel-nav-right {
                 order: 1;
-                position: static;
-                transform: none;
-                /* 44px minimum touch target */
-                width: 48px;
-                height: 48px;
-                margin: 0;
+                position: static !important;
+                transform: none !important;
+                width: 52px;
+                height: 52px;
                 flex-shrink: 0;
+                /* Visible gold styling on mobile */
+                background: rgba(212, 175, 55, 0.12);
+                border: 1.5px solid rgba(212, 175, 55, 0.60);
+                pointer-events: auto !important;
+                touch-action: manipulation !important;
+                z-index: 10;
             }
             .carousel-nav-left:active,
             .carousel-nav-right:active {
-                transform: scale(0.94);
+                transform: scale(0.92) !important;
+                background: rgba(212, 175, 55, 0.25);
             }
 
-            /* Wrap arrows in a pseudo flex-row using the shell */
-            .carousel-shell {
-                flex-wrap: wrap;
-            }
-            /* Push the two static arrows to appear as a centred row */
-            .carousel-nav-left  { margin-left: auto;  margin-top: 1rem; margin-right: 0.5rem; }
-            .carousel-nav-right { margin-right: auto; margin-top: 1rem; margin-left: 0.5rem; }
+            .carousel-nav-left  { margin-left: auto;  margin-top: 1.25rem; margin-right: 0.5rem; }
+            .carousel-nav-right { margin-right: auto; margin-top: 1.25rem; margin-left: 0.5rem; }
         }
 
         .feature-card {
@@ -2282,24 +2324,28 @@
         .trip-card-feature-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.8rem;
+            gap: 0.6rem;
             margin-bottom: 0.95rem;
         }
 
         .trip-card-feature-item {
             display: inline-flex;
             align-items: center;
-            gap: 0.6rem;
-            color: rgba(245, 240, 225, 0.78);
-            font-size: 0.83rem;
-            letter-spacing: 0.04em;
+            gap: 0.55rem;
+            color: rgba(245, 240, 225, 0.82);
+            font-size: 0.82rem;
+            letter-spacing: 0.02em;
             font-weight: 500;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 8px;
+            padding: 0.35rem 0.65rem;
         }
 
         .trip-card-feature-item i {
             color: #D4AF37;
-            font-size: 0.88rem;
-            width: 1.1rem;
+            font-size: 0.85rem;
+            width: 1rem;
             text-align: center;
             filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.35));
             flex-shrink: 0;
@@ -3242,6 +3288,7 @@
                 0 0 0 2px rgba(212,175,55,0.22),
                 0 8px 28px rgba(212,175,55,0.30);
             margin-bottom: 0.75rem;
+            will-change: background-position;
             animation: btnGoldSlide 5s ease-in-out infinite;
         }
         @keyframes btnGoldSlide {
@@ -3366,91 +3413,110 @@
             opacity: 1;
         }
 
+        /* ── Booking Confirmation Checkbox ─────────────────────────── */
         .confirmation-section {
             margin: 1.75rem 0 1.5rem;
-            padding: 1.25rem 1.25rem;
+            padding: 1.1rem 1.1rem;
             background: rgba(212, 175, 55, 0.06);
             border: 1px solid rgba(212, 175, 55, 0.30);
             border-radius: 12px;
         }
 
-        .confirmation-label {
+        /* Row: [checkbox] [label text] */
+        .confirmation-row {
             display: flex;
-            align-items: center;          /* vertical centre with text */
-            gap: 0.9rem;
+            align-items: flex-start;
+            gap: 0.85rem;
             cursor: pointer;
-            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* Isolated wrapper — immune to .booking-form input generic rules */
+        .checkbox-wrap {
             position: relative;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        /* Hidden native input — covers the custom box for accessibility & click */
-        .confirmation-label input[type="checkbox"] {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 26px;
-            height: 26px;
-            opacity: 0;
-            cursor: pointer;
-            margin: 0;
-            z-index: 2;
-        }
-
-        /* ── Custom gold checkbox ── */
-        .custom-checkmark {
             width: 26px;
             height: 26px;
             min-width: 26px;
-            /* Fully opaque gold border — always visible on dark background */
-            border: 2.5px solid #D4AF37;
-            border-radius: 7px;
-            background: rgba(212, 175, 55, 0.08);
-            position: relative;
             flex-shrink: 0;
+            margin-top: 1px;     /* optical alignment with first line of text */
+        }
+
+        /* Hidden native checkbox — full-size hit area over the custom box */
+        .confirm-input {
+            /* Override ALL inherited form styles */
+            all: unset !important;
+            position: absolute !important;
+            inset: 0 !important;
+            width: 100% !important;
+            height: 100% !important;
+            opacity: 0 !important;
+            cursor: pointer !important;
+            z-index: 3 !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            border: none !important;
+            background: none !important;
+            box-shadow: none !important;
+            border-radius: 0 !important;
+            font-size: unset !important;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Visible gold checkbox */
+        .custom-checkmark {
+            position: absolute;
+            inset: 0;
+            border: 2px solid #D4AF37;
+            border-radius: 6px;
+            background: rgba(0, 12, 31, 0.60);
             transition: background 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 0 0 0 rgba(212, 175, 55, 0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .confirmation-label:hover .custom-checkmark {
-            background: rgba(212, 175, 55, 0.16);
-            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.14);
+        /* Hover glow */
+        .checkbox-wrap:hover .custom-checkmark,
+        .confirmation-row:hover .custom-checkmark {
+            background: rgba(212, 175, 55, 0.14);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
         }
 
-        /* Checked state — solid gold fill */
-        .confirmation-label input[type="checkbox"]:checked + .custom-checkmark {
-            background: #D4AF37;
-            border-color: #D4AF37;
-            box-shadow: 0 0 0 4px rgba(212, 175, 55, 0.20),
-                        0 2px 10px rgba(212, 175, 55, 0.35);
+        /* Checked — solid gold fill */
+        .confirm-input:checked + .custom-checkmark {
+            background: #D4AF37 !important;
+            border-color: #D4AF37 !important;
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.22),
+                        0 2px 10px rgba(212, 175, 55, 0.35) !important;
         }
 
-        /* White tick — high contrast against gold fill */
+        /* White tick mark */
         .custom-checkmark::after {
             content: '';
-            position: absolute;
-            left: 8px;
-            top: 3px;
-            width: 7px;
-            height: 12px;
+            width: 6px;
+            height: 11px;
             border: solid #ffffff;
             border-width: 0 2.5px 2.5px 0;
-            transform: rotate(45deg);
+            transform: rotate(45deg) translateY(-1px);
             opacity: 0;
             transition: opacity 0.18s ease;
+            display: block;
         }
 
-        .confirmation-label input[type="checkbox"]:checked + .custom-checkmark::after {
+        .confirm-input:checked + .custom-checkmark::after {
             opacity: 1;
         }
 
+        /* Label text — clicking it also toggles the checkbox via for= */
         .confirmation-text {
+            font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 0.83rem;
             color: rgba(245, 240, 225, 0.90);
-            line-height: 1.6;
+            line-height: 1.65;
             font-weight: 500;
-            padding-top: 2px;
+            cursor: pointer;
+            user-select: none;
+            -webkit-user-select: none;
+            flex: 1;
         }
 
         /* Book Now button — dims clearly when locked */
@@ -4082,7 +4148,7 @@
         }
 
         /* Consistent input style */
-        .booking-form input,
+        .booking-form input:not(.confirm-input),
         .booking-form select,
         .booking-form textarea {
             font-family: 'Plus Jakarta Sans', sans-serif;
@@ -4599,9 +4665,7 @@
         to   { opacity: 1; transform: translateZ(0) translateY(0)     scale(1);    }
     }
 
-    /* Contain layout/paint inside cards — prevents repaints propagating up */
-    .feature-card,
-    .trip-card,
+    /* Contain only non-interactive cards to avoid blocking touch hit-testing */
     .trip-card-block,
     .faq-item {
         contain: layout style;
@@ -4697,7 +4761,7 @@
         }
 
         /* ── Booking form — full width, comfortable spacing ── */
-        .booking-form input,
+        .booking-form input:not(.confirm-input),
         .booking-form select,
         .booking-form textarea {
             font-size: 16px !important; /* prevent iOS zoom on focus */
@@ -4758,25 +4822,386 @@
 
     }
 
-    /* Extra-small screens */
-    @media (max-width: 390px) {
+    /* ══════════════════════════════════════════════════════
+       iPhone 11 → 17  (375px – 430px logical width)
+       Targets all Face ID iPhones in portrait mode
+       ══════════════════════════════════════════════════════ */
+    @media (max-width: 430px) {
+
+        /* ── Global ── */
+        html { font-size: 15px; }
+        body { overflow-x: hidden; }
+
+        /* Safe-area padding for notch / Dynamic Island / home indicator */
+        #navbar {
+            padding-top: max(0.75rem, env(safe-area-inset-top)) !important;
+        }
+        footer {
+            padding-bottom: max(2.5rem, calc(1rem + env(safe-area-inset-bottom))) !important;
+        }
+        #vip-bubble {
+            bottom: max(1.25rem, calc(0.75rem + env(safe-area-inset-bottom))) !important;
+        }
+        .booking-page-panel {
+            padding-bottom: env(safe-area-inset-bottom) !important;
+        }
+        .trip-modal-panel {
+            padding-bottom: max(1rem, env(safe-area-inset-bottom)) !important;
+        }
+
+        /* ── Navbar ── */
+        #navbar {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+
+        /* ── Hero ── */
+        #hero { min-height: 100svh; }  /* safe-area aware */
+
+        .hero-headline {
+            font-size: clamp(2.1rem, 9.5vw, 2.8rem) !important;
+            letter-spacing: 0.02em !important;
+            line-height: 1.05 !important;
+            margin-bottom: 1rem !important;
+        }
+
+        .hero-service-bar {
+            font-size: 0.62rem !important;
+            letter-spacing: 0.06em !important;
+            line-height: 1.7;
+            padding: 0 0.5rem !important;
+        }
+
+        .cta-btn {
+            padding: 0.95rem 1.5rem !important;
+            font-size: 0.9rem !important;
+            width: 100% !important;
+            max-width: 320px;
+        }
+
+        /* ── What's Included ── */
+        #features { padding: 2.5rem 0 2rem !important; }
+
+        #features .text-center { padding: 0 1rem; margin-bottom: 2rem !important; }
+
+        .section-title {
+            font-size: clamp(1.8rem, 8vw, 2.4rem) !important;
+            letter-spacing: 0.14em !important;
+        }
+
+        .carousel-shell { padding: 0 !important; }
+
+        .carousel-track {
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+            gap: 0.75rem !important;
+        }
+
         .feature-card {
-            min-width: calc(90vw);
-            max-width: calc(90vw);
-            padding: 1.4rem 1.1rem 1.2rem;
+            min-width: min(78vw, 290px) !important;
+            max-width: min(78vw, 290px) !important;
+            padding: 1.25rem 1rem 1rem !important;
+            border-radius: 18px !important;
+            backdrop-filter: blur(6px) !important;
+            -webkit-backdrop-filter: blur(6px) !important;
         }
-        .countdown-unit {
-            min-width: 40px;
-            min-height: 40px;
-            padding: 0.4rem 0.45rem;
+
+        .feature-card-label {
+            font-size: 1.3rem !important;
         }
-        .cdown-val { font-size: 1.1rem; }
+
+        .feature-card h3 {
+            font-size: 1.15rem !important;
+        }
+
+        .feature-card p {
+            font-size: 0.8rem !important;
+            line-height: 1.65 !important;
+        }
+
+        .carousel-nav-left,
+        .carousel-nav-right {
+            width: 48px !important;
+            height: 48px !important;
+            margin-top: 1rem !important;
+        }
+
+        /* ── Event Section ── */
+        #trips { padding: 2.5rem 0.75rem !important; }
+
+        #trips .section-title {
+            font-size: clamp(1.8rem, 8vw, 2.4rem) !important;
+        }
+
+        .trip-card { border-radius: 20px !important; }
+
+        .trip-card-media { min-height: 200px !important; }
+
+        .trip-card-headline h3 {
+            font-size: 1.35rem !important;
+            line-height: 1.1 !important;
+        }
+
         .trip-card-badge {
-            min-width: 50px;
-            min-height: 56px;
+            width: 56px !important;
+            height: 56px !important;
+            top: 0.75rem !important;
+            right: 0.75rem !important;
+        }
+
+        .trip-card-badge-day { font-size: 1.4rem !important; }
+
+        .trip-card-content {
+            padding: 1.1rem 1.1rem 1rem !important;
+        }
+
+        /* ── Feature pills: 2-column grid on iPhone ── */
+        .trip-card-feature-row {
+            display: grid !important;
+            grid-template-columns: 1fr 1fr !important;
+            gap: 0.5rem 0.6rem !important;
+            margin-bottom: 0.85rem !important;
+        }
+
+        .trip-card-feature-item {
+            font-size: 0.76rem !important;
+            letter-spacing: 0.01em !important;
+            gap: 0.45rem !important;
+            /* Glass pill background */
+            background: rgba(255, 255, 255, 0.05) !important;
+            border: 1px solid rgba(255, 255, 255, 0.08) !important;
+            border-radius: 8px !important;
+            padding: 0.45rem 0.6rem !important;
+            align-items: center !important;
+        }
+
+        /* "Pick up from Elgouna gate" — 3rd item spans full width */
+        .trip-card-feature-item:nth-child(3) {
+            grid-column: 1 / -1 !important;
+        }
+
+        /* Countdown — compact for iPhone */
+        .trip-card-countdown {
+            margin-left: -1.1rem !important;
+            margin-right: -1.1rem !important;
+            padding: 0.75rem 1rem 0.6rem !important;
+        }
+
+        .countdown-unit {
+            min-width: 42px !important;
+            min-height: 42px !important;
+            padding: 0.4rem 0.4rem !important;
+            border-radius: 8px !important;
+        }
+
+        .cdown-val {
+            font-size: 1.05rem !important;
+        }
+
+        .cdown-lbl {
+            font-size: 0.42rem !important;
+        }
+
+        .cdown-sep {
+            font-size: 0.95rem !important;
+            margin-bottom: 10px !important;
+        }
+
+        .countdown-label {
+            font-size: 0.58rem !important;
+            letter-spacing: 0.18em !important;
+        }
+
+        .trip-card-actions {
+            margin-top: 1rem !important;
+            padding-top: 0.75rem !important;
+        }
+
+        /* Book Now / Details button */
+        #trips .view-itinerary,
+        #trips .btn-primary,
+        .btn-claim-discount {
+            padding: 0.85rem 1rem !important;
+            font-size: 0.82rem !important;
+            min-height: 50px !important;
+            border-radius: 12px !important;
+        }
+
+        /* ── Trip modal ── */
+        .trip-modal { padding: 0 !important; align-items: flex-end !important; }
+
+        .trip-modal-panel {
+            border-radius: 20px 20px 0 0 !important;
+            max-height: 94dvh !important;
+            padding: 3rem 1rem 1rem !important;
+        }
+
+        .modal-emergency-bar {
+            font-size: 0.72rem !important;
+            padding: 0.75rem 1rem !important;
+            letter-spacing: 0.10em !important;
+        }
+
+        /* ── Booking page ── */
+        .booking-page-panel {
+            border-radius: 0 !important;
+        }
+
+        .experience-grid {
+            padding: 0.75rem !important;
+            gap: 1rem !important;
+        }
+
+        .experience-booking-card {
+            padding: 1.25rem 1rem !important;
+            border-radius: 16px !important;
+        }
+
+        .booking-card {
+            padding: 1.25rem 1rem !important;
+        }
+
+        .price-row { gap: 0.75rem !important; }
+
+        .booking-form label,
+        .booking-form .form-label {
+            font-size: 0.78rem !important;
+        }
+
+        .confirmation-section {
+            padding: 0.9rem 0.9rem !important;
+            margin: 1.25rem 0 1rem !important;
+        }
+
+        .confirmation-text {
+            font-size: 0.78rem !important;
+        }
+
+        .trust-copy {
+            font-size: 0.75rem !important;
+        }
+
+        /* ── Footer ── */
+        footer {
+            padding-top: 3rem !important;
+            padding-left: 1rem !important;
+            padding-right: 1rem !important;
+        }
+
+        .footer-brand-title {
+            font-size: 1.15rem !important;
+            letter-spacing: 0.16em !important;
+        }
+
+        .footer-body-text {
+            font-size: 0.78rem !important;
+        }
+
+        .footer-contact-item {
+            font-size: 0.78rem !important;
+        }
+
+        /* ── Sofia VIP button ── */
+        #vip-bubble {
+            bottom: 1.25rem !important;
+            right: 1rem !important;
+        }
+
+        #vip-toggle {
+            padding: 5px 10px 5px 5px !important;
+            gap: 7px !important;
+        }
+
+        .vip-toggle-name {
+            font-size: 0.66rem !important;
+        }
+
+        .vip-toggle-meta {
+            font-size: 0.54rem !important;
+        }
+
+        #vip-window {
+            width: calc(100vw - 2rem) !important;
+            max-height: min(460px, 72dvh) !important;
+        }
+
+        /* ── Price badge ── */
+        .price-badge {
+            font-size: 0.85rem !important;
         }
     }
 
+    /* Ultra-compact — iPhone SE / older 375px ── */
+    @media (max-width: 375px) {
+        .hero-headline {
+            font-size: clamp(1.85rem, 9vw, 2.4rem) !important;
+        }
+
+        .feature-card {
+            min-width: min(84vw, 272px) !important;
+            max-width: min(84vw, 272px) !important;
+        }
+
+        .trip-card-badge {
+            width: 50px !important;
+            height: 50px !important;
+        }
+
+        #vip-window {
+            width: calc(100vw - 1.5rem) !important;
+        }
+    }
+
+
+    /* ── Carousel Pager (dots + progress bar) ── */
+    .carousel-pager {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        margin-top: 1.25rem;
+        padding: 0 1rem;
+    }
+    .carousel-dots {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        flex-wrap: wrap;
+    }
+    .carousel-dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: rgba(255,255,255,0.20);
+        border: 1px solid rgba(255,255,255,0.12);
+        transition: background 0.25s ease, width 0.25s ease, border-radius 0.25s ease, box-shadow 0.25s ease;
+        cursor: pointer;
+        flex-shrink: 0;
+    }
+    .carousel-dot.active {
+        background: #D4AF37;
+        border-color: #D4AF37;
+        width: 22px;
+        border-radius: 4px;
+        box-shadow: 0 0 8px rgba(212,175,55,0.50);
+    }
+    .carousel-progress-wrap {
+        width: 100%;
+        max-width: 280px;
+        height: 2px;
+        background: rgba(255,255,255,0.10);
+        border-radius: 2px;
+        overflow: hidden;
+    }
+    .carousel-progress-bar {
+        height: 100%;
+        width: 0%;
+        background: linear-gradient(90deg, #D4AF37, #F0CC6A);
+        border-radius: 2px;
+        transition: width 0.15s ease;
+        box-shadow: 0 0 6px rgba(212,175,55,0.40);
+    }
 
     /* content-visibility: defer rendering of off-screen sections */
     #faq,
@@ -5215,6 +5640,7 @@
         </div>
     </nav>
 
+    <main id="main-content">
     <!-- Hero Section -->
     <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
         <!-- Background Video: Adventure Cruise -->
@@ -5233,6 +5659,7 @@
             poster="hero.jpg"
             >
                 <source src="cruise-party2.mp4" type="video/mp4">
+                <track kind="captions" srclang="en" label="English" default>
             </video>
             <div class="hero-overlay absolute inset-0"></div>
         </div>
@@ -5253,8 +5680,8 @@
                 </a>
             </div>
 
-            <!-- Scroll indicator -->
-            <div class="mt-14 md:mt-20 animate-bounce">
+            <!-- Scroll indicator — hidden on mobile -->
+            <div class="mt-14 md:mt-20 animate-bounce hidden sm:block">
                 <svg class="w-8 h-8 mx-auto text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                 </svg>
@@ -5307,7 +5734,7 @@
     </style>
 
     <!-- Features Section -->
-    <section id="features" class="py-12 md:py-16 px-4 section-deepsea relative overflow-hidden">
+    <section id="features" class="py-12 md:py-16 px-4 section-deepsea relative overflow-visible">
         <div class="section-caustics-video">
             <div class="absolute inset-0 bg-gradient-to-b from-[#020714]/10 via-[#020714]/40 to-[#020714]/75"></div>
         </div>
@@ -5414,6 +5841,15 @@
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M9 6l6 6-6 6"/></svg>
                 </button>
             </div>
+
+            <!-- Pagination dots + progress bar -->
+            <div class="carousel-pager" id="carousel-pager" aria-hidden="true">
+                <div class="carousel-dots" id="carousel-dots"></div>
+                <div class="carousel-progress-wrap">
+                    <div class="carousel-progress-bar" id="carousel-progress-bar"></div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -5438,6 +5874,7 @@
                         <div class="trip-card-media">
                             <video width="100%" height="100%" style="object-fit: cover;" muted autoplay playsinline loop preload="metadata">
                                 <source src="WhatsApp Video 2026-05-07 at 03.23.26.mp4" type="video/mp4">
+                                <track kind="captions" srclang="en" label="English" default>
                                 <img src="https://i.postimg.cc/hhW3HypC/IMG-9873.jpg" alt="Sandbox Boat Party" width="800" height="520" loading="lazy" decoding="async" />
                             </video>
                             <div class="trip-card-hero"></div>
@@ -5571,7 +6008,7 @@
                             </div>
                         </div>
 
-                        <p class="trust-copy">Join 100+ guests from UK, Germany, and USA this Saturday.</p>
+                        <p class="trust-copy">For Egyptian transfer contact us: <a href="https://wa.me/447767058307?text=Hello!%20I%20need%20transfer%20information%20for%20the%20boat%20party." target="_blank" rel="noopener noreferrer" style="color:#D4AF37;font-weight:700;text-decoration:none;white-space:nowrap;">&#128242; WhatsApp Us</a></p>
                         <button type="button" class="btn-claim-discount booking-submit">Book Now</button>
                         <p class="secure-note">Secure SSL encrypted payment via Stripe.</p>
                     </div>
@@ -5597,6 +6034,7 @@
                         <div class="media-slide">
                             <video muted autoplay playsinline loop preload="metadata" poster="https://i.ibb.co/rf4FhR4W/DSC-6598.jpg">
                                 <source src="booking-whatsapp.mp4" type="video/mp4" />
+                                <track kind="captions" srclang="en" label="English" default>
                             </video>
                         </div>
                         <div class="media-slide">
@@ -5943,17 +6381,22 @@
                             </label>
 
                             <div class="confirmation-section">
-                                <label class="confirmation-label">
-                                    <input type="checkbox" id="email-confirmation" />
-                                    <span class="custom-checkmark"></span>
-                                    <span class="confirmation-text">I confirm that my information is correct and I understand that my booking confirmation will be sent to my email immediately after payment. ✓</span>
-                                </label>
+                                <div class="confirmation-row">
+                                    <!-- Checkbox wrapper isolates it from generic .booking-form input rules -->
+                                    <div class="checkbox-wrap">
+                                        <input type="checkbox" id="email-confirmation" class="confirm-input" />
+                                        <span class="custom-checkmark" aria-hidden="true"></span>
+                                    </div>
+                                    <label for="email-confirmation" class="confirmation-text">
+                                        I confirm that my information is correct and I understand that my booking confirmation will be sent to my email immediately after payment.
+                                    </label>
+                                </div>
                             </div>
 
                             <button type="submit" id="book-now-btn" class="btn-claim-discount booking-submit" disabled>Book Now</button>
                         </form>
 
-                        <p class="trust-copy">Join 100+ guests from UK, Germany, and USA this Saturday.</p>
+                        <p class="trust-copy">For Egyptian transfer contact us: <a href="https://wa.me/447767058307?text=Hello!%20I%20need%20transfer%20information%20for%20the%20boat%20party." target="_blank" rel="noopener noreferrer" style="color:#D4AF37;font-weight:700;text-decoration:none;white-space:nowrap;">&#128242; WhatsApp Us</a></p>
                     </div>
                 </aside>
             </div>
@@ -5972,6 +6415,8 @@
         </div>
     </div>
 
+
+    </main><!-- /#main-content -->
 
 <!-- Footer -->
 <footer class="relative text-white pt-20 pb-10 px-4 overflow-hidden" style="border-top: 1px solid rgba(212,175,55,0.15);">
@@ -6774,8 +7219,9 @@ closeBtn.addEventListener('click',closeChat);
 </script>
 
 
-<!-- Scripts -->
+<!-- Scripts: wrapped in requestIdleCallback to avoid blocking main thread -->
 <script>
+(window.requestIdleCallback || (fn => setTimeout(fn, 1)))(function() {
     // Trip card countdown timers
     (function () {
         function pad(n) { return String(n).padStart(2, '0'); }
@@ -6901,13 +7347,19 @@ closeBtn.addEventListener('click',closeChat);
     let featureCards = document.querySelectorAll('.feature-card');
 
     if (carouselTrack && featureCards.length) {
-        const originalCards = Array.from(carouselTrack.children);
-        originalCards.forEach(card => carouselTrack.appendChild(card.cloneNode(true)));
+        const isMobileDevice = () => window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 600;
+
+        // Only clone cards on desktop (mobile uses native scroll — no infinite loop needed)
+        if (!isMobileDevice()) {
+            const originalCards = Array.from(carouselTrack.children);
+            originalCards.forEach(card => carouselTrack.appendChild(card.cloneNode(true)));
+        }
         carouselTrack.scrollLeft = 0;
         featureCards = Array.from(carouselTrack.querySelectorAll('.feature-card'));
 
-        let autoScroll = true;
+        let autoScroll = !isMobileDevice();  // disabled on mobile by default
         let carouselVisible = false;
+        let userTouching = false;
         const scrollSpeed = 0.85;
 
         const resetCarousel = () => {
@@ -6916,7 +7368,7 @@ closeBtn.addEventListener('click',closeChat);
         };
 
         const animateCarousel = () => {
-            if (autoScroll && carouselVisible) {
+            if (autoScroll && carouselVisible && !userTouching && !isMobileDevice()) {
                 carouselTrack.scrollLeft += scrollSpeed;
                 resetCarousel();
             }
@@ -6924,35 +7376,116 @@ closeBtn.addEventListener('click',closeChat);
         };
         animateCarousel();
 
-        // Pause RAF loop when carousel is off-screen — saves ~60fps of wasted work
-        new IntersectionObserver(([entry]) => {
-            carouselVisible = entry.isIntersecting;
-        }, { threshold: 0.1 }).observe(carouselTrack);
+        // Pause when off-screen
+        new IntersectionObserver(([e]) => { carouselVisible = e.isIntersecting; }, { threshold: 0.1 }).observe(carouselTrack);
 
+        // Mouse: pause auto-scroll
         carouselTrack.addEventListener('mouseenter', () => autoScroll = false);
-        carouselTrack.addEventListener('mouseleave', () => autoScroll = true);
-        carouselTrack.addEventListener('touchstart', () => autoScroll = false, { passive: true });
-        carouselTrack.addEventListener('touchend', () => autoScroll = true, { passive: true });
+        carouselTrack.addEventListener('mouseleave', () => { if (!isMobileDevice()) autoScroll = true; });
 
+        // ── TOUCH: let native scroll work, just pause the RAF loop ──
+        carouselTrack.addEventListener('touchstart', () => {
+            userTouching = true;
+            autoScroll = false;
+        }, { passive: true });
+
+        carouselTrack.addEventListener('touchend', () => {
+            userTouching = false;
+            // Snap to nearest card after swipe ends
+            if (isMobileDevice()) {
+                const cardWidth = featureCards[0] ? featureCards[0].offsetWidth + 14 : 300;
+                const nearest = Math.round(carouselTrack.scrollLeft / cardWidth) * cardWidth;
+                carouselTrack.scrollTo({ left: nearest, behavior: 'smooth' });
+            } else {
+                setTimeout(() => { autoScroll = true; }, 1500);
+            }
+        }, { passive: true });
+
+        carouselTrack.addEventListener('touchcancel', () => {
+            userTouching = false;
+        }, { passive: true });
+
+        // ── ARROWS ──
         const carouselNavLeft  = document.querySelector('.carousel-nav-left');
         const carouselNavRight = document.querySelector('.carousel-nav-right');
         let carouselNavTimeout;
-        const carouselScrollDistance = () => Math.max(carouselTrack.clientWidth * 0.62, 320);
-        const pauseCarouselAutoScroll = () => {
-            autoScroll = false;
-            clearTimeout(carouselNavTimeout);
-            carouselNavTimeout = setTimeout(() => autoScroll = true, 2600);
-        };
+
         const scrollCarousel = dir => {
-            carouselTrack.scrollBy({ left: dir * carouselScrollDistance(), behavior: 'smooth' });
-            pauseCarouselAutoScroll();
+            if (isMobileDevice()) {
+                // On mobile: scroll exactly one card width
+                const cardWidth = featureCards[0] ? featureCards[0].offsetWidth + 14 : 300;
+                carouselTrack.scrollBy({ left: dir * cardWidth, behavior: 'smooth' });
+            } else {
+                const dist = Math.max(carouselTrack.clientWidth * 0.62, 320);
+                carouselTrack.scrollBy({ left: dir * dist, behavior: 'smooth' });
+                autoScroll = false;
+                clearTimeout(carouselNavTimeout);
+                carouselNavTimeout = setTimeout(() => autoScroll = true, 2600);
+            }
         };
+
         if (carouselNavLeft && carouselNavRight) {
-            carouselNavLeft.addEventListener('click',  () => scrollCarousel(-1));
-            carouselNavRight.addEventListener('click', () => scrollCarousel(1));
+            // Both click (desktop) and touchend (mobile)
+            const attachNav = (btn, dir) => {
+                btn.addEventListener('click', () => scrollCarousel(dir));
+                btn.addEventListener('touchend', e => {
+                    e.preventDefault();   // prevent ghost click
+                    scrollCarousel(dir);
+                }, { passive: false });
+            };
+            attachNav(carouselNavLeft, -1);
+            attachNav(carouselNavRight, 1);
         }
 
-        // Tilt effect — RAF-throttled mousemove (no getBoundingClientRect on every event)
+        // ── Pagination dots + progress bar ──
+        const dotsContainer   = document.getElementById('carousel-dots');
+        const progressBar     = document.getElementById('carousel-progress-bar');
+        const originalCount   = isMobileDevice()
+            ? featureCards.length
+            : Math.floor(featureCards.length / 2); // cloned doubles, show half dots
+
+        // Build dots
+        if (dotsContainer && originalCount > 0) {
+            for (let d = 0; d < originalCount; d++) {
+                const dot = document.createElement('button');
+                dot.className = 'carousel-dot' + (d === 0 ? ' active' : '');
+                dot.setAttribute('aria-label', 'Go to card ' + (d + 1));
+                dot.addEventListener('click', () => {
+                    const cardW = featureCards[0] ? featureCards[0].offsetWidth + 14 : 300;
+                    carouselTrack.scrollTo({ left: d * cardW, behavior: 'smooth' });
+                });
+                dot.addEventListener('touchend', e => {
+                    e.preventDefault();
+                    const cardW = featureCards[0] ? featureCards[0].offsetWidth + 14 : 300;
+                    carouselTrack.scrollTo({ left: d * cardW, behavior: 'smooth' });
+                }, { passive: false });
+                dotsContainer.appendChild(dot);
+            }
+        }
+
+        const updatePager = () => {
+            if (!dotsContainer && !progressBar) return;
+            const track    = carouselTrack;
+            const maxScroll = track.scrollWidth - track.clientWidth;
+            const ratio    = maxScroll > 0 ? track.scrollLeft / maxScroll : 0;
+
+            // Progress bar
+            if (progressBar) progressBar.style.width = (ratio * 100).toFixed(1) + '%';
+
+            // Active dot
+            if (dotsContainer) {
+                const cardW  = featureCards[0] ? featureCards[0].offsetWidth + 14 : 300;
+                const active = Math.min(Math.round(track.scrollLeft / cardW), originalCount - 1);
+                dotsContainer.querySelectorAll('.carousel-dot').forEach((d, i) => {
+                    d.classList.toggle('active', i === active);
+                });
+            }
+        };
+
+        carouselTrack.addEventListener('scroll', updatePager, { passive: true });
+        updatePager(); // initial state
+
+        // ── Tilt effect — RAF-throttled mousemove (no getBoundingClientRect on every event)
         const isMobile = () => window.matchMedia('(pointer: coarse)').matches;
         featureCards.forEach(card => {
             let tiltFrame = null;
@@ -7618,8 +8151,7 @@ closeBtn.addEventListener('click',closeChat);
             bookNowBtn.disabled = !(validEmail && emailsMatch && isConfirmed);
         };
 
-        // Disable paste on confirm email
-        confirmEmailInput.addEventListener('paste', e => e.preventDefault());
+        // Paste allowed on confirm email (Best Practices: don't block paste)
 
         // Validate on input and change
         emailInput.addEventListener('input', validateForm);
@@ -7692,6 +8224,7 @@ closeBtn.addEventListener('click',closeChat);
         if (typeof autoScroll !== 'undefined')        autoScroll        = !hidden;
         if (typeof feedbackAutoScroll !== 'undefined') feedbackAutoScroll = !hidden;
     });
+}); // end requestIdleCallback
 </script>
 
 
