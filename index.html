@@ -4,122 +4,244 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#050507">
-    <title>AQUATICA | Exclusive Events</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>AQUATICA | Premium Experiences</title>
     
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+
     <style>
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #000; color: #fff; }
+        :root {
+            --gold: #D4AF37;
+            --dark-bg: #000000;
+            --card-bg: #111111;
+            --text-gray: #999999;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: #ffffff;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
         .font-display { font-family: 'Playfair Display', serif; }
-        
-        /* Event Card Style - Matching Image */
-        .event-card {
-            background: linear-gradient(145deg, #121212, #000000);
-            border: 1px solid rgba(212, 175, 55, 0.15);
-            border-radius: 24px;
+
+        /* --- Custom Styles for Event Cards --- */
+        .event-card-premium {
+            background: var(--card-bg);
+            border-radius: 35px; /* الحواف الكبيرة المطابقة للصورة */
+            border: 1px solid rgba(255, 255, 255, 0.05);
             overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
-        }
-        .event-card:hover {
-            transform: translateY(-10px);
-            border-color: #D4AF37;
-            box-shadow: 0 25px 50px -12px rgba(212, 175, 55, 0.2);
-        }
-        .event-image-container { width: 100%; height: 260px; overflow: hidden; position: relative; }
-        .event-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
-        .event-card:hover .event-image { transform: scale(1.1); }
-        
-        .price-badge {
-            position: absolute; top: 20px; right: 20px;
-            background: #D4AF37; color: #000;
-            padding: 6px 16px; border-radius: 50px;
-            font-weight: 800; font-size: 0.85rem; z-index: 10;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
-        .btn-gold {
-            background: linear-gradient(90deg, #D4AF37, #B8860B);
-            color: #000; font-weight: 700; text-transform: uppercase;
-            letter-spacing: 1px; padding: 14px; width: 100%;
-            border-radius: 12px; transition: 0.3s;
+        .event-card-premium:hover {
+            transform: translateY(-15px);
+            border-color: var(--gold);
+            box-shadow: 0 30px 60px rgba(212, 175, 55, 0.15);
         }
-        .btn-gold:hover { opacity: 0.9; transform: scale(1.02); }
 
-        /* LED Bar Style */
-        .led-bar { border-top: 1px solid rgba(212, 175, 55, 0.3); border-bottom: 1px solid rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.05); }
+        .media-box {
+            position: relative;
+            width: 100%;
+            height: 280px;
+            overflow: hidden;
+        }
+
+        .media-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+
+        .event-card-premium:hover .media-box img {
+            transform: scale(1.1);
+        }
+
+        .price-overlay {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            background: var(--gold);
+            color: #000;
+            padding: 8px 22px;
+            border-radius: 50px;
+            font-weight: 800;
+            font-size: 0.85rem;
+            z-index: 10;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+
+        .content-box {
+            padding: 35px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .category-tag {
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        .event-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.85rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            line-height: 1.2;
+        }
+
+        .event-info {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 30px;
+        }
+
+        .btn-premium {
+            margin-top: auto;
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, #D4AF37 0%, #B8860B 100%);
+            color: #000;
+            text-align: center;
+            padding: 18px;
+            border-radius: 20px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: 0.3s all ease;
+        }
+
+        .btn-premium:hover {
+            filter: brightness(1.2);
+            transform: scale(1.02);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+
+        /* --- Layout --- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .section-header h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .section-header .subtitle {
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            font-size: 0.8rem;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
 
-    <nav class="flex justify-between items-center px-8 py-6 fixed w-full z-50 bg-black/50 backdrop-blur-md">
-        <div class="text-2xl font-display font-bold text-[#D4AF37] tracking-widest">AQUATICA</div>
-        <div class="hidden md:flex gap-8 text-sm font-semibold tracking-widest uppercase">
-            <a href="#" class="hover:text-[#D4AF37]">Home</a>
-            <a href="#events" class="hover:text-[#D4AF37]">Events</a>
-            <a href="#" class="hover:text-[#D4AF37]">About</a>
+    <nav class="p-8 flex justify-between items-center fixed w-full z-50 bg-black/50 backdrop-blur-lg border-b border-white/5">
+        <div class="text-2xl font-display font-bold text-[#D4AF37] tracking-[5px]">AQUATICA</div>
+        <div class="hidden md:flex gap-10 text-[11px] uppercase font-bold tracking-[3px]">
+            <a href="#" class="hover:text-[#D4AF37] transition">Home</a>
+            <a href="#experiences" class="hover:text-[#D4AF37] transition">Experiences</a>
+            <a href="#" class="hover:text-[#D4AF37] transition">About</a>
         </div>
     </nav>
 
-    <section class="h-screen flex flex-col justify-center items-center text-center px-4 relative">
-        <div class="absolute inset-0 bg-[url('https://i.ibb.co/mVmpZSnx/DSC-6618.jpg')] bg-cover bg-center opacity-40"></div>
-        <div class="relative z-10">
-            <h1 class="text-5xl md:text-8xl font-display mb-6 tracking-tighter">Luxury Redefine</h1>
-            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">Experience the most exclusive yacht parties and desert adventures in Hurghada.</p>
-            <a href="#events" class="border border-[#D4AF37] text-[#D4AF37] px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-[#D4AF37] hover:text-black transition">Explore Events</a>
-        </div>
-    </section>
-
-    <section id="events" class="py-24 px-6">
+    <section id="experiences" class="pt-40 pb-24 px-6">
         <div class="max-w-7xl mx-auto">
-            <div class="mb-16">
-                <h2 class="text-4xl md:text-5xl font-display mb-4">Upcoming <span class="text-[#D4AF37]">Events</span></h2>
-                <div class="w-24 h-1 bg-[#D4AF37]"></div>
+            
+            <div class="section-header">
+                <span class="subtitle">Exclusive Hurghada</span>
+                <h2 class="font-display">Upcoming <span class="text-[#D4AF37]">Experiences</span></h2>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                <div class="event-card">
-                    <div class="price-badge">FROM €140</div>
-                    <div class="event-image-container">
-                        <img src="https://i.ibb.co/mVmpZSnx/DSC-6618.jpg" alt="Boat Party" class="event-image">
+                
+                <div class="event-card-premium">
+                    <div class="price-overlay">FROM €140</div>
+                    <div class="media-box">
+                        <img src="https://i.ibb.co/mVmpZSnx/DSC-6618.jpg" alt="After Sandbox Boat Party">
                     </div>
-                    <div class="p-8">
-                        <div class="flex items-center gap-3 text-[#D4AF37] text-xs font-bold uppercase tracking-widest mb-3">
-                            <i class="fas fa-calendar-alt"></i> May 10, 2026
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4">After Sandbox Boat Party</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
-                            The ultimate luxury yacht experience. International DJs, open bar, and elite networking under the Red Sea sunset.
+                    <div class="content-box">
+                        <span class="category-tag"><i class="far fa-calendar-alt mr-2"></i> May 10, 2026</span>
+                        <h3 class="event-name">After Sandbox Boat Party</h3>
+                        <p class="event-info">
+                            Elevate your weekend with the most exclusive yacht party in Hurghada. Featuring international DJs, premium open bar, and elite networking.
                         </p>
-                        <button class="btn-gold" onclick="window.location.href='https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03'">
+                        <a href="https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03" class="btn-premium">
                             Book Your Spot
-                        </button>
+                        </a>
                     </div>
                 </div>
 
-                <div class="event-card">
-                    <div class="price-badge">FROM €90</div>
-                    <div class="event-image-container">
-                        <img src="https://images.unsplash.com/photo-1534190239940-9ba8944ea261?auto=format&fit=crop&w=800" alt="Desert Safari" class="event-image">
+                <div class="event-card-premium">
+                    <div class="price-overlay">FROM €95</div>
+                    <div class="media-box">
+                        <img src="https://images.unsplash.com/photo-1534190239940-9ba8944ea261?auto=format&fit=crop&w=800" alt="VIP Desert Safari">
                     </div>
-                    <div class="p-8">
-                        <div class="flex items-center gap-3 text-[#D4AF37] text-xs font-bold uppercase tracking-widest mb-3">
-                            <i class="fas fa-calendar-alt"></i> Daily Experience
-                        </div>
-                        <h3 class="text-2xl font-bold mb-4">Elite Desert Stargazing</h3>
-                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
-                            A private luxury desert safari including professional stargazing and a traditional gourmet dinner.
+                    <div class="content-box">
+                        <span class="category-tag"><i class="fas fa-star mr-2"></i> Daily Availability</span>
+                        <h3 class="event-name">VIP Desert Stargazing</h3>
+                        <p class="event-info">
+                            A private luxury escape into the heart of the desert. Gourmet dining, professional astronomy, and traditional hospitality.
                         </p>
-                        <button class="btn-gold">Explore More</button>
+                        <a href="#" class="btn-premium">Explore More</a>
                     </div>
                 </div>
+
+                <div class="event-card-premium">
+                    <div class="price-overlay">FROM €120</div>
+                    <div class="media-box">
+                        <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?auto=format&fit=crop&w=800" alt="Private Diving">
+                    </div>
+                    <div class="content-box">
+                        <span class="category-tag"><i class="fas fa-water mr-2"></i> Elite Diving</span>
+                        <h3 class="event-name">Private Red Sea Diving</h3>
+                        <p class="event-info">
+                            Discover the hidden treasures of the Red Sea with our private diving tours. Expert guides and premium equipment included.
+                        </p>
+                        <a href="#" class="btn-premium">Learn More</a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <footer class="py-12 border-t border-white/10 text-center">
-        <p class="text-gray-500 text-sm">© 2026 AQUATICA ELITE REPUTATION STUDIO. All Rights Reserved.</p>
+    <footer class="py-20 text-center border-t border-white/5">
+        <div class="text-[#D4AF37] font-display text-2xl mb-4 tracking-[5px]">AQUATICA</div>
+        <p class="text-gray-600 text-[10px] uppercase tracking-[2px]">© 2026 Elite Reputation Studio. All rights reserved.</p>
     </footer>
+
+    <script>
+        // Smooth scroll for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 
 </body>
 </html>
