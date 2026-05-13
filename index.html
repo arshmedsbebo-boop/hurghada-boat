@@ -4,87 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#050507">
-    <meta name="color-scheme" content="dark">
-    <title>Boat Party Hurghada</title>
-    <meta name="description" content="AQUATICA Boat Party Hurghada: The most exclusive After Sandbox Event with Luxury Red Sea Cruise, VIP Boat Trips Egypt with snorkeling and diving Hurghada.">
-    <link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <title>AQUATICA | Exclusive Events</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     
-    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
-
-    <script>
-        window.tailwind = window.tailwind || {};
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        'sunset': '#C9973A',
-                        'ocean': '#0B6E8C',
-                        'sand': '#D4AF37',
-                        'ocean-dark': '#085270',
-                        'sunset-light': '#E8B84B',
-                        'sand-light': '#F0CC6A',
-                    },
-                    fontFamily: {
-                        'display': ['"Playfair Display"', 'serif'],
-                        'body': ['Plus Jakarta Sans', 'sans-serif'],
-                    },
-                }
-            }
-        }
-    </script>
-    <script defer src="https://cdn.tailwindcss.com"></script>
-
     <style>
-        /* [تم تضمين كافة تنسيقات CSS الخاصة بـ LED Bar و Charity Ticker من الملف الأصلي] */
-        .hero-led-item {
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            font-weight: 700;
-            color: #D4AF37;
-            text-shadow: 0 0 6px rgba(212, 175, 55, 0.95);
-            animation: ledPulse 2.8s ease-in-out infinite;
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #000; color: #fff; }
+        .font-display { font-family: 'Playfair Display', serif; }
+        
+        /* Event Card Style - Matching Image */
+        .event-card {
+            background: linear-gradient(145deg, #121212, #000000);
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
         }
-        @keyframes ledPulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.88; }
+        .event-card:hover {
+            transform: translateY(-10px);
+            border-color: #D4AF37;
+            box-shadow: 0 25px 50px -12px rgba(212, 175, 55, 0.2);
         }
-        /* ... باقي التنسيقات المستخرجة ... */
+        .event-image-container { width: 100%; height: 260px; overflow: hidden; position: relative; }
+        .event-image { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        .event-card:hover .event-image { transform: scale(1.1); }
+        
+        .price-badge {
+            position: absolute; top: 20px; right: 20px;
+            background: #D4AF37; color: #000;
+            padding: 6px 16px; border-radius: 50px;
+            font-weight: 800; font-size: 0.85rem; z-index: 10;
+        }
+
+        .btn-gold {
+            background: linear-gradient(90deg, #D4AF37, #B8860B);
+            color: #000; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1px; padding: 14px; width: 100%;
+            border-radius: 12px; transition: 0.3s;
+        }
+        .btn-gold:hover { opacity: 0.9; transform: scale(1.02); }
+
+        /* LED Bar Style */
+        .led-bar { border-top: 1px solid rgba(212, 175, 55, 0.3); border-bottom: 1px solid rgba(212, 175, 55, 0.3); background: rgba(212, 175, 55, 0.05); }
     </style>
 </head>
-<body class="bg-[#030813] text-[#F4F7FF] font-body">
+<body>
 
-    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 flex justify-between items-center px-6 py-6 transition-all">
-        <div class="font-display text-2xl font-bold tracking-wider text-sand">AQUATICA</div>
-        </nav>
+    <nav class="flex justify-between items-center px-8 py-6 fixed w-full z-50 bg-black/50 backdrop-blur-md">
+        <div class="text-2xl font-display font-bold text-[#D4AF37] tracking-widest">AQUATICA</div>
+        <div class="hidden md:flex gap-8 text-sm font-semibold tracking-widest uppercase">
+            <a href="#" class="hover:text-[#D4AF37]">Home</a>
+            <a href="#events" class="hover:text-[#D4AF37]">Events</a>
+            <a href="#" class="hover:text-[#D4AF37]">About</a>
+        </div>
+    </nav>
 
-    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden">
-        <video autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover">
-            <source src="your-video-link.mp4" type="video/mp4">
-        </video>
-        <div class="hero-overlay absolute inset-0 z-0"></div>
-        
-        <div class="relative z-10 text-center px-4">
-            <div class="hero-led-bar mb-8">
-                <span class="hero-led-item">LUXURY CRUISE</span>
-                <span class="hero-led-sep">•</span>
-                <span class="hero-led-item">LIVE DJ</span>
-                <span class="hero-led-sep">•</span>
-                <span class="hero-led-item">VIP SERVICE</span>
-            </div>
-            <h1 class="hero-headline text-5xl md:text-7xl font-display mb-6">Experience the Red Sea<br>Like Never Before</h1>
-            <button class="cta-btn px-10 py-4 rounded-full text-lg font-bold uppercase tracking-widest">Book Now</button>
+    <section class="h-screen flex flex-col justify-center items-center text-center px-4 relative">
+        <div class="absolute inset-0 bg-[url('https://i.ibb.co/mVmpZSnx/DSC-6618.jpg')] bg-cover bg-center opacity-40"></div>
+        <div class="relative z-10">
+            <h1 class="text-5xl md:text-8xl font-display mb-6 tracking-tighter">Luxury Redefine</h1>
+            <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-10">Experience the most exclusive yacht parties and desert adventures in Hurghada.</p>
+            <a href="#events" class="border border-[#D4AF37] text-[#D4AF37] px-10 py-4 rounded-full font-bold uppercase tracking-widest hover:bg-[#D4AF37] hover:text-black transition">Explore Events</a>
         </div>
     </section>
 
-    <script>
-        // Scripts for Timeline, Form Submission, and Visibility API
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log("Site Loaded - Initializing Scripts...");
-            // [تم تضمين كافة الوظائف البرمجية الخاصة بالنموذج والتمرير]
-        });
-    </script>
+    <section id="events" class="py-24 px-6">
+        <div class="max-w-7xl mx-auto">
+            <div class="mb-16">
+                <h2 class="text-4xl md:text-5xl font-display mb-4">Upcoming <span class="text-[#D4AF37]">Events</span></h2>
+                <div class="w-24 h-1 bg-[#D4AF37]"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="event-card">
+                    <div class="price-badge">FROM €140</div>
+                    <div class="event-image-container">
+                        <img src="https://i.ibb.co/mVmpZSnx/DSC-6618.jpg" alt="Boat Party" class="event-image">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-3 text-[#D4AF37] text-xs font-bold uppercase tracking-widest mb-3">
+                            <i class="fas fa-calendar-alt"></i> May 10, 2026
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">After Sandbox Boat Party</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
+                            The ultimate luxury yacht experience. International DJs, open bar, and elite networking under the Red Sea sunset.
+                        </p>
+                        <button class="btn-gold" onclick="window.location.href='https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03'">
+                            Book Your Spot
+                        </button>
+                    </div>
+                </div>
+
+                <div class="event-card">
+                    <div class="price-badge">FROM €90</div>
+                    <div class="event-image-container">
+                        <img src="https://images.unsplash.com/photo-1534190239940-9ba8944ea261?auto=format&fit=crop&w=800" alt="Desert Safari" class="event-image">
+                    </div>
+                    <div class="p-8">
+                        <div class="flex items-center gap-3 text-[#D4AF37] text-xs font-bold uppercase tracking-widest mb-3">
+                            <i class="fas fa-calendar-alt"></i> Daily Experience
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4">Elite Desert Stargazing</h3>
+                        <p class="text-gray-400 text-sm leading-relaxed mb-8">
+                            A private luxury desert safari including professional stargazing and a traditional gourmet dinner.
+                        </p>
+                        <button class="btn-gold">Explore More</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-12 border-t border-white/10 text-center">
+        <p class="text-gray-500 text-sm">© 2026 AQUATICA ELITE REPUTATION STUDIO. All Rights Reserved.</p>
+    </footer>
+
 </body>
 </html>
