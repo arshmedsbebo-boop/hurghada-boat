@@ -142,6 +142,16 @@
             .price-badge { animation: float 3s ease-in-out infinite !important; }
             .media-nav { animation: none; }
             #vip-toggle { animation: none; }
+
+            /* Reduce expensive filters on mobile */
+            .feature-card { box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35); }
+            .feature-card:hover { box-shadow: 0 12px 36px rgba(0, 0, 0, 0.4); }
+
+            /* Disable transform animations on smaller devices */
+            * { will-change: auto; }
+
+            /* Optimize blur effects */
+            .hero-overlay { backdrop-filter: none; background: rgba(0, 12, 31, 0.4); }
         }
     </style>
 
@@ -271,6 +281,7 @@
             -moz-osx-font-smoothing: grayscale;
             color: #F4F7FF;
             background-color: #030813;
+            touch-action: manipulation;
         }
 
         body.modal-open {
@@ -717,11 +728,16 @@
 
         /* Feature card */
         .feature-card {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.10);
+            background: linear-gradient(135deg, rgba(5, 16, 26, 0.85) 0%, rgba(10, 30, 50, 0.75) 100%);
+            border: 1.5px solid rgba(212, 175, 55, 0.25);
             transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
             position: relative;
             overflow: hidden;
+            padding: 2.5rem 2rem;
+            box-shadow:
+                0 10px 40px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
         }
 
         .feature-card::after {
@@ -743,9 +759,13 @@
         }
 
         .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.2);
-            border-color: rgba(212, 175, 55, 0.4);
+            transform: translateY(-15px);
+            box-shadow:
+                0 25px 60px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(212, 175, 55, 0.25),
+                inset 0 1px 0 rgba(255, 255, 255, 0.12);
+            border-color: rgba(212, 175, 55, 0.6);
+            background: linear-gradient(135deg, rgba(5, 16, 26, 0.95) 0%, rgba(15, 35, 55, 0.85) 100%);
         }
 
         .feature-card:hover .feature-icon {
@@ -1663,16 +1683,17 @@
         }
 
         .feature-card-icon {
-            width: 3.25rem;
-            height: 3.25rem;
+            width: 3.5rem;
+            height: 3.5rem;
             border-radius: 50%;
             display: grid;
             place-items: center;
             background: linear-gradient(145deg, #F0CC6A 0%, #D4AF37 45%, #A0720A 100%);
             box-shadow:
-                0 4px 20px rgba(212, 175, 55, 0.45),
-                0 0 0 1px rgba(255, 255, 255, 0.12),
-                inset 0 1px 0 rgba(255, 255, 255, 0.35);
+                0 8px 32px rgba(212, 175, 55, 0.55),
+                0 0 20px rgba(212, 175, 55, 0.35),
+                0 0 0 2px rgba(212, 175, 55, 0.2),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4);
             color: #05101a;
             flex-shrink: 0;
             will-change: box-shadow;
@@ -1680,43 +1701,47 @@
         }
         .feature-card:hover .feature-card-icon {
             box-shadow:
-                0 6px 28px rgba(212, 175, 55, 0.65),
-                0 0 0 1px rgba(255, 255, 255, 0.18),
-                inset 0 1px 0 rgba(255, 255, 255, 0.4);
-            transform: scale(1.08);
+                0 12px 40px rgba(212, 175, 55, 0.7),
+                0 0 30px rgba(212, 175, 55, 0.5),
+                0 0 0 2px rgba(212, 175, 55, 0.35),
+                inset 0 1px 2px rgba(255, 255, 255, 0.5);
+            transform: scale(1.12);
         }
 
         .feature-card-label {
-            font-size: 1.65rem;
-            font-weight: 800;
+            font-size: 1.75rem;
+            font-weight: 900;
             font-family: 'Playfair Display', serif;
-            letter-spacing: 0.04em;
+            letter-spacing: 0.05em;
             line-height: 1;
             background: linear-gradient(145deg, #F0CC6A 0%, #D4AF37 50%, #B8920C 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
             text-shadow: none;
-            filter: drop-shadow(0 2px 8px rgba(212, 175, 55, 0.35));
+            filter: drop-shadow(0 2px 12px rgba(212, 175, 55, 0.45));
         }
 
         .feature-card h3 {
             font-family: 'Playfair Display', serif;
-            font-size: 1.35rem;
-            line-height: 1.15;
+            font-size: 1.4rem;
+            font-weight: 700;
+            line-height: 1.2;
             color: #FFFFFF;
             margin: 0;
-            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
             -webkit-font-smoothing: antialiased;
-            letter-spacing: 0.01em;
+            letter-spacing: 0.02em;
         }
 
         .feature-card p {
             margin: 0;
-            color: #F0F0F0;
-            line-height: 1.78;
-            font-size: 0.88rem;
-            opacity: 0.85;
+            color: #E8E8E8;
+            line-height: 1.8;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: 300;
+            letter-spacing: 0.01em;
         }
 
         .timeline-shell {
@@ -5203,6 +5228,34 @@
             right: 0.75rem !important;
         }
 
+        /* Professional design enhancements */
+        section {
+            position: relative;
+        }
+
+        .trip-card {
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            background: linear-gradient(135deg, rgba(5, 16, 26, 0.5) 0%, rgba(10, 30, 50, 0.4) 100%);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        .trip-card:hover {
+            border-color: rgba(212, 175, 55, 0.35);
+            box-shadow: 0 20px 60px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Button text smoothing for better readability */
+        button, a {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Improve heading hierarchy and spacing */
+        h1, h2, h3 { letter-spacing: -0.01em; }
+
+        /* Smooth scroll behavior */
+        html { scroll-behavior: smooth; }
+
         .trip-card-badge-day { font-size: 1.4rem !important; }
 
         .trip-card-content {
@@ -5417,7 +5470,7 @@
         padding: 0 1rem;
     }
     .carousel-dots {
-        display: flex;
+        display: none;
         align-items: center;
         justify-content: center;
         gap: 0.45rem;
@@ -5897,7 +5950,7 @@
 
     <main id="main-content">
     <!-- Hero Section -->
-    <section id="hero" class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background-color:#000C1F;">
+    <section id="hero" data-video="hero2" class="relative min-h-screen flex items-center justify-center overflow-hidden" style="background-color:#000C1F;">
         <!-- Background Video: Adventure Cruise -->
         <div class="absolute inset-0 z-0">
             <video
@@ -5907,13 +5960,11 @@
             muted
             loop
             playsinline
-            webkit-playsinline="true"
-            x5-playsinline="true"
-            preload="metadata"
-            fetchpriority="high"
+            webkit-playsinline
+            preload="auto"
             >
-                <!-- <source src="cruise-party2.mp4" type="video/mp4"> -->
-                <track kind="captions" srclang="en" label="English" default>
+                <source src="hero2.mp4" type="video/mp4; codecs='hvc1'">
+                <source src="hero2.mp4" type="video/mp4">
             </video>
             <div class="hero-overlay absolute inset-0"></div>
         </div>
@@ -6102,10 +6153,10 @@
                 <div class="trip-card-block">
                     <article class="trip-card reveal" data-trip="trip-1">
                         <div class="trip-card-media">
-                            <video width="100%" height="100%" style="object-fit: cover;" muted autoplay playsinline loop preload="metadata">
-                                <source src="WhatsApp Video 2026-05-07 at 03.23.26.mp4" type="video/mp4">
+                            <video width="100%" height="100%" style="object-fit: cover;" muted autoplay playsinline loop preload="auto" webkit-playsinline>
+                                <source src="cruise-party2.mp4" type="video/mp4; codecs='hvc1'">
+                                <source src="cruise-party2.mp4" type="video/mp4">
                                 <track kind="captions" srclang="en" label="English" default>
-                                <img src="https://i.postimg.cc/hhW3HypC/IMG-9873.jpg" alt="Sandbox Boat Party" width="800" height="520" loading="lazy" decoding="async" />
                             </video>
                             <div class="trip-card-hero"></div>
                             <div class="trip-card-badge">
@@ -6172,8 +6223,12 @@
     </section>
 
     <div id="trip-modal" class="trip-modal" aria-hidden="true">
-        <div class="trip-modal-backdrop"></div>
-        <div class="trip-modal-panel">
+        <video autoplay muted loop playsinline webkit-playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+            <source src="hero2.mp4" type="video/mp4; codecs='hvc1'">
+            <source src="hero2.mp4" type="video/mp4">
+        </video>
+        <div class="trip-modal-backdrop" style="z-index: 1;"></div>
+        <div class="trip-modal-panel" style="position: relative; z-index: 2;">
             <div class="modal-emergency-bar" aria-live="polite">
                 <span>LIMITED TIME OFFER:</span>
                 <strong id="emergency-countdown">01:45:20</strong>
@@ -6292,9 +6347,6 @@
                         </div>
                         <div class="media-slide">
                             <img src="https://i.ibb.co/mCp7j6KY/DSC-6522.jpg" alt="Gallery image 6" width="800" height="533" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="media-slide">
-                            <img src="https://i.ibb.co/mVmpZSnx/DSC-6618.jpg" alt="Gallery image 7" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-slide">
                             <img src="https://i.ibb.co/PZYpB24f/DSC-6630.jpg" alt="Gallery image 8" width="800" height="533" loading="lazy" decoding="async" />
