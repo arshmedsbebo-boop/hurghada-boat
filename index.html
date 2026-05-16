@@ -24,19 +24,20 @@
     <link rel="prefetch" href="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=75&fm=webp" as="image" type="image/webp">
     <!-- CSP: basic XSS protection -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <!-- Cache Control: optimize for repeat visits (1 year for assets) -->
+    <meta http-equiv="Cache-Control" content="public, max-age=31536000">
 
-    <!-- Fonts â€” deferred with font-display:swap for fast FCP -->
+    <!-- Fonts —” deferred with font-display:swap for fast FCP -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
 
-    <!-- Font Awesome - deferred with print trick; icons load after paint -->
+    <!-- Font Awesome - immediate load for icon visibility -->
     <link rel=”preload” href=”https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.woff2” as=”font” type=”font/woff2” crossorigin>
-    <link rel=”stylesheet” href=”https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css” media=”print” onload=”this.media='all'” crossorigin=”anonymous” referrerpolicy=”no-referrer”>
-    <noscript><link rel=”stylesheet” href=”https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css” crossorigin=”anonymous”></noscript>
+    <link rel=”stylesheet” href=”https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css” crossorigin=”anonymous” referrerpolicy=”no-referrer”>
 
-    <!-- Stripe dns-prefetch and preconnect for payment -->
+    <!-- Stripe dns-prefetch for payment (deferred, non-critical) -->
     <link rel="dns-prefetch" href="https://js.stripe.com">
-    <link rel="preconnect" href="https://m.stripe.network" crossorigin>
+    <link rel="dns-prefetch" href="https://m.stripe.network">
 
     <!-- Tailwind CDN: deferred to avoid blocking FCP -->
     <script defer>
@@ -45,12 +46,14 @@
             theme: {
                 extend: {
                     colors: {
-                        'sunset': '#C9973A',
-                        'ocean': '#0B6E8C',
+                        'sunset': '#D4A574',
+                        'ocean': '#0A5A7D',
                         'sand': '#D4AF37',
-                        'ocean-dark': '#085270',
-                        'sunset-light': '#E8B84B',
-                        'sand-light': '#F0CC6A',
+                        'ocean-dark': '#073A52',
+                        'sunset-light': '#F0B87F',
+                        'sand-light': '#F5D966',
+                        'gold-premium': '#E6C959',
+                        'navy-deep': '#0a0e1a',
                     },
                     fontFamily: {
                         'display': ['"Playfair Display"', 'serif'],
@@ -168,7 +171,7 @@
         }
     </style>
 
-    <!-- Charity ticker CSS â€” in head so it applies before the section renders -->
+    <!-- Charity ticker CSS —” in head so it applies before the section renders -->
     <style>
         .charity-ticker-track {
             width: 100%;
@@ -216,9 +219,9 @@
         }
         .font-display, h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
 
-        /* Hide desktop nav links until Tailwind loads â€” prevents Instagram icon flash */
+        /* Hide desktop nav links until Tailwind loads —” prevents Instagram icon flash */
         #navbar .hidden { display: none; }
-        /* Ensure hero covers screen immediately â€” no blank flash */
+        /* Ensure hero covers screen immediately —” no blank flash */
         #hero {
             position: relative;
             min-height: 100vh;
@@ -229,7 +232,7 @@
             justify-content: center;
             overflow: hidden;
         }
-        /* Nav bar baseline â€” visible immediately */
+        /* Nav bar baseline —” visible immediately */
         #navbar {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -240,7 +243,7 @@
         /* Hamburger always visible on mobile */
         #hamburger { display: block; pointer-events: auto; cursor: pointer; z-index: 50; }
 
-        /* â”€â”€ Critical Tailwind utilities (above-fold only) â”€â”€
+        /* —— Critical Tailwind utilities (above-fold only) ——
            Loaded inline so Tailwind CDN can be safely deferred
            without causing a Flash of Unstyled Content on first paint. */
         .relative{position:relative}.absolute{position:absolute}.fixed{position:fixed}
@@ -350,7 +353,7 @@
         }
 
 
-        /* Hero overlay gradient â€” cinematic teal shadows + warm amber horizon */
+        /* Hero overlay gradient —” cinematic teal shadows + warm amber horizon */
         .hero-overlay {
             background: linear-gradient(180deg,
                     rgba(5, 30, 45, 0.45) 0%,
@@ -688,7 +691,7 @@
             }
         }
 
-        /* Price badge glow â€” metallic gold champagne */
+        /* Price badge glow —” metallic gold champagne */
         .price-badge {
             background: linear-gradient(135deg, #B8870E 0%, #E8B84B 40%, #D4AF37 60%, #B8870E 100%);
             background-size: 200% 100%;
@@ -702,7 +705,7 @@
             100% { background-position: 0% 0%; }
         }
 
-        /* CTA button â€” metallic gold / champagne finish */
+        /* CTA button —“ metallic gold / champagne finish */
         .cta-btn {
             background: linear-gradient(135deg, #A0720A 0%, #D4AF37 35%, #F0CC6A 55%, #C9973A 80%, #A0720A 100%);
             background-size: 200% 100%;
@@ -810,7 +813,7 @@
             animation: none;
         }
 
-        /* â”€â”€ Unified canvas: #features â†’ #trips â†’ #faq â”€â”€ */
+        /* —— Unified canvas: #features → #trips → #faq —— */
         :root {
             --bg-midnight: #000C1F;
             --bg-navy:     #001A3D;
@@ -819,7 +822,7 @@
         #features,
         #trips,
         #faq {
-            /* Seamless shared canvas â€” no visible seams between sections */
+            /* Seamless shared canvas —” no visible seams between sections */
             background:
                 radial-gradient(ellipse 70% 60% at 50% 50%,
                     rgba(0, 26, 61, 0.55) 0%,
@@ -837,7 +840,7 @@
             overflow: hidden;
         }
 
-        /* Subtle wave texture â€” toned to midnight blue palette */
+        /* Subtle wave texture —” toned to midnight blue palette */
         .section-deepsea::before {
             content: '';
             position: absolute;
@@ -855,7 +858,7 @@
             to   { background-position: 720px bottom; }
         }
 
-        /* Second wave â€” gold tint, very subtle */
+        /* Second wave —” gold tint, very subtle */
         .section-deepsea::after {
             content: '';
             position: absolute;
@@ -1481,7 +1484,7 @@
             padding: 0 3.75rem;
         }
 
-        /* â”€â”€ Swipeable track â€” fully hardware accelerated â”€â”€ */
+        /* —— Swipeable track —” fully hardware accelerated —— */
         .carousel-track {
             display: flex;
             gap: 1.5rem;
@@ -1492,7 +1495,7 @@
             padding-bottom: 1rem;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            /* GPU compositing â€” smooth 60fps swipe on all devices */
+            /* GPU compositing —” smooth 60fps swipe on all devices */
             will-change: scroll-position;
             /* Allow horizontal pan, block vertical hijack */
             touch-action: pan-x;
@@ -1508,7 +1511,7 @@
         .carousel-track::-webkit-scrollbar { display: none; }
         .carousel-track { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Feature cards â€” horizontal swipe enabled */
+        /* Feature cards —” horizontal swipe enabled */
         .feature-card {
             pointer-events: auto;
             cursor: grab;
@@ -1517,7 +1520,7 @@
         }
         .feature-card:active { cursor: grabbing; }
 
-        /* â”€â”€ Desktop arrows â”€â”€ */
+        /* —— Desktop arrows —— */
         .carousel-nav {
             position: absolute;
             top: 50%;
@@ -1541,7 +1544,7 @@
                         inset 0 1px 0 rgba(255, 255, 255, 0.07);
             pointer-events: auto;
             touch-action: manipulation;
-            /* Highly transparent by default â€” won't obscure card text */
+            /* Highly transparent by default —” won't obscure card text */
             opacity: 0.28;
             will-change: opacity, transform;
         }
@@ -1558,10 +1561,10 @@
         .carousel-nav-left  { left: 0.5rem; }
         .carousel-nav-right { right: 0.5rem; }
 
-        /* â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
-           MOBILE CAROUSEL â€” iPhone 13/14/17 + Samsung
+        /* ========================
+           MOBILE CAROUSEL — iPhone 13/14/17 + Samsung
            Breakpoint 768px catches ALL phones
-           â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ */
+           ======================== */
         @media (max-width: 768px) {
 
             /* Shell: relative container with bottom padding for the arrow row */
@@ -1604,14 +1607,14 @@
                 -webkit-backdrop-filter: blur(6px) !important;
             }
 
-            /* â”€â”€ Navigation arrows: absolutely placed side-by-side below track â”€â”€ */
+            /* —— Navigation arrows: absolutely placed side-by-side below track —— */
             .carousel-nav-left,
             .carousel-nav-right {
                 position: absolute !important;
                 top: auto !important;
                 bottom: -30px !important;
                 transform: none !important;
-                /* fully visible on mobile â€” no desktop-transparency override */
+                /* fully visible on mobile —” no desktop-transparency override */
                 opacity: 1 !important;
                 width: 52px !important;
                 height: 52px !important;
@@ -1629,7 +1632,7 @@
                 margin: 0 !important;
             }
 
-            /* Left arrow: right of center, right arrow: left of center â€” 8px gap total */
+            /* Left arrow: right of center, right arrow: left of center —” 8px gap total */
             .carousel-nav-left  { left: auto !important; right: calc(50% + 4px) !important; }
             .carousel-nav-right { right: auto !important; left: calc(50% + 4px) !important; }
 
@@ -3456,7 +3459,7 @@
             padding: 1.1rem 1.6rem;
             border-radius: 18px;
             border: 3px solid rgba(212, 175, 55, 0.6);
-            /* Satin Gold #D4AF37 â€” consistent with brand identity */
+            /* Satin Gold #D4AF37 —” consistent with brand identity */
             background: linear-gradient(135deg,
                 #8C6008 0%, #C9973A 25%, #D4AF37 50%,
                 #F0CC6A 68%, #D4AF37 82%, #A07010 100%);
@@ -3468,7 +3471,7 @@
             text-transform: uppercase;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
             cursor: pointer;
-            /* GPU layer â€” no layout shift during animation */
+            /* GPU layer —” no layout shift during animation */
             transform: translateZ(0);
             will-change: transform, box-shadow;
             transition: transform 0.28s ease, box-shadow 0.28s ease;
@@ -3626,7 +3629,7 @@
             opacity: 1;
         }
 
-        /* â”€â”€ Booking Confirmation Checkbox â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+        /* —— Booking Confirmation Checkbox ——————————————————————————— */
         .confirmation-section {
             margin: 1.75rem 0 1.5rem;
             padding: 1.1rem 1.1rem;
@@ -3643,7 +3646,7 @@
             cursor: pointer;
         }
 
-        /* Isolated wrapper â€” immune to .booking-form input generic rules */
+        /* Isolated wrapper —” immune to .booking-form input generic rules */
         .checkbox-wrap {
             position: relative;
             width: 26px;
@@ -3653,7 +3656,7 @@
             margin-top: 1px;     /* optical alignment with first line of text */
         }
 
-        /* Hidden native checkbox â€” full-size hit area over the custom box */
+        /* Hidden native checkbox —” full-size hit area over the custom box */
         .confirm-input {
             /* Override ALL inherited form styles */
             all: unset !important;
@@ -3694,7 +3697,7 @@
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
         }
 
-        /* Checked â€” solid gold fill */
+        /* Checked —” solid gold fill */
         .confirm-input:checked + .custom-checkmark {
             background: #D4AF37 !important;
             border-color: #D4AF37 !important;
@@ -3719,7 +3722,7 @@
             opacity: 1;
         }
 
-        /* Label text â€” clicking it also toggles the checkbox via for= */
+        /* Label text —” clicking it also toggles the checkbox via for= */
         .confirmation-text {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 0.83rem;
@@ -3732,7 +3735,7 @@
             flex: 1;
         }
 
-        /* Book Now button â€” dims clearly when locked */
+        /* Book Now button —” dims clearly when locked */
         .btn-claim-discount.booking-submit:disabled {
             opacity: 0.40;
             cursor: not-allowed;
@@ -4787,9 +4790,9 @@
         }
 
 
-    /* أ¢â€‌â‚¬أ¢â€‌â‚¬ Performance optimisations أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬ */
+    /* أ¢—‌€أ¢—‌€ Performance optimisations أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€ */
 
-    /* â”€â”€ Premium Visual Polish â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* —— Premium Visual Polish —————————————————————————————————————————————— */
 
     /* Cinematic filter on all gallery / trip card images */
     .trip-card-hero img,
@@ -4848,7 +4851,7 @@
         .discount-ribbon {
             animation-duration: 4s;
         }
-        /* Pause shimmer on mobile â€” expensive on GPU */
+        /* Pause shimmer on mobile —” expensive on GPU */
         .btn-liquid-gold::before,
         .btn-claim-discount::before {
             animation: none;
@@ -4868,7 +4871,7 @@
         height: auto;
     }
 
-    /* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* —— Footer ———————————————————————————————————————————————————————————— */
     footer {
         background: linear-gradient(180deg,
             #020c18 0%,
@@ -4893,7 +4896,7 @@
         color: rgba(255, 255, 255, 0.52);
     }
 
-    /* Social impact sentence â€” italicised, warmer white */
+    /* Social impact sentence —” italicised, warmer white */
     .footer-social-impact {
         font-style: italic;
         color: rgba(240, 204, 106, 0.72);
@@ -4945,7 +4948,7 @@
         border-color: rgba(212, 175, 55, 0.45);
     }
 
-    /* Social icons â€” gold on hover (icon color + border + bg) */
+    /* Social icons —” gold on hover (icon color + border + bg) */
     .footer-social-icon {
         width: 38px;
         height: 38px;
@@ -4981,7 +4984,7 @@
     }
     .footer-nav-link:hover { color: #D4AF37; }
 
-    /* Copyright bar â€” muted grey */
+    /* Copyright bar —” muted grey */
     .footer-copyright {
         font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 0.72rem;
@@ -4999,9 +5002,9 @@
         gap: 0.4rem;
     }
 
-    /* â”€â”€ Performance optimisations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* —— Performance optimisations ————————————————————————————————————————— */
 
-    /* Modal entrance â€” GPU composited, no layout triggered */
+    /* Modal entrance —” GPU composited, no layout triggered */
     @keyframes modalSlideUp {
         from { opacity: 0; transform: translateZ(0) translateY(24px) scale(0.97); }
         to   { opacity: 1; transform: translateZ(0) translateY(0)     scale(1);    }
@@ -5013,13 +5016,13 @@
         contain: layout style;
     }
 
-    /* Pause wave animations on mobile â€” expensive GPU compositing */
+    /* Pause wave animations on mobile —” expensive GPU compositing */
     @media (max-width: 768px) {
         .section-deepsea::before,
         .section-deepsea::after {
             animation: none;
         }
-        /* Kill 3D tilt perspective on mobile â€” causes jank */
+        /* Kill 3D tilt perspective on mobile —” causes jank */
         .feature-card {
             perspective: none !important;
             transform: translateZ(0) !important;
@@ -5035,26 +5038,26 @@
         }
     }
 
-    /* â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
-       MOBILE OVERHAUL â€” performance, layout, branding, UX
-       â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ */
+    /* ========================
+       MOBILE OVERHAUL — performance, layout, branding, UX
+       ======================== */
     @media (max-width: 768px) {
 
-        /* â”€â”€ Smooth scroll everywhere on iOS/Android â”€â”€ */
+        /* —— Smooth scroll everywhere on iOS/Android —— */
         html, body {
             -webkit-overflow-scrolling: touch;
             overflow-x: hidden;
         }
 
-        /* â”€â”€ Booking Details page panel â”€â”€ */
+        /* —— Booking Details page panel —— */
         .booking-page-panel {
             height: 100%;
-            height: 100dvh;          /* dynamic viewport height â€” hides browser chrome */
+            height: 100dvh;          /* dynamic viewport height —” hides browser chrome */
             border-radius: 0;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             overscroll-behavior: contain;
-            /* GPU layer â€” eliminates scroll jank */
+            /* GPU layer —” eliminates scroll jank */
             transform: translateZ(0);
             will-change: transform;
             /* Reduce heavy blur on mobile */
@@ -5062,7 +5065,7 @@
             -webkit-backdrop-filter: none !important;
         }
 
-        /* â”€â”€ Trip modal panel â”€â”€ */
+        /* —— Trip modal panel —— */
         .trip-modal-panel {
             border-radius: 24px 24px 0 0;
             width: 100%;
@@ -5077,7 +5080,7 @@
             padding: 0;
         }
 
-        /* â”€â”€ Gallery & media images â€” GPU composited â”€â”€ */
+        /* —— Gallery & media images —” GPU composited —— */
         .gallery-slide img,
         .media-slide img,
         .experience-gallery img,
@@ -5089,7 +5092,7 @@
             will-change: transform;
         }
 
-        /* â”€â”€ What's Included cards â€” reduce blur cost on mobile â”€â”€ */
+        /* —— What's Included cards —” reduce blur cost on mobile —— */
         .feature-card {
             min-width: calc(85vw);
             max-width: calc(85vw);
@@ -5102,7 +5105,7 @@
             transform: translateZ(0) translateY(-4px) !important;
         }
 
-        /* â”€â”€ Booking form â€” full width, comfortable spacing â”€â”€ */
+        /* —— Booking form —” full width, comfortable spacing —— */
         .booking-form input:not(.confirm-input),
         .booking-form select,
         .booking-form textarea {
@@ -5111,7 +5114,7 @@
             border-radius: 12px;
         }
 
-        /* â”€â”€ Book Now button â€” full-width, thumb-friendly â”€â”€ */
+        /* —— Book Now button —” full-width, thumb-friendly —— */
         .btn-claim-discount,
         .booking-submit {
             min-height: 54px;
@@ -5122,13 +5125,13 @@
             z-index: 1;
         }
 
-        /* â”€â”€ Guest counter buttons â€” 44px touch target â”€â”€ */
+        /* —— Guest counter buttons —” 44px touch target —— */
         .guest-counter-controls button {
             min-width: 44px;
             min-height: 44px;
         }
 
-        /* â”€â”€ Trip card countdown â€” compact on mobile â”€â”€ */
+        /* —— Trip card countdown —” compact on mobile —— */
         .trip-card-countdown {
             margin-left: -1.3rem;
             margin-right: -1.3rem;
@@ -5136,41 +5139,41 @@
             padding-right: 1rem;
         }
 
-        /* â”€â”€ Section headings â€” tighter tracking on small screens â”€â”€ */
+        /* —— Section headings —” tighter tracking on small screens —— */
         .section-title {
             letter-spacing: 0.12em !important;
         }
 
-        /* â”€â”€ Hero headline â”€â”€ */
+        /* —— Hero headline —— */
         .hero-headline {
             letter-spacing: 0.02em;
         }
 
-        /* â”€â”€ Feature section padding â”€â”€ */
+        /* —— Feature section padding —— */
         #features { padding-top: 3rem; padding-bottom: 3rem; }
         #trips     { padding-top: 3.5rem; padding-bottom: 3.5rem; }
         #faq       { padding-top: 3rem; padding-bottom: 3rem; }
 
-        /* â”€â”€ FAQ items â€” full comfortable tap area â”€â”€ */
+        /* —— FAQ items —” full comfortable tap area —— */
         .faq-btn { padding: 1.1rem 1.2rem; }
         .faq-icon {
             min-width: 32px;
             min-height: 32px;
         }
 
-        /* â”€â”€ Footer grid â€” single column â”€â”€ */
+        /* —— Footer grid —” single column —— */
         .footer-connect-title { margin-bottom: 1.2rem; }
         .footer-contact-item  { gap: 0.75rem; }
 
     }
 
-    /* â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
-       iPhone 11 â†’ 17  (375px â€“ 430px logical width)
+    /* ========================
+       iPhone 11 → 17  (375px — 430px logical width)
        Targets all Face ID iPhones in portrait mode
-       â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ */
+       ======================== */
     @media (max-width: 430px) {
 
-        /* â”€â”€ Global â”€â”€ */
+        /* —— Global —— */
         html { font-size: 12px; }
         body { overflow-x: hidden; }
 
@@ -5188,13 +5191,13 @@
             padding-bottom: max(1rem, env(safe-area-inset-bottom)) !important;
         }
 
-        /* â”€â”€ Navbar â”€â”€ */
+        /* —— Navbar —— */
         #navbar {
             padding-left: 1rem !important;
             padding-right: 1rem !important;
         }
 
-        /* â”€â”€ Hero â”€â”€ */
+        /* —— Hero —— */
         #hero { min-height: 100svh; }  /* safe-area aware */
 
         .hero-headline {
@@ -5218,7 +5221,7 @@
             max-width: 320px;
         }
 
-        /* â”€â”€ What's Included â”€â”€ */
+        /* —— What's Included —— */
         #features { padding: 2.5rem 0 2rem !important; }
 
         #features .text-center { padding: 0 1rem; margin-bottom: 2rem !important; }
@@ -5265,7 +5268,7 @@
             margin-top: 1rem !important;
         }
 
-        /* â”€â”€ Event Section â”€â”€ */
+        /* —— Event Section —— */
         #trips { padding: 2.5rem 0.75rem !important; }
 
         #trips .section-title {
@@ -5322,7 +5325,7 @@
             padding: 1.1rem 1.1rem 1rem !important;
         }
 
-        /* â”€â”€ Feature pills: 2-column grid on iPhone â”€â”€ */
+        /* —— Feature pills: 2-column grid on iPhone —— */
         .trip-card-feature-row {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
@@ -5342,12 +5345,12 @@
             align-items: center !important;
         }
 
-        /* "Pick up from Elgouna gate" â€” 3rd item spans full width */
+        /* "Pick up from Elgouna gate" —” 3rd item spans full width */
         .trip-card-feature-item:nth-child(3) {
             grid-column: 1 / -1 !important;
         }
 
-        /* Countdown â€” compact for iPhone */
+        /* Countdown —” compact for iPhone */
         .trip-card-countdown {
             margin-left: -1.1rem !important;
             margin-right: -1.1rem !important;
@@ -5394,7 +5397,7 @@
             border-radius: 12px !important;
         }
 
-        /* â”€â”€ Trip modal â”€â”€ */
+        /* —— Trip modal —— */
         .trip-modal { padding: 0 !important; align-items: flex-end !important; }
 
         .trip-modal-panel {
@@ -5409,7 +5412,7 @@
             letter-spacing: 0.10em !important;
         }
 
-        /* â”€â”€ Booking page â”€â”€ */
+        /* —— Booking page —— */
         .booking-page-panel {
             border-radius: 0 !important;
         }
@@ -5513,7 +5516,7 @@
             font-size: 0.75rem !important;
         }
 
-        /* â”€â”€ Footer â”€â”€ */
+        /* —— Footer —— */
         footer {
             padding-top: 3rem !important;
             padding-left: 1rem !important;
@@ -5533,13 +5536,13 @@
             font-size: 0.78rem !important;
         }
 
-        /* â”€â”€ Price badge â”€â”€ */
+        /* —— Price badge —— */
         .price-badge {
             font-size: 0.85rem !important;
         }
     }
 
-    /* Ultra-compact â€” iPhone SE / older 375px â”€â”€ */
+    /* Ultra-compact —” iPhone SE / older 375px —— */
     @media (max-width: 375px) {
         .hero-headline {
             font-size: clamp(1.85rem, 9vw, 2.4rem) !important;
@@ -5557,7 +5560,7 @@
     }
 
 
-    /* â”€â”€ Carousel Pager (dots + progress bar) â”€â”€ */
+    /* —— Carousel Pager (dots + progress bar) —— */
     .carousel-pager {
         display: flex;
         flex-direction: column;
@@ -5616,7 +5619,7 @@
         contain-intrinsic-size: 0 500px;
     }
 
-    /* â”€â”€ FAQ Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* —— FAQ Section ——————————————————————————————————————————————————————— */
     /* Background handled by the unified #features/#trips/#faq rule above */
 
     .faq-item {
@@ -5771,7 +5774,7 @@
 
     <!-- Toast Notification -->
     <div id="toast" class="toast bg-green-600 text-white px-6 py-4 rounded-xl shadow-2xl flex items-center gap-3 z-50">
-        <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <svg class="w-6 h-6 flex-shrink-0" fill="none" stroke="#D4AF37" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
         </svg>
         <span class="font-semibold text-sm">Request received. We'll contact you shortly.</span>
@@ -5794,7 +5797,7 @@
                 <a href="#trips" class="nav-link text-white font-medium text-sm tracking-wide hover:text-[#D4AF37] transition-colors">Parties</a>
                 <a href="policy.html" target="_blank" class="nav-link text-white font-medium text-sm tracking-wide hover:text-[#D4AF37] transition-colors">Policy</a>
                 <a href="https://www.instagram.com/boathurghadaparty?igsh=MWY1cXF6dmE2cXgxdw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="w-9 h-9 rounded-full border border-white/10 bg-white/5 hover:border-[#D4AF37]/50 hover:bg-[#D4AF37]/10 flex items-center justify-center transition-all duration-300">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    <svg class="w-4 h-4" fill="#D4AF37" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
             </div>
 
@@ -5815,7 +5818,7 @@
                 <a href="#trips" class="text-white font-medium text-lg py-2 hover:text-[#D4AF37] transition-colors mobile-link">Parties</a>
                 <a href="policy.html" target="_blank" class="text-white font-medium text-lg py-2 hover:text-[#D4AF37] transition-colors mobile-link">Policy</a>
                 <a href="https://www.instagram.com/boathurghadaparty?igsh=MWY1cXF6dmE2cXgxdw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 text-white font-medium text-lg py-2 hover:text-[#D4AF37] transition-colors mobile-link">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                    <svg class="w-5 h-5" fill="#D4AF37" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     Instagram
                 </a>
             </div>
@@ -5869,9 +5872,9 @@
                 </a>
             </div>
 
-            <!-- Scroll indicator â€” hidden on mobile -->
+            <!-- Scroll indicator —” hidden on mobile -->
             <div class="mt-14 md:mt-20 animate-bounce hidden sm:block">
-                <svg class="w-8 h-8 mx-auto text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-8 h-8 mx-auto text-white/70" fill="none" stroke="#D4AF37" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
                 </svg>
             </div>
@@ -5881,9 +5884,9 @@
     <!-- Info Bar ? Charity Ticker -->
     <section class="relative z-10 overflow-hidden" style="background:#0077BE; padding: 0.9rem 0;">
         <div class="charity-ticker-track">
-            <div class="charity-ticker-inner">
-                <span class="charity-ticker-item">ًںچ½ï¸ڈ&nbsp; Turn your ticket into a meal â€” with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;ًںگ¾&nbsp;&nbsp;&nbsp;&nbsp;âœ¦&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span class="charity-ticker-item">ًںچ½ï¸ڈ&nbsp; Turn your ticket into a meal â€” with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;ًںگ¾&nbsp;&nbsp;&nbsp;&nbsp;âœ¦&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <div class=”charity-ticker-inner”>
+                <span class=”charity-ticker-item”>ًںچ½ï¸ڈ&nbsp; Turn your ticket into a meal â€” with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;ًںگ¾&nbsp;&nbsp;&nbsp;&nbsp;âœ¦&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class=”charity-ticker-item”>ًںچ½ï¸ڈ&nbsp; Turn your ticket into a meal â€” with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;ًںگ¾&nbsp;&nbsp;&nbsp;&nbsp;âœ¦&nbsp;&nbsp;&nbsp;&nbsp;</span>
             </div>
         </div>
     </section>
@@ -5901,13 +5904,13 @@
 
             <div class="carousel-shell reveal">
                 <button type="button" class="carousel-nav carousel-nav-left" aria-label="Scroll features left">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M15 18l-6-6 6-6"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M15 18l-6-6 6-6"/></svg>
                 </button>
                 <div class="carousel-track">
                     <article class="feature-card" data-feature="4-Floor Luxury Cruise">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M16 38V24a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v14"/><path d="M16 38l-5 8h42l-5-8"/><path d="M21 38V50"/><path d="M43 38V50"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M16 38V24a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v14"/><path d="M16 38l-5 8h42l-5-8"/><path d="M21 38V50"/><path d="M43 38V50"/></svg>
                             </div>
                             <span class="feature-card-label">01</span>
                         </div>
@@ -5918,7 +5921,7 @@
                     <article class="feature-card" data-feature="Unlimited Drinks">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M24 14h16"/><path d="M20 14l-2 18a8 8 0 0 0 8 8h12a8 8 0 0 0 8-8l-2-18"/><path d="M21 32h22"/><path d="M33 32v18"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M24 14h16"/><path d="M20 14l-2 18a8 8 0 0 0 8 8h12a8 8 0 0 0 8-8l-2-18"/><path d="M21 32h22"/><path d="M33 32v18"/></svg>
                             </div>
                             <span class="feature-card-label">02</span>
                         </div>
@@ -5929,7 +5932,7 @@
                     <article class="feature-card" data-feature="Unlimited Food">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 26h28"/><path d="M18 34h28"/><path d="M18 42h28"/><path d="M20 18h24a6 6 0 0 1 6 6v20a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V24a6 6 0 0 1 6-6z"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 26h28"/><path d="M18 34h28"/><path d="M18 42h28"/><path d="M20 18h24a6 6 0 0 1 6 6v20a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V24a6 6 0 0 1 6-6z"/></svg>
                             </div>
                             <span class="feature-card-label">03</span>
                         </div>
@@ -5940,7 +5943,7 @@
                     <article class="feature-card" data-feature="Snorkeling Stops">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 44c4-6 9-9 16-9s12 3 16 9"/><path d="M24 20a8 8 0 1 0 16 0"/><path d="M34 16v20"/><path d="M28 20h12"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 44c4-6 9-9 16-9s12 3 16 9"/><path d="M24 20a8 8 0 1 0 16 0"/><path d="M34 16v20"/><path d="M28 20h12"/></svg>
                             </div>
                             <span class="feature-card-label">04</span>
                         </div>
@@ -5951,7 +5954,7 @@
                     <article class="feature-card" data-feature="Pool, Bar & Dance Floor">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 22h28"/><path d="M18 30h28"/><path d="M18 38h28"/><path d="M18 46h28"/><path d="M18 22l8-10l8 10"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 22h28"/><path d="M18 30h28"/><path d="M18 38h28"/><path d="M18 46h28"/><path d="M18 22l8-10l8 10"/></svg>
                             </div>
                             <span class="feature-card-label">05</span>
                         </div>
@@ -5962,7 +5965,7 @@
                     <article class="feature-card" data-feature="Live DJ Lineup">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M16 34h32"/><path d="M24 22v24"/><path d="M40 18v28"/><path d="M20 12h24"/><path d="M28 14v8"/><path d="M36 14v8"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M16 34h32"/><path d="M24 22v24"/><path d="M40 18v28"/><path d="M20 12h24"/><path d="M28 14v8"/><path d="M36 14v8"/></svg>
                             </div>
                             <span class="feature-card-label">06</span>
                         </div>
@@ -5973,7 +5976,7 @@
                     <article class="feature-card" data-feature="VIP Comfort">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M20 18h24"/><path d="M18 30h28"/><path d="M18 42h28"/><path d="M22 18v26"/><path d="M42 18v26"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M20 18h24"/><path d="M18 30h28"/><path d="M18 42h28"/><path d="M22 18v26"/><path d="M42 18v26"/></svg>
                             </div>
                             <span class="feature-card-label">07</span>
                         </div>
@@ -5984,7 +5987,7 @@
                     <article class="feature-card" data-feature="Free Locker">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M24 26v-4a8 8 0 0 1 16 0v4"/><path d="M20 38h24"/><path d="M18 22h28v20a6 6 0 0 1-6 6H24a6 6 0 0 1-6-6V22z"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M24 26v-4a8 8 0 0 1 16 0v4"/><path d="M20 38h24"/><path d="M18 22h28v20a6 6 0 0 1-6 6H24a6 6 0 0 1-6-6V22z"/></svg>
                             </div>
                             <span class="feature-card-label">08</span>
                         </div>
@@ -5993,7 +5996,7 @@
                     </article>
                 </div>
                 <button type="button" class="carousel-nav carousel-nav-right" aria-label="Scroll features right">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M9 6l6 6-6 6"/></svg>
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5"><path d="M9 6l6 6-6 6"/></svg>
                 </button>
             </div>
 
@@ -6009,8 +6012,8 @@
     </section>
 
     <!-- Parties Section -->
-    <section id="trips" class="py-20 md:py-28 px-4 relative overflow-hidden">
-        <!-- subtle dot texture â€” navy only, no orange -->
+    <section id="trips" class="py-12 md:py-16 px-4 relative overflow-hidden">
+        <!-- subtle dot texture —” navy only, no orange -->
         <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle, rgba(0, 80, 160, 0.10) 1px, transparent 1px); background-size: 22px 22px; opacity: 0.35; mix-blend-mode: screen;"></div>
 
         <div class="max-w-5xl mx-auto relative z-10">
@@ -6045,13 +6048,13 @@
                         </div>
                         <div class="trip-card-content">
                             <div class="trip-card-feature-row">
-                                <div class="trip-card-feature-item"><i class="fas fa-clock" aria-hidden="true"></i><span>9 AM to 5 PM</span></div>
-                                <div class="trip-card-feature-item"><i class="fas fa-shuttle-van" aria-hidden="true"></i><span>Free Transfer</span></div>
-                                <div class="trip-card-feature-item"><i class="fas fa-star" aria-hidden="true"></i><span>All-Inclusive</span></div>
-                                <div class="trip-card-feature-item"><i class="fas fa-calendar" aria-hidden="true"></i><span>Every Saturday</span></div>
+                                <div class="trip-card-feature-item"><span>🕐 9 AM to 5 PM</span></div>
+                                <div class="trip-card-feature-item"><span>🚐 Free Transfer</span></div>
+                                <div class="trip-card-feature-item"><span>⭐ All-Inclusive</span></div>
+                                <div class="trip-card-feature-item"><span>📅 Every Saturday</span></div>
                             </div>
                             <div class="trip-card-countdown">
-                                <span class="countdown-label">âڈ° LIMITED TIME OFFER</span>
+                                <span class="countdown-label">★ LIMITED TIME OFFER</span>
                                 <div class="countdown-timer" id="countdown-trip-1" data-date="2026-05-23T23:59:59">
                                     <div class="countdown-unit"><span class="cdown-val" data-unit="d">--</span><span class="cdown-lbl">DAYS</span></div>
                                     <span class="cdown-sep">:</span>
@@ -6088,9 +6091,9 @@
                         </div>
                         <div class="trip-card-content" style="opacity: 0.5; pointer-events: none;">
                             <div class="trip-card-feature-row">
-                                <div class="trip-card-feature-item"><i class="fas fa-clock" aria-hidden="true"></i><span>7 AM &ndash; 2 PM</span></div>
-                                <div class="trip-card-feature-item"><i class="fas fa-shuttle-van" aria-hidden="true"></i><span>Free Transfer</span></div>
-                                <div class="trip-card-feature-item"><i class="fas fa-star" aria-hidden="true"></i><span>All-Inclusive</span></div>
+                                <div class="trip-card-feature-item"><span>🕐 7 AM – 2 PM</span></div>
+                                <div class="trip-card-feature-item"><span>🚐 Free Transfer</span></div>
+                                <div class="trip-card-feature-item"><span>⭐ All-Inclusive</span></div>
                             </div>
                             <div class="trip-card-actions">
                                 <button type="button" class="btn-secondary view-itinerary" data-trip="trip-2" disabled style="opacity: 0.5; cursor: not-allowed;">Details</button>
@@ -6118,16 +6121,16 @@
                     <div class="gallery-shell">
                         <div class="gallery-slider" id="gallery-slider">
                             <div class="gallery-slide active">
-                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75&fm=webp" alt="Luxury yacht deck" width="800" height="533" loading="eager" decoding="async" fetchpriority="high" />
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75&fm=webp" alt="Luxury yacht deck" width="800" height="533" loading="eager" decoding="async" fetchpriority="high" srcset="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=70&fm=webp 400w, https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=72&fm=webp 600w, https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75&fm=webp 800w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px" />
                             </div>
                             <div class="gallery-slide">
                                        poster="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1200&q=80">
                             </div>
                             <div class="gallery-slide">
-                                <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=75&fm=webp" alt="VIP yacht interior" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
+                                <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=75&fm=webp" alt="VIP yacht interior" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" srcset="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=70&fm=webp 400w, https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=72&fm=webp 600w, https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=75&fm=webp 800w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px" />
                             </div>
                             <div class="gallery-slide">
-                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=75&fm=webp" alt="Sunset party on deck" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=75&fm=webp" alt="Sunset party on deck" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" srcset="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=400&q=70&fm=webp 400w, https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=600&q=72&fm=webp 600w, https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=75&fm=webp 800w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px" />
                             </div>
                         </div>
                         <div class="gallery-pager">
@@ -6159,18 +6162,18 @@
                 <aside class="trip-modal-booking">
                     <div class="booking-card">
                         <span class="booking-badge">Order Summary</span>
-                        <div class="discount-ribbon"><i class="fas fa-tag"></i> 20% OFF â€” SPECIAL OFFER</div>
+                        <div class="discount-ribbon"><i class="fas fa-tag"></i> 20% OFF —” SPECIAL OFFER</div>
                         <div style="text-align: center; padding: 1.5rem 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
                             <div style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">Price for 2 Guests</div>
-                            <div style="font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem;" id="booking-total">â‚¬160</div>
-                            <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);"><strike style="color: #888;">â‚¬200</strike> <span style="color: #4ade80; font-weight: 600; margin-left: 0.75rem;">20% OFF</span></div>
+                            <div style="font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem;" id="booking-total">€160</div>
+                            <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);"><strike style="color: #888;">€200</strike> <span style="color: #4ade80; font-weight: 600; margin-left: 0.75rem;">20% OFF</span></div>
                         </div>
                         <div class="price-row" style="display: none;">
-                            <span class="price-anchor" id="booking-anchor">â‚¬200</span>
-                            <span class="price-offer" id="booking-total-old">â‚¬160</span>
+                            <span class="price-anchor" id="booking-anchor">€200</span>
+                            <span class="price-offer" id="booking-total-old">€160</span>
                         </div>
-                        <div class="price-save-line"><i class="fas fa-piggy-bank"></i> Save <span id="booking-savings">â‚¬40</span> when you reserve your spot.</div>
-                        <div class="scarcity-line"><i class="fas fa-fire"></i> Private boat â€” only 100 spots available.</div>
+                        <div class="price-save-line"><i class="fas fa-piggy-bank"></i> Save <span id="booking-savings">€40</span> when you reserve your spot.</div>
+                        <div class="scarcity-line"><i class="fas fa-fire"></i> Private boat —” only 100 spots available.</div>
 
                         <div class="booking-preview">
                             <div class="preview-row">
@@ -6192,7 +6195,7 @@
                             <span class="balance-note">(payable by cash or card on arrival.)</span>
                         </div>
 
-                        <p class="trust-copy">For Egyptian transfer contact us: <a href="https://wa.me/447767058307?text=Hello!%20I%20need%20transfer%20information%20for%20the%20boat%20party." target="_blank" rel="noopener noreferrer" style="color:#D4AF37;font-weight:700;text-decoration:none;white-space:nowrap;">&#128242; WhatsApp Us</a></p>
+                        <p class="trust-copy">For Egyptian transfer contact us: <a href="https://wa.me/447767058307?text=Hello!%20I%20need%20transfer%20information%20for%20the%20boat%20party." target="_blank" rel="noopener noreferrer" style="color:#D4AF37;font-weight:700;text-decoration:none;white-space:nowrap;">📱 WhatsApp Us</a></p>
                         <button type="button" class="btn-claim-discount booking-submit">Book Now</button>
                         <p class="secure-note">Secure SSL encrypted payment via Stripe.</p>
                     </div>
@@ -6297,10 +6300,10 @@
                     <div class="booking-card experience-booking-card">
                         <span class="booking-badge">Order Summary</span>
                         <div class="price-row">
-                            <span class="price-anchor" id="booking-page-anchor" style="text-decoration: line-through; color: #ff4444;">â‚¬200</span>
-                            <span class="price-offer" id="booking-page-total">â‚¬160</span>
+                            <span class="price-anchor" id="booking-page-anchor" style="text-decoration: line-through; color: #ff4444;">€200</span>
+                            <span class="price-offer" id="booking-page-total">€160</span>
                         </div>
-                        <div class="price-save-line"><i class="fas fa-credit-card"></i> Deposit to pay now: <span id="booking-page-savings">20%</span></div>
+                        <div class="price-save-line">💳 Deposit to pay now: <span id="booking-page-savings">20%</span></div>
 
                         <form id="booking-page-form" class="booking-form">
                             <div class="guest-counter">
@@ -6313,30 +6316,30 @@
                             </div>
 
                             <label>
-                                <span class="field-label"><i class="fas fa-user"></i> Full Name</span>
+                                <span class="field-label">👤 Full Name</span>
                                 <input id="booking-name" name="full_name" type="text" placeholder="Full Name" required />
                             </label>
                             <label>
-                                <span class="field-label"><i class="fas fa-hotel"></i> Hotel Name</span>
+                                <span class="field-label">🏨 Hotel Name</span>
                                 <input id="booking-hotel" name="hotel_name" type="text" placeholder="Hotel Name" required />
                             </label>
                             <label>
-                                <span class="field-label"><i class="fas fa-door-open"></i> Room Number</span>
+                                <span class="field-label">🚪 Room Number</span>
                                 <input id="booking-room" name="room_number" type="text" placeholder="Room Number" required />
                             </label>
                             <label>
-                                <span class="field-label"><i class="fas fa-envelope"></i> Email Address</span>
+                                <span class="field-label">📧 Email Address</span>
                                 <input id="booking-email" name="email" type="email" placeholder="Email Address" required />
                             </label>
                             <label>
-                                <span class="field-label"><i class="fas fa-envelope"></i> Confirm Email</span>
+                                <span class="field-label">✉️ Confirm Email</span>
                                 <div style="position: relative;">
                                     <input id="booking-confirm-email" name="confirm_email" type="email" placeholder="Confirm Email Address" required />
-                                    <span class="email-checkmark" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #28a745; font-weight: bold; font-size: 1.1rem; opacity: 0; transition: opacity 0.3s ease;">?</span>
+                                    <span class="email-checkmark" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #D4AF37; font-weight: bold; font-size: 1.1rem; opacity: 0; transition: opacity 0.3s ease;">?</span>
                                 </div>
                             </label>
                             <label class="phone-field">
-                                <span class="field-label"><i class="fab fa-whatsapp"></i> WhatsApp Number</span>
+                                <span class="field-label">📱 WhatsApp Number</span>
                                 <div class="phone-row">
                                     <select id="booking-country" name="country_code" aria-label="Country code">
                                         <option value="+1">+1 United States</option>
@@ -6384,7 +6387,7 @@
                             <span class="balance-note">(payable by cash or card on arrival.)</span>
                         </div>
 
-                        <p class="trust-copy">For Egyptian transfer contact us: <a href="https://wa.me/447767058307?text=Hello!%20I%20need%20transfer%20information%20for%20the%20boat%20party." target="_blank" rel="noopener noreferrer" style="color:#D4AF37;font-weight:700;text-decoration:none;white-space:nowrap;">&#128242; WhatsApp Us</a></p>
+                        <p class="trust-copy">For Egyptian transfer contact us: <a href="https://wa.me/447767058307?text=Hello!%20I%20need%20transfer%20information%20for%20the%20boat%20party." target="_blank" rel="noopener noreferrer" style="color:#D4AF37;font-weight:700;text-decoration:none;white-space:nowrap;">📱 WhatsApp Us</a></p>
                     </div>
                 </aside>
             </div>
@@ -6427,7 +6430,7 @@
                 </div>
 
                 <p class="footer-body-text" style="max-width:34rem;">
-                    Every Saturday, a luxury all-inclusive cruise party on the Red Sea â€” cocktails, food, live DJs, snorkelling, and a submarine experience. No hidden fees, no compromises.
+                    Every Saturday, a luxury all-inclusive cruise party on the Red Sea —” cocktails, food, live DJs, snorkelling, and a submarine experience. No hidden fees, no compromises.
                     <span class="footer-social-impact">With every ticket, a hungry cat and dog in Hurghada get fed. Your adventure becomes someone's meal.</span>
                 </p>
 
@@ -6446,7 +6449,7 @@
                 <ul style="display:flex;flex-direction:column;gap:1rem;margin-bottom:1.75rem;">
                     <li class="footer-contact-item">
                         <span class="footer-contact-icon">
-                            <svg style="width:14px;height:14px;color:#D4AF37;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                            <svg style="width:14px;height:14px;color:#D4AF37;" fill="none" stroke="#D4AF37" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                         </span>
                         <a href="mailto:info@hurghadapartyboat.com">info@hurghadapartyboat.com</a>
                     </li>
@@ -6458,7 +6461,7 @@
                     </li>
                     <li class="footer-contact-item">
                         <span class="footer-contact-icon">
-                            <svg style="width:14px;height:14px;color:#D4AF37;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            <svg style="width:14px;height:14px;color:#D4AF37;" fill="none" stroke="#D4AF37" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                         </span>
                         Hurghada Marina, Egypt
                     </li>
@@ -6467,16 +6470,16 @@
                 <!-- Social icons -->
                 <div style="display:flex;gap:0.6rem;align-items:center;">
                     <a href="https://www.instagram.com/boathurghadaparty?igsh=MWY1cXF6dmE2cXgxdw%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="footer-social-icon">
-                        <svg style="width:16px;height:16px;" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                        <svg style="width:16px;height:16px;" fill="#D4AF37" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
                     <a href="#" aria-label="Facebook" class="footer-social-icon">
-                        <svg style="width:16px;height:16px;" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                        <svg style="width:16px;height:16px;" fill="#D4AF37" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                     </a>
                     <a href="https://www.tiktok.com/@hurghadapartyboat.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="footer-social-icon">
-                        <svg style="width:16px;height:16px;" fill="currentColor" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+                        <svg style="width:16px;height:16px;" fill="#D4AF37" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
                     </a>
                     <a href="#" aria-label="Twitter / X" class="footer-social-icon">
-                        <svg style="width:16px;height:16px;" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+                        <svg style="width:16px;height:16px;" fill="#D4AF37" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
                 </div>
             </div>
@@ -6484,9 +6487,9 @@
 
         <!-- Bottom bar -->
         <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8">
-            <p class="footer-copyright">&copy; 2026 Saturday Adventure Cruise Party &mdash; All rights reserved.</p>
+            <p class="footer-copyright">© 2026 Saturday Adventure Cruise Party — All rights reserved.</p>
             <p class="footer-location">
-                <svg style="width:11px;height:11px;color:rgba(212,175,55,0.40);flex-shrink:0;" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                <svg style="width:11px;height:11px;color:rgba(212,175,55,0.40);flex-shrink:0;" fill="none" stroke="#D4AF37" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 Hurghada, Egypt
             </p>
         </div>
@@ -6495,13 +6498,13 @@
 
 </footer>
 
-<!-- Scripts: deferred and time-sliced â€” each major block yields the main thread -->
+<!-- Scripts: deferred and time-sliced —” each major block yields the main thread -->
 <script defer>
 (window.requestIdleCallback || (fn => setTimeout(fn, 0)))(async function() {
     // Yield helper: hands the main thread back between long tasks (kills TBT)
     const yieldToMain = () => new Promise(r => setTimeout(r, 0));
 
-    // â”€â”€ Block 1: Trip card countdown timers â”€â”€
+    // —— Block 1: Trip card countdown timers ——
     (function () {
         function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -6531,9 +6534,9 @@
         setInterval(() => timers.forEach(t => updateCountdown(t)), 1000);
     })();
 
-    await yieldToMain(); // â”€â”€ yield 1 â”€â”€
+    await yieldToMain(); // —— yield 1 ——
 
-    // â”€â”€ Block 2: Navbar â”€â”€
+    // —— Block 2: Navbar ——
     const navbar = document.getElementById('navbar');
     const mobileMenu = document.getElementById('mobile-menu');
     const hamburger = document.getElementById('hamburger');
@@ -6552,7 +6555,7 @@
 
     normalizeCountryOptions();
 
-    // Scroll handler â€” RAF-throttled so it never blocks the main thread
+    // Scroll handler —” RAF-throttled so it never blocks the main thread
     let scrollTicking = false;
     const handleScroll = () => {
         if (window.scrollY > 60) {
@@ -6600,9 +6603,9 @@
         });
     });
 
-    await yieldToMain(); // â”€â”€ yield 2 â”€â”€
+    await yieldToMain(); // —— yield 2 ——
 
-    // â”€â”€ Block 3: Scroll reveal + Carousel â”€â”€
+    // —— Block 3: Scroll reveal + Carousel ——
     const revealElements = document.querySelectorAll('.reveal');
     const observerOptions = {
         root: null,
@@ -6625,15 +6628,15 @@
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // Carousel auto-scroll â€” pauses when off-screen via IntersectionObserver
+    // Carousel auto-scroll —” pauses when off-screen via IntersectionObserver
     const carouselTrack = document.querySelector('.carousel-track');
     let featureCards = document.querySelectorAll('.feature-card');
 
     if (carouselTrack && featureCards.length) {
-        // Mobile = touch device OR screen â‰¤ 768px (covers all iPhone 13/14/17 + Samsung)
+        // Mobile = touch device OR screen ≤ 768px (covers all iPhone 13/14/17 + Samsung)
         const isMobileDevice = () => window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
 
-        // Only clone cards on desktop (mobile uses native scroll â€” no infinite loop needed)
+        // Only clone cards on desktop (mobile uses native scroll —” no infinite loop needed)
         if (!isMobileDevice()) {
             const originalCards = Array.from(carouselTrack.children);
             originalCards.forEach(card => carouselTrack.appendChild(card.cloneNode(true)));
@@ -6646,7 +6649,7 @@
         let userTouching = false;
         const scrollSpeed = 0.85;
 
-        // â”€â”€ Desktop: continuous pixel-by-pixel RAF scroll â”€â”€
+        // —— Desktop: continuous pixel-by-pixel RAF scroll ——
         const resetCarousel = () => {
             if (carouselTrack.scrollLeft >= carouselTrack.scrollWidth / 2)
                 carouselTrack.scrollLeft -= carouselTrack.scrollWidth / 2;
@@ -6660,7 +6663,7 @@
         };
         animateCarousel();
 
-        // â”€â”€ Mobile: card-by-card auto-advance every 3 seconds â”€â”€
+        // —— Mobile: card-by-card auto-advance every 3 seconds ——
         let mobileAutoInterval = null;
         let mobileCurrentCard  = 0;
         let userPaused = false;
@@ -6701,7 +6704,7 @@
         carouselTrack.addEventListener('mouseenter', () => autoScroll = false);
         carouselTrack.addEventListener('mouseleave', () => { if (!isMobileDevice()) autoScroll = true; });
 
-        // â”€â”€ TOUCH: pause auto-play, snap card, resume after delay â”€â”€
+        // —— TOUCH: pause auto-play, snap card, resume after delay ——
         carouselTrack.addEventListener('touchstart', () => {
             userTouching = true;
             userPaused   = true;
@@ -6732,7 +6735,7 @@
             userPaused   = false;
         }, { passive: true });
 
-        // â”€â”€ ARROWS â”€â”€
+        // —— ARROWS ——
         const carouselNavLeft  = document.querySelector('.carousel-nav-left');
         const carouselNavRight = document.querySelector('.carousel-nav-right');
         let carouselNavTimeout;
@@ -6778,7 +6781,7 @@
             attachNav(carouselNavRight, 1);
         }
 
-        // â”€â”€ Pagination dots + progress bar â”€â”€
+        // —— Pagination dots + progress bar ——
         const dotsContainer   = document.getElementById('carousel-dots');
         const progressBar     = document.getElementById('carousel-progress-bar');
         const originalCount   = isMobileDevice()
@@ -6823,7 +6826,7 @@
             }
         };
 
-        // RAF-throttled scroll listener â€” fires at most once per frame
+        // RAF-throttled scroll listener —” fires at most once per frame
         let pagerRafId = null;
         carouselTrack.addEventListener('scroll', () => {
             if (pagerRafId) return;
@@ -6831,7 +6834,7 @@
         }, { passive: true });
         updatePager(); // initial state
 
-        // â”€â”€ Tilt effect â€” RAF-throttled mousemove (no getBoundingClientRect on every event)
+        // —— Tilt effect —” RAF-throttled mousemove (no getBoundingClientRect on every event)
         const isMobile = () => window.matchMedia('(pointer: coarse)').matches;
         featureCards.forEach(card => {
             let tiltFrame = null;
@@ -6854,7 +6857,7 @@
                 card.style.boxShadow = '';
             });
         });
-        // deviceorientation removed â€” too expensive on mobile, caused scroll jank
+        // deviceorientation removed —” too expensive on mobile, caused scroll jank
     }
 
     const feedbackTrack = document.querySelector('.feedback-track');
@@ -6991,7 +6994,7 @@
 
         updateTimelinePreview(timelineNodes[0]);
         timelineScroll.addEventListener('scroll', updateLineFill, { passive: true });
-        // Debounced resize â€” prevents layout thrash on every resize pixel
+        // Debounced resize —” prevents layout thrash on every resize pixel
         let resizeTimer;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
@@ -7000,9 +7003,9 @@
         updateLineFill();
     }
 
-    await yieldToMain(); // â”€â”€ yield 3 â”€â”€
+    await yieldToMain(); // —— yield 3 ——
 
-    // â”€â”€ Block 4: Booking form submission â”€â”€
+    // —— Block 4: Booking form submission ——
     const bookingForm = document.getElementById('bookingForm');
 
     if (bookingForm) {
@@ -7061,9 +7064,9 @@
         });
     });
 
-    await yieldToMain(); // â”€â”€ yield 4 â”€â”€
+    await yieldToMain(); // —— yield 4 ——
 
-    // â”€â”€ Block 5: Parallax + video autoplay â”€â”€
+    // —— Block 5: Parallax + video autoplay ——
     // Parallax-like effect on hero video (desktop only ? transform breaks video on mobile)
     const heroVideo = document.getElementById('heroVideo');
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
@@ -7096,9 +7099,9 @@
         }
     }
 
-    await yieldToMain(); // â”€â”€ yield 5 â”€â”€
+    await yieldToMain(); // —— yield 5 ——
 
-    // â”€â”€ Block 6: Trip modal + booking page logic â”€â”€
+    // —— Block 6: Trip modal + booking page logic ——
     const tripModal = document.getElementById('trip-modal');
     const tripModalCloseButtons = tripModal ? tripModal.querySelectorAll('.trip-modal-close') : [];
     const tripCards = document.querySelectorAll('.trip-card[data-trip]');
@@ -7326,11 +7329,11 @@
         const offerTotal = pricePerGuest * guestCount;
         const anchorTotal = basePricePerGuest * guestCount;
         const savings = anchorTotal - offerTotal;
-        if (bookingTotal) bookingTotal.textContent = `â‚¬${offerTotal}`;
-        if (bookingPageTotal) bookingPageTotal.textContent = `â‚¬${offerTotal}`;
-        if (bookingAnchor) bookingAnchor.textContent = `â‚¬${anchorTotal}`;
-        if (bookingPageAnchor) bookingPageAnchor.textContent = `â‚¬${anchorTotal}`;
-        if (bookingSavings) bookingSavings.textContent = `â‚¬${savings}`;
+        if (bookingTotal) bookingTotal.textContent = `€${offerTotal}`;
+        if (bookingPageTotal) bookingPageTotal.textContent = `€${offerTotal}`;
+        if (bookingAnchor) bookingAnchor.textContent = `€${anchorTotal}`;
+        if (bookingPageAnchor) bookingPageAnchor.textContent = `€${anchorTotal}`;
+        if (bookingSavings) bookingSavings.textContent = `€${savings}`;
         if (bookingPageSavings) bookingPageSavings.textContent = `20%`;
     };
 
@@ -7512,7 +7515,7 @@
         const confirmationCheckbox = document.getElementById('email-confirmation');
         const bookNowBtn         = document.getElementById('book-now-btn');
 
-        // Helper â€” show/hide inline error message below a field
+        // Helper —” show/hide inline error message below a field
         const setFieldError = (input, message) => {
             const hadError = input.classList.contains('field-error');
             input.classList.toggle('field-error', !!message);
@@ -7533,7 +7536,7 @@
             }
             // Icon prefix for clear visual alerting
             msg.innerHTML = message
-                ? `<span aria-hidden="true" style="font-style:normal;">&#9888;</span> ${message}`
+                ? `<span aria-hidden="true" style="font-style:normal;">⚠️</span> ${message}`
                 : '';
             msg.classList.toggle('visible', !!message);
         };
@@ -7655,9 +7658,9 @@
         });
     }
 
-    await yieldToMain(); // â”€â”€ yield 6 â”€â”€
+    await yieldToMain(); // —— yield 6 ——
 
-    // â”€â”€ Block 7: Touch listeners + visibility API â”€â”€
+    // —— Block 7: Touch listeners + visibility API ——
     // Mobile: prevent scroll-blocking listeners on the booking panel
     const _bpp = document.querySelector('.booking-page-panel');
     if (_bpp) {
@@ -7670,7 +7673,7 @@
         _tmp.addEventListener('touchmove',  () => {}, { passive: true });
     }
 
-    // Pause all auto-scrolling when the tab is hidden â€” saves CPU/battery
+    // Pause all auto-scrolling when the tab is hidden —” saves CPU/battery
     document.addEventListener('visibilitychange', () => {
         const hidden = document.hidden;
         if (typeof autoScroll !== 'undefined')        autoScroll        = !hidden;
@@ -7710,7 +7713,7 @@
     updateCountdowns();
     setInterval(updateCountdowns, 1000);
 
-    // â”€â”€ Stripe Payment Link Mapping â”€â”€
+    // —— Stripe Payment Link Mapping ——
     const stripePaymentLinks = {
         1: 'https://buy.stripe.com/3cIfZj7XI67Z3GZ6Z693y07',
         2: 'https://buy.stripe.com/5kQ5kFem68g72CV0AI93y08',
@@ -7731,7 +7734,7 @@
         const quantity = parseInt(guestCountInput.value, 10) || 1;
         const totalPrice = quantity * 16;
         if (totalPriceDisplay) {
-            totalPriceDisplay.textContent = 'â‚¬' + totalPrice;
+            totalPriceDisplay.textContent = '€' + totalPrice;
         }
     }
 
@@ -7774,10 +7777,10 @@
         const bookingPageAnchor = document.getElementById('booking-page-anchor');
         const bookingPageTotal = document.getElementById('booking-page-total');
         if (bookingPageAnchor) {
-            bookingPageAnchor.textContent = 'â‚¬' + anchorPrice;
+            bookingPageAnchor.textContent = '€' + anchorPrice;
         }
         if (bookingPageTotal) {
-            bookingPageTotal.textContent = 'â‚¬' + offerPrice;
+            bookingPageTotal.textContent = '€' + offerPrice;
         }
     }
 
