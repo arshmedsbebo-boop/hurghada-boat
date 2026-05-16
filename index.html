@@ -21,7 +21,6 @@
     <!-- LCP preload removed: hero background image not used -->
     <!-- CSP: basic XSS protection -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
-    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 
     <!-- Fonts — deferred so they never block render (font-display:swap in URL) -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
@@ -84,7 +83,7 @@
                 0 0 14px rgba(212, 175, 55, 0.75),
                 0 0 28px rgba(212, 175, 55, 0.45),
                 0 0 55px rgba(212, 175, 55, 0.20);
-            animation: ledPulse 2.8s ease-in-out infinite;
+            animation: ledPulse 3.5s ease-in-out infinite;
         }
 
         /* Stagger the glow pulse per item */
@@ -135,6 +134,15 @@
         @media (prefers-reduced-motion: reduce) {
             .hero-led-item { animation: none; }
         }
+
+        /* Mobile: Disable heavy animations for better performance */
+        @media (max-width: 768px) {
+            .hero-led-item { animation: none; }
+            .charity-ticker-inner { animation: none; }
+            .price-badge { animation: float 3s ease-in-out infinite !important; }
+            .media-nav { animation: none; }
+            #vip-toggle { animation: none; }
+        }
     </style>
 
     <!-- Charity ticker CSS — in head so it applies before the section renders -->
@@ -147,7 +155,7 @@
             display: flex;
             width: max-content;
             will-change: transform;
-            animation: charityTicker 22s linear infinite;
+            animation: charityTicker 28s linear infinite;
         }
         .charity-ticker-inner:hover {
             animation-play-state: paused;
@@ -1525,7 +1533,7 @@
 
             /* Shell: relative container with bottom padding for the arrow row */
             .carousel-shell {
-                padding: 0 0 76px 0 !important;
+                padding: 0 0 120px 0 !important;
                 display: block !important;
                 overflow: visible !important;
                 position: relative !important;
@@ -1568,7 +1576,7 @@
             .carousel-nav-right {
                 position: absolute !important;
                 top: auto !important;
-                bottom: 0 !important;
+                bottom: -30px !important;
                 transform: none !important;
                 /* fully visible on mobile — no desktop-transparency override */
                 opacity: 1 !important;
@@ -2724,6 +2732,7 @@
             padding: 2rem 2.5rem 2.5rem;
             width: 100%;
             min-height: calc(100vh - 80px);
+            overflow: visible;
         }
 
         .experience-left {
@@ -2731,6 +2740,7 @@
             min-width: 0;
             display: grid;
             gap: 1.5rem;
+            overflow: visible;
         }
 
         .experience-right {
@@ -2752,20 +2762,106 @@
             width: 100%;
             height: 17rem;
             object-fit: cover;
+            object-position: center;
             border-radius: 12px;
             border: none;
             box-shadow: 0 24px 60px rgba(0, 0, 0, 0.24);
+            max-width: 100%;
+            display: block;
         }
 
         .media-carousel {
             position: relative;
             aspect-ratio: 16 / 9;
-            min-height: 18rem;
+            min-height: 25rem;
+            width: 100%;
             border-radius: 12px;
-            overflow: hidden;
+            overflow: visible;
             border: 1px solid rgba(212, 175, 55, 0.3);
             background: rgba(8, 14, 28, 0.2);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
+        }
+
+        /* Media carousel navigation arrows */
+        .media-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3.5rem;
+            height: 3.5rem;
+            border: 2px solid rgba(212, 175, 55, 0.8);
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #D4AF37;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 100;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            animation: mediaGlow 2.8s ease-in-out infinite;
+            pointer-events: auto;
+        }
+
+        .media-nav:hover {
+            background: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.4);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .media-nav-prev {
+            left: -2rem;
+            z-index: 100;
+        }
+
+        .media-nav-next {
+            right: -2rem;
+            z-index: 100;
+        }
+
+        @media (max-width: 768px) {
+            .media-nav-prev {
+                left: 0.75rem;
+            }
+
+            .media-nav-next {
+                right: 0.75rem;
+            }
+
+            .media-nav {
+                width: 3rem;
+                height: 3rem;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .media-nav-prev {
+                left: 0.5rem;
+            }
+
+            .media-nav-next {
+                right: 0.5rem;
+            }
+
+            .media-nav {
+                width: 2.8rem;
+                height: 2.8rem;
+                font-size: 1rem;
+            }
+        }
+
+        @keyframes mediaGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), inset 0 0 20px rgba(212, 175, 55, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.8), inset 0 0 20px rgba(212, 175, 55, 0.3);
+            }
         }
 
         .media-slide {
@@ -2788,7 +2884,10 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
             display: block;
+            max-width: 100%;
+            max-height: 100%;
         }
 
         .media-slide video {
@@ -2828,6 +2927,9 @@
         .experience-hero {
             display: grid;
             gap: 1rem;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid rgba(212, 175, 55, 0.2);
         }
 
         .experience-hero .booking-panel-tag {
@@ -2892,7 +2994,7 @@
         }
 
         .offer-head {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 0.65rem;
             padding: 0.85rem 1rem;
@@ -2904,6 +3006,42 @@
             letter-spacing: 0.14em;
             text-transform: uppercase;
             border: 1px solid rgba(212, 175, 55, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            user-select: none;
+            position: relative;
+            width: 100%;
+            justify-content: space-between;
+        }
+
+        .offer-head:hover {
+            background: rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        .offer-pills-list {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        .offer-pills-list.active {
+            display: grid;
+        }
+
+        .offer-head::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            transition: transform 0.3s ease;
+            font-size: 0.75rem;
+            color: #D4AF37;
+            margin-left: 0.5rem;
+        }
+
+        .offer-head.active::after {
+            transform: rotate(-180deg);
         }
 
         .offer-pill {
@@ -3092,17 +3230,20 @@
         .discount-ribbon {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.45rem;
             background: linear-gradient(135deg, #c0392b 0%, #e74c3c 100%);
             color: #fff;
-            font-size: 0.78rem;
-            font-weight: 800;
-            letter-spacing: 0.07em;
+            font-size: 0.85rem;
+            font-weight: 900;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            padding: 0.4rem 1rem;
+            padding: 0.6rem 1.3rem;
             border-radius: 999px;
-            margin-bottom: 0.9rem;
-            box-shadow: 0 4px 18px rgba(231, 76, 60, 0.5);
+            margin-bottom: 1.2rem;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 4px 18px rgba(231, 76, 60, 0.5),
+                        0 0 20px rgba(231, 76, 60, 0.3);
             animation: pulseSoft 2s ease-in-out infinite;
         }
         .price-row {
@@ -3113,64 +3254,142 @@
             margin: 0.3rem 0 0.4rem;
         }
         .price-anchor {
-            font-size: clamp(1.2rem, 2vw, 1.5rem);
-            color: rgba(255, 255, 255, 0.38);
+            font-size: clamp(2.4rem, 4vw, 3.2rem);
+            color: #e74c3c;
             text-decoration: line-through;
-            font-weight: 500;
+            text-decoration-color: #e74c3c;
+            text-decoration-thickness: 3px;
+            font-weight: 700;
+            text-shadow: 0 0 20px rgba(231, 76, 60, 0.4);
         }
         .price-offer {
-            font-size: clamp(2.2rem, 3.5vw, 2.9rem);
-            font-weight: 800;
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 900;
             color: #D4AF37;
             letter-spacing: -0.02em;
-            text-shadow: 0 0 24px rgba(212, 175, 55, 0.45);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6),
+                         0 0 30px rgba(212, 175, 55, 0.6),
+                         0 4px 15px rgba(212, 175, 55, 0.3);
+            filter: drop-shadow(0 1px 2px rgba(212, 175, 55, 0.5));
+            font-family: 'Playfair Display', serif;
         }
         .price-save-line {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             gap: 0.45rem;
-            color: #6ee87a;
-            font-size: 0.88rem;
+            color: #D4AF37;
+            font-size: 1rem;
             font-weight: 700;
-            margin: 0.2rem 0 0.5rem;
+            margin: 1rem 0 0.8rem;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            background: rgba(212, 175, 55, 0.08);
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
+
+        .booking-preview {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1.2rem;
+            padding: 1rem;
+            border-radius: 16px;
+            background: rgba(212, 175, 55, 0.05);
+            border: 2px solid #D4AF37;
+        }
+
+        .preview-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.5rem 0;
+            color: #D4AF37;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .preview-note {
+            color: rgba(212, 175, 55, 0.7);
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Balance display section */
+        .balance-section {
+            margin-top: 1.2rem;
+            padding: 1rem 1.25rem;
+            border-radius: 20px;
+            border: 3px solid #D4AF37;
+            background: rgba(212, 175, 55, 0.08);
+            box-shadow: inset 0 0 20px rgba(212, 175, 55, 0.1),
+                        0 0 20px rgba(212, 175, 55, 0.15);
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .balance-title {
+            display: none;
+        }
+
+        .balance-amount {
+            color: #D4AF37;
+            font-size: 1.8rem;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+            text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+            letter-spacing: -0.02em;
+        }
+
+        .balance-note {
+            color: #D4AF37;
+            font-size: 1rem;
+            font-weight: 600;
+            line-height: 1.5;
+        }
+
         .scarcity-line {
             display: flex;
             align-items: center;
             gap: 0.55rem;
-            color: rgba(255, 255, 255, 0.78);
-            font-size: 0.86rem;
-            margin-bottom: 1.1rem;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            padding: 0.5rem 0.85rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: #D4AF37;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            background: rgba(212, 175, 55, 0.08);
+            border-radius: 12px;
+            padding: 0.65rem 1rem;
+            border: 1px solid rgba(212, 175, 55, 0.3);
         }
         .scarcity-line i { color: #ff9900; }
         .btn-claim-discount {
             width: 100%;
-            padding: 1rem 1.5rem;
-            border-radius: 14px;
-            border: none;
+            padding: 1.1rem 1.6rem;
+            border-radius: 18px;
+            border: 3px solid rgba(212, 175, 55, 0.6);
             /* Satin Gold #D4AF37 — consistent with brand identity */
             background: linear-gradient(135deg,
                 #8C6008 0%, #C9973A 25%, #D4AF37 50%,
                 #F0CC6A 68%, #D4AF37 82%, #A07010 100%);
             background-size: 220% 100%;
             color: #060d02;
-            font-size: 0.88rem;
-            font-weight: 800;
-            letter-spacing: 0.12em;
+            font-size: 0.9rem;
+            font-weight: 900;
+            letter-spacing: 0.13em;
             text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
             cursor: pointer;
             /* GPU layer — no layout shift during animation */
             transform: translateZ(0);
             will-change: transform, box-shadow;
             transition: transform 0.28s ease, box-shadow 0.28s ease;
             box-shadow:
-                inset 0 1px 0 rgba(255,255,255,0.28),
-                0 0 0 2px rgba(212,175,55,0.22),
-                0 8px 28px rgba(212,175,55,0.30);
+                inset 0 1px 0 rgba(255,255,255,0.35),
+                inset 0 -1px 3px rgba(0,0,0,0.15),
+                0 0 0 3px rgba(212,175,55,0.35),
+                0 8px 28px rgba(212,175,55,0.35),
+                0 0 15px rgba(212, 175, 55, 0.2);
             margin-bottom: 0.75rem;
             will-change: background-position;
             animation: btnGoldSlide 5s ease-in-out infinite;
@@ -3233,6 +3452,28 @@
             color: #fff;
             text-align: center;
             font-size: 2.5rem;
+        }
+
+        .price-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+            padding: 1.2rem;
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 12px;
+        }
+
+        .price-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .total-price {
+            color: #D4AF37;
+            font-size: 1.3rem;
+            font-weight: bold;
         }
 
         .booking-form label {
@@ -3413,12 +3654,12 @@
 
         .booking-submit:not(:disabled) {
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
-            animation: button-glow 2s ease-in-out infinite alternate;
+            animation: button-glow 3s ease-in-out infinite alternate;
         }
 
         @keyframes button-glow {
-            from { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
-            to { box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
+            0% { box-shadow: 0 0 20px rgba(212, 175, 55, 0.4); }
+            100% { box-shadow: 0 0 30px rgba(212, 175, 55, 0.6); }
         }
 
 
@@ -3489,6 +3730,14 @@
                 height: 12rem;
             }
 
+            .media-carousel {
+                min-height: 20rem;
+            }
+
+            .gallery-shell {
+                min-height: 280px;
+            }
+
             .experience-right {
                 position: static;
                 max-height: none;
@@ -3509,6 +3758,20 @@
             .experience-itinerary {
                 padding: 1.25rem;
                 min-height: 0;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .experience-gallery img {
+                height: 10rem;
+            }
+
+            .media-carousel {
+                min-height: 15rem;
+            }
+
+            .gallery-shell {
+                min-height: 220px;
             }
         }
 
@@ -3566,6 +3829,7 @@
             position: relative;
             aspect-ratio: 16 / 9;
             min-height: 280px;
+            width: 100%;
             border-radius: 20px;
             overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.3);
@@ -3605,7 +3869,10 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
             display: block;
+            max-width: 100%;
+            max-height: 100%;
         }
 
         .gallery-pager {
@@ -3616,6 +3883,53 @@
             display: flex;
             gap: 0.6rem;
             z-index: 2;
+        }
+
+        /* Gallery navigation arrows */
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3.5rem;
+            height: 3.5rem;
+            border: 2px solid rgba(212, 175, 55, 0.8);
+            border-radius: 50%;
+            background: rgba(212, 175, 55, 0.25);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            color: #D4AF37;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 20;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.5);
+            animation: galleryGlow 2s ease-in-out infinite;
+        }
+
+        .gallery-nav:hover {
+            background: rgba(212, 175, 55, 0.4);
+            box-shadow: 0 0 40px rgba(212, 175, 55, 0.8), 0 0 60px rgba(212, 175, 55, 0.4);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-nav-prev {
+            left: 1.5rem;
+        }
+
+        .gallery-nav-next {
+            right: 1.5rem;
+        }
+
+        @keyframes galleryGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(212, 175, 55, 0.5), inset 0 0 20px rgba(212, 175, 55, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(212, 175, 55, 0.8), inset 0 0 20px rgba(212, 175, 55, 0.3);
+            }
         }
 
         .gallery-dot {
@@ -3785,21 +4099,52 @@
             gap: 1.1rem;
             padding: 2rem;
             border-radius: 32px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.02);
+            background: linear-gradient(135deg, #0a0f1a 0%, #0d1628 50%, #050810 100%);
+            border: 3px solid #D4AF37;
+            box-shadow: inset 0 0 0 1px rgba(212, 175, 55, 0.4),
+                        0 0 40px rgba(212, 175, 55, 0.25),
+                        inset 0 0 30px rgba(212, 175, 55, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .booking-card::before {
+            content: '';
+            position: absolute;
+            inset: 3px;
+            border-radius: 29px;
+            background: none;
+            border: 2px dashed rgba(212, 175, 55, 0.2);
+            pointer-events: none;
+        }
+
+        .booking-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(212, 175, 55, 0.08), transparent 40%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.04), transparent 40%);
+            pointer-events: none;
+            border-radius: 32px;
+        }
+
+        .booking-card > * {
+            position: relative;
+            z-index: 2;
         }
 
         .booking-badge {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
-            padding: 0.65rem 0.95rem;
+            padding: 0.85rem 1.5rem;
             border-radius: 999px;
-            background: rgba(212, 175, 55, 0.12);
-            color: #F9E4A6;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.15));
+            border: 2px solid #D4AF37;
+            color: #D4AF37;
             text-transform: uppercase;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.18em;
             font-size: 0.72rem;
             font-weight: 700;
         }
@@ -3963,27 +4308,36 @@
 
         .booking-submit {
             width: 100%;
-            padding: 1.1rem 1.25rem;
-            border-radius: 22px;
-            background: linear-gradient(135deg, #D4AF37 0%, #B78B0F 100%);
+            padding: 1.2rem 1.4rem;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #8C6008 0%, #D4AF37 40%, #F0CC6A 60%, #D4AF37 100%);
+            background-size: 200% 100%;
             color: #08101c;
-            font-weight: 700;
-            letter-spacing: 0.12em;
-            border: none;
-            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.24);
+            font-weight: 900;
+            font-size: 1rem;
+            letter-spacing: 0.13em;
+            text-transform: uppercase;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+            border: 3px solid rgba(212, 175, 55, 0.5);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.3),
+                        0 0 20px rgba(212, 175, 55, 0.15),
+                        inset 0 1px 0 rgba(255,255,255,0.3);
             cursor: pointer;
             transition: transform 0.25s ease, box-shadow 0.25s ease;
+            animation: btnGoldSlide 6s ease-in-out infinite;
         }
 
         .booking-submit:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 25px 55px rgba(212, 175, 55, 0.32);
+            transform: translateY(-3px);
+            box-shadow: 0 28px 55px rgba(212, 175, 55, 0.4),
+                        0 0 30px rgba(212, 175, 55, 0.25);
         }
 
         .booking-submit:disabled {
-            opacity: 0.75;
+            opacity: 0.65;
             cursor: not-allowed;
             transform: none;
+            animation: none;
         }
 
         .booking-spinner {
@@ -5137,7 +5491,7 @@
         gap: 9px;
         box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.10), inset 0 1px 0 rgba(240,204,106,0.12);
         transition: transform 0.22s ease, box-shadow 0.22s ease;
-        animation: vipWake 4s ease-in-out infinite;
+        animation: vipWake 5s ease-in-out infinite;
     }
     #vip-toggle:hover {
         animation-play-state: paused;
@@ -5159,7 +5513,7 @@
         animation: vipSpin 4s linear infinite;
         z-index: 0;
     }
-    @keyframes vipSpin { to { transform: rotate(360deg); } }
+    @keyframes vipSpin { to { transform: rotate(360deg); will-change: auto; } }
     .vip-avatar {
         position: relative;
         width: 36px;
@@ -5178,7 +5532,7 @@
         background: #22c55e;
         border-radius: 50%;
         border: 2px solid #08101c;
-        animation: vipPulse 2s infinite;
+        animation: vipPulse 2.5s infinite;
         z-index: 2;
     }
     @keyframes vipPulse {
@@ -5558,7 +5912,7 @@
             preload="metadata"
             fetchpriority="high"
             >
-                <source src="cruise-party2.mp4" type="video/mp4">
+                <!-- <source src="cruise-party2.mp4" type="video/mp4"> -->
                 <track kind="captions" srclang="en" label="English" default>
             </video>
             <div class="hero-overlay absolute inset-0"></div>
@@ -5755,24 +6109,25 @@
                             </video>
                             <div class="trip-card-hero"></div>
                             <div class="trip-card-badge">
-                                <span class="trip-card-badge-day">29</span>
-                                <span class="trip-card-badge-month">MAY</span>
+                                <span class="trip-card-badge-day">Session</span>
+                                <span class="trip-card-badge-month">{5} 2026</span>
                             </div>
                             <div class="trip-card-headline">
                                 <div>
-                                    <h3 class="font-display text-2xl md:text-3xl">AFTER SALTBOX BOAT PARTY</h3>
+                                    <h3 class="font-display text-2xl md:text-3xl">ADVENTURE BOAT CLUB</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="trip-card-content">
                             <div class="trip-card-feature-row">
-                                <div class="trip-card-feature-item"><i class="fas fa-clock" aria-hidden="true"></i><span>7 AM &ndash; 2 PM</span></div>
+                                <div class="trip-card-feature-item"><i class="fas fa-clock" aria-hidden="true"></i><span>9 AM to 5 PM</span></div>
                                 <div class="trip-card-feature-item"><i class="fas fa-shuttle-van" aria-hidden="true"></i><span>Free Transfer</span></div>
                                 <div class="trip-card-feature-item"><i class="fas fa-star" aria-hidden="true"></i><span>All-Inclusive</span></div>
+                                <div class="trip-card-feature-item"><i class="fas fa-calendar" aria-hidden="true"></i><span>Every Saturday</span></div>
                             </div>
                             <div class="trip-card-countdown">
                                 <span class="countdown-label">⏰ LIMITED TIME OFFER</span>
-                                <div class="countdown-timer" id="countdown-trip-1" data-date="2026-05-10T10:00:00">
+                                <div class="countdown-timer" id="countdown-trip-1" data-date="2026-05-23T23:59:59">
                                     <div class="countdown-unit"><span class="cdown-val" data-unit="d">--</span><span class="cdown-lbl">DAYS</span></div>
                                     <span class="cdown-sep">:</span>
                                     <div class="countdown-unit"><span class="cdown-val" data-unit="h">--</span><span class="cdown-lbl">HRS</span></div>
@@ -5790,21 +6145,24 @@
                 </div>
 
                 <div class="trip-card-block">
-                    <article class="trip-card trip-card--coming-soon" data-trip="trip-2">
+                    <article class="trip-card reveal" data-trip="trip-2">
                         <div class="trip-card-media">
-                            <img src="https://i.postimg.cc/L8nFL7G4/IMG-9879.jpg" alt="Adventure Cruise Party" width="800" height="520" loading="lazy" decoding="async" />
+                            <img src="https://cdn.corenexis.com/files/c/5465928720.jpg" alt="Adventure Cruise Party" width="800" height="520" loading="lazy" decoding="async" />
                             <div class="trip-card-hero"></div>
-                            <div class="trip-card-coming-soon-overlay">
-                                <div class="coming-soon-badge">
-                                    <i class="fas fa-lock"></i>
-                                    <span>Coming Soon</span>
+                            <div class="trip-card-headline">
+                                <div>
+                                    <h3 class="font-display text-2xl md:text-3xl">Adventure Cruise Party</h3>
                                 </div>
                             </div>
                         </div>
                         <div class="trip-card-content">
-                            <div class="coming-soon-body">
-                                <p class="coming-soon-title">Adventure Cruise Party</p>
-                                <p class="coming-soon-sub">New date dropping soon. Stay tuned!</p>
+                            <div class="trip-card-feature-row">
+                                <div class="trip-card-feature-item"><i class="fas fa-clock" aria-hidden="true"></i><span>7 AM &ndash; 2 PM</span></div>
+                                <div class="trip-card-feature-item"><i class="fas fa-shuttle-van" aria-hidden="true"></i><span>Free Transfer</span></div>
+                                <div class="trip-card-feature-item"><i class="fas fa-star" aria-hidden="true"></i><span>All-Inclusive</span></div>
+                            </div>
+                            <div class="trip-card-actions">
+                                <button type="button" class="btn-secondary view-itinerary" data-trip="trip-2">Details</button>
                             </div>
                         </div>
                     </article>
@@ -5843,6 +6201,12 @@
                             <button type="button" class="gallery-dot" data-index="2" aria-label="Show photo 3"></button>
                             <button type="button" class="gallery-dot" data-index="3" aria-label="Show photo 4"></button>
                         </div>
+                        <button type="button" class="gallery-nav gallery-nav-prev" aria-label="Previous image">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button type="button" class="gallery-nav gallery-nav-next" aria-label="Next image">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                     </div>
 
                     <div class="map-card">
@@ -5860,7 +6224,7 @@
                 <aside class="trip-modal-booking">
                     <div class="booking-card">
                         <span class="booking-badge">Order Summary</span>
-                        <div class="discount-ribbon"><i class="fas fa-tag"></i> 30% OFF — SPECIAL OFFER</div>
+                        <div class="discount-ribbon"><i class="fas fa-tag"></i> 20% OFF — SPECIAL OFFER</div>
                         <div class="price-row">
                             <span class="price-anchor" id="booking-anchor">€200</span>
                             <span class="price-offer" id="booking-total">€140</span>
@@ -5883,6 +6247,11 @@
                             </div>
                         </div>
 
+                        <div class="balance-section">
+                            <span class="balance-amount">80%</span>
+                            <span class="balance-note">(payable by cash or card on arrival.)</span>
+                        </div>
+
                         <p class="trust-copy">For Egyptian transfer contact us: <a href="https://wa.me/447767058307?text=Hello!%20I%20need%20transfer%20information%20for%20the%20boat%20party." target="_blank" rel="noopener noreferrer" style="color:#D4AF37;font-weight:700;text-decoration:none;white-space:nowrap;">&#128242; WhatsApp Us</a></p>
                         <button type="button" class="btn-claim-discount booking-submit">Book Now</button>
                         <p class="secure-note">Secure SSL encrypted payment via Stripe.</p>
@@ -5900,6 +6269,12 @@
             <div class="experience-grid">
                 <section class="experience-left">
                     <div class="media-carousel" aria-label="Yacht media carousel">
+                        <button type="button" class="media-nav media-nav-prev" aria-label="Previous image">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button type="button" class="media-nav media-nav-next" aria-label="Next image">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
                         <div class="media-slide active">
                             <img src="https://i.ibb.co/mVmpZSnx/DSC-6618.jpg" alt="Gallery image 1" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
@@ -5907,13 +6282,7 @@
                             <img src="https://i.ibb.co/rf4FhR4W/DSC-6598.jpg" alt="Gallery image 2" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-slide">
-                            <video muted autoplay playsinline loop preload="metadata" poster="https://i.ibb.co/rf4FhR4W/DSC-6598.jpg">
-                                <source src="booking-whatsapp.mp4" type="video/mp4" />
-                                <track kind="captions" srclang="en" label="English" default>
-                            </video>
-                        </div>
-                        <div class="media-slide">
-                            <img src="https://i.ibb.co/Mm1F38J/DSC-6544.jpg" alt="Gallery image 3" width="800" height="533" loading="lazy" decoding="async" />
+                                <!--  -->
                         </div>
                         <div class="media-slide">
                             <img src="https://i.ibb.co/gLKbWqFr/DSC-6588.jpg" alt="Gallery image 4" width="800" height="533" loading="lazy" decoding="async" />
@@ -5959,11 +6328,16 @@
                     <div class="experience-lower-pair">
                         <div class="experience-vibes">
                             <div class="vibe-pill"><i class="fas fa-compact-disc"></i> Afro house / melodic house / tech house</div>
-                            <div class="vibe-pill"><i class="fas fa-microphone"></i> Curated by International DJs</div>
+                            <div class="vibe-pill"><i class="fas fa-compact-disc"></i> Ampiano / hip hop / reggaeton</div>
+                            <div class="vibe-pill"><i class="fas fa-microphone"></i> live DJ</div>
 
                             <div class="experience-offerings">
-                                <div class="offer-head"><i class="fas fa-circle-notch"></i> What u get</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Free transfer back and forth</div>
+                                <div class="offer-head" data-toggle="offer-list">
+                                    <span style="display: flex; align-items: center; gap: 0.65rem;"><i class="fas fa-circle-notch"></i> What u get</span>
+                                    <span style="font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.6); margin-left: auto;">(click to see)</span>
+                                </div>
+                                <div class="offer-pills-list" id="offer-list">
+                                    <div class="offer-pill"><i class="fas fa-check"></i> Free transfer back and forth</div>
                                 <div class="offer-pill"><i class="fas fa-check"></i> Food made by order</div>
                                 <div class="offer-pill"><i class="fas fa-check"></i> Cocktail and drinks</div>
                                 <div class="offer-pill"><i class="fas fa-check"></i> Snorkelling tools</div>
@@ -5975,8 +6349,9 @@
                                 <div class="offer-pill"><i class="fas fa-check"></i> Security</div>
                                 <div class="offer-pill"><i class="fas fa-check"></i> Life guard</div>
                                 <div class="offer-pill"><i class="fas fa-check"></i> Chill floor</div>
-                                <div class="offer-pill"><i class="fas fa-restroom"></i> Toilet</div>
-                                <div class="offer-pill"><i class="fas fa-snowflake"></i> AC</div>
+                                <div class="offer-pill"><i class="fas fa-restroom"></i> 12 Toilet</div>
+                                    <div class="offer-pill"><i class="fas fa-snowflake"></i> AC</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -5985,20 +6360,18 @@
                 <aside class="experience-right">
                     <div class="booking-card experience-booking-card">
                         <span class="booking-badge">Order Summary</span>
-                        <div class="discount-ribbon"><i class="fas fa-tag"></i> 30% OFF — SPECIAL OFFER</div>
                         <div class="price-row">
-                            <span class="price-anchor" id="booking-page-anchor">€200</span>
-                            <span class="price-offer" id="booking-page-total">€140</span>
+                            <span class="price-anchor" id="booking-page-anchor" style="text-decoration: line-through; color: #ff4444;">€100</span>
+                            <span class="price-offer" id="booking-page-total">€80</span>
                         </div>
-                        <div class="price-save-line"><i class="fas fa-piggy-bank"></i> Save <span id="booking-page-savings">€60</span> when you reserve your spot.</div>
-                        <div class="scarcity-line"><i class="fas fa-fire"></i> Private boat — only 100 spots available.</div>
+                        <div class="price-save-line"><i class="fas fa-credit-card"></i> Deposit to pay now: <span id="booking-page-savings">20%</span></div>
 
                         <form id="booking-page-form" class="booking-form">
                             <div class="guest-counter">
                                 <label>Number of Guests</label>
                                 <div class="guest-counter-controls">
                                     <button type="button" class="guest-step" data-action="decrement">-</button>
-                                    <input id="guest-count" name="guest_count" type="number" min="1" value="2" />
+                                    <input id="guest-count" name="guest_count" type="number" min="1" max="10" value="1" />
                                     <button type="button" class="guest-step" data-action="increment">+</button>
                                 </div>
                             </div>
@@ -6010,6 +6383,10 @@
                             <label>
                                 <span class="field-label"><i class="fas fa-hotel"></i> Hotel Name</span>
                                 <input id="booking-hotel" name="hotel_name" type="text" placeholder="Hotel Name" required />
+                            </label>
+                            <label>
+                                <span class="field-label"><i class="fas fa-door-open"></i> Room Number</span>
+                                <input id="booking-room" name="room_number" type="text" placeholder="Room Number" required />
                             </label>
                             <label>
                                 <span class="field-label"><i class="fas fa-envelope"></i> Email Address</span>
@@ -6026,230 +6403,26 @@
                                 <span class="field-label"><i class="fab fa-whatsapp"></i> WhatsApp Number</span>
                                 <div class="phone-row">
                                     <select id="booking-country" name="country_code" aria-label="Country code">
-                                        <option value="+93">+93 Afghanistan</option>
-                                        <option value="+355">+355 Albania</option>
-                                        <option value="+213">+213 Algeria</option>
-                                        <option value="+1">+1 American Samoa</option>
-                                        <option value="+376">+376 Andorra</option>
-                                        <option value="+244">+244 Angola</option>
-                                        <option value="+1">+1 Anguilla</option>
-                                        <option value="+1">+1 Antigua & Barbuda</option>
-                                        <option value="+54">+54 Argentina</option>
-                                        <option value="+374">+374 Armenia</option>
-                                        <option value="+297">+297 Aruba</option>
-                                        <option value="+61">+61 Australia</option>
-                                        <option value="+43">+43 Austria</option>
-                                        <option value="+994">+994 Azerbaijan</option>
-                                        <option value="+1">+1 Bahamas</option>
-                                        <option value="+973">+973 Bahrain</option>
-                                        <option value="+880">+880 Bangladesh</option>
-                                        <option value="+1">+1 Barbados</option>
-                                        <option value="+375">+375 Belarus</option>
-                                        <option value="+32">+32 Belgium</option>
-                                        <option value="+501">+501 Belize</option>
-                                        <option value="+229">+229 Benin</option>
-                                        <option value="+1">+1 Bermuda</option>
-                                        <option value="+975">+975 Bhutan</option>
-                                        <option value="+591">+591 Bolivia</option>
-                                        <option value="+387">+387 Bosnia & Herzegovina</option>
-                                        <option value="+267">+267 Botswana</option>
-                                        <option value="+55">+55 Brazil</option>
-                                        <option value="+246">+246 British Indian Ocean Territory</option>
-                                        <option value="+1">+1 British Virgin Islands</option>
-                                        <option value="+673">+673 Brunei</option>
-                                        <option value="+359">+359 Bulgaria</option>
-                                        <option value="+226">+226 Burkina Faso</option>
-                                        <option value="+257">+257 Burundi</option>
-                                        <option value="+855">+855 Cambodia</option>
-                                        <option value="+237">+237 Cameroon</option>
-                                        <option value="+1">+1 Canada</option>
-                                        <option value="+238">+238 Cape Verde</option>
-                                        <option value="+1">+1 Cayman Islands</option>
-                                        <option value="+236">+236 Central African Republic</option>
-                                        <option value="+235">+235 Chad</option>
-                                        <option value="+56">+56 Chile</option>
-                                        <option value="+86">+86 China</option>
-                                        <option value="+57">+57 Colombia</option>
-                                        <option value="+269">+269 Comoros</option>
-                                        <option value="+243">+243 Congo, Democratic Republic of the</option>
-                                        <option value="+242">+242 Congo, Republic of the</option>
-                                        <option value="+682">+682 Cook Islands</option>
-                                        <option value="+506">+506 Costa Rica</option>
-                                        <option value="+385">+385 Croatia</option>
-                                        <option value="+53">+53 Cuba</option>
-                                        <option value="+599">+599 Cura&ccedil;ao</option>
-                                        <option value="+357">+357 Cyprus</option>
-                                        <option value="+420">+420 Czech Republic</option>
-                                        <option value="+45">+45 Denmark</option>
-                                        <option value="+253">+253 Djibouti</option>
-                                        <option value="+1">+1 Dominica</option>
-                                        <option value="+1">+1 Dominican Republic</option>
-                                        <option value="+593">+593 Ecuador</option>
-                                        <option value="+20">+20 Egypt</option>
-                                        <option value="+503">+503 El Salvador</option>
-                                        <option value="+240">+240 Equatorial Guinea</option>
-                                        <option value="+291">+291 Eritrea</option>
-                                        <option value="+372">+372 Estonia</option>
-                                        <option value="+268">+268 Eswatini</option>
-                                        <option value="+251">+251 Ethiopia</option>
-                                        <option value="+500">+500 Falkland Islands</option>
-                                        <option value="+298">+298 Faroe Islands</option>
-                                        <option value="+679">+679 Fiji</option>
-                                        <option value="+358">+358 Finland</option>
-                                        <option value="+33">+33 France</option>
-                                        <option value="+594">+594 French Guiana</option>
-                                        <option value="+689">+689 French Polynesia</option>
-                                        <option value="+241">+241 Gabon</option>
-                                        <option value="+220">+220 Gambia</option>
-                                        <option value="+995">+995 Georgia</option>
-                                        <option value="+49">+49 Germany</option>
-                                        <option value="+233">+233 Ghana</option>
-                                        <option value="+350">+350 Gibraltar</option>
-                                        <option value="+30">+30 Greece</option>
-                                        <option value="+299">+299 Greenland</option>
-                                        <option value="+1">+1 Grenada</option>
-                                        <option value="+590">+590 Guadeloupe</option>
-                                        <option value="+1">+1 Guam</option>
-                                        <option value="+502">+502 Guatemala</option>
-                                        <option value="+44">+44 Guernsey</option>
-                                        <option value="+224">+224 Guinea</option>
-                                        <option value="+245">+245 Guinea-Bissau</option>
-                                        <option value="+592">+592 Guyana</option>
-                                        <option value="+509">+509 Haiti</option>
-                                        <option value="+504">+504 Honduras</option>
-                                        <option value="+852">+852 Hong Kong</option>
-                                        <option value="+36">+36 Hungary</option>
-                                        <option value="+354">+354 Iceland</option>
-                                        <option value="+91">+91 India</option>
-                                        <option value="+62">+62 Indonesia</option>
-                                        <option value="+98">+98 Iran</option>
-                                        <option value="+964">+964 Iraq</option>
-                                        <option value="+353">+353 Ireland</option>
-                                        <option value="+44">+44 Isle of Man</option>
-                                        <option value="+972">+972 Israel</option>
-                                        <option value="+39">+39 Italy</option>
-                                        <option value="+1">+1 Jamaica</option>
-                                        <option value="+81">+81 Japan</option>
-                                        <option value="+44">+44 Jersey</option>
-                                        <option value="+962">+962 Jordan</option>
-                                        <option value="+7">+7 Kazakhstan</option>
-                                        <option value="+254">+254 Kenya</option>
-                                        <option value="+686">+686 Kiribati</option>
-                                        <option value="+383">+383 Kosovo</option>
-                                        <option value="+965">+965 Kuwait</option>
-                                        <option value="+996">+996 Kyrgyzstan</option>
-                                        <option value="+856">+856 Laos</option>
-                                        <option value="+371">+371 Latvia</option>
-                                        <option value="+961">+961 Lebanon</option>
-                                        <option value="+266">+266 Lesotho</option>
-                                        <option value="+231">+231 Liberia</option>
-                                        <option value="+218">+218 Libya</option>
-                                        <option value="+423">+423 Liechtenstein</option>
-                                        <option value="+370">+370 Lithuania</option>
-                                        <option value="+352">+352 Luxembourg</option>
-                                        <option value="+853">+853 Macao</option>
-                                        <option value="+261">+261 Madagascar</option>
-                                        <option value="+265">+265 Malawi</option>
-                                        <option value="+60">+60 Malaysia</option>
-                                        <option value="+960">+960 Maldives</option>
-                                        <option value="+223">+223 Mali</option>
-                                        <option value="+356">+356 Malta</option>
-                                        <option value="+692">+692 Marshall Islands</option>
-                                        <option value="+596">+596 Martinique</option>
-                                        <option value="+222">+222 Mauritania</option>
-                                        <option value="+230">+230 Mauritius</option>
-                                        <option value="+52">+52 Mexico</option>
-                                        <option value="+691">+691 Micronesia</option>
-                                        <option value="+373">+373 Moldova</option>
-                                        <option value="+377">+377 Monaco</option>
-                                        <option value="+976">+976 Mongolia</option>
-                                        <option value="+382">+382 Montenegro</option>
-                                        <option value="+1">+1 Montserrat</option>
-                                        <option value="+212">+212 Morocco</option>
-                                        <option value="+258">+258 Mozambique</option>
-                                        <option value="+95">+95 Myanmar</option>
-                                        <option value="+264">+264 Namibia</option>
-                                        <option value="+674">+674 Nauru</option>
-                                        <option value="+977">+977 Nepal</option>
-                                        <option value="+31">+31 Netherlands</option>
-                                        <option value="+687">+687 New Caledonia</option>
-                                        <option value="+64">+64 New Zealand</option>
-                                        <option value="+505">+505 Nicaragua</option>
-                                        <option value="+227">+227 Niger</option>
-                                        <option value="+234">+234 Nigeria</option>
-                                        <option value="+683">+683 Niue</option>
-                                        <option value="+850">+850 North Korea</option>
-                                        <option value="+389">+389 North Macedonia</option>
-                                        <option value="+47">+47 Norway</option>
-                                        <option value="+968">+968 Oman</option>
-                                        <option value="+92">+92 Pakistan</option>
-                                        <option value="+680">+680 Palau</option>
-                                        <option value="+970">+970 Palestine</option>
-                                        <option value="+507">+507 Panama</option>
-                                        <option value="+675">+675 Papua New Guinea</option>
-                                        <option value="+595">+595 Paraguay</option>
-                                        <option value="+51">+51 Peru</option>
-                                        <option value="+63">+63 Philippines</option>
-                                        <option value="+48">+48 Poland</option>
-                                        <option value="+351">+351 Portugal</option>
-                                        <option value="+1">+1 Puerto Rico</option>
-                                        <option value="+974">+974 Qatar</option>
-                                        <option value="+40">+40 Romania</option>
-                                        <option value="+7">+7 Russia</option>
-                                        <option value="+250">+250 Rwanda</option>
-                                        <option value="+1">+1 Saint Kitts & Nevis</option>
-                                        <option value="+1">+1 Saint Lucia</option>
-                                        <option value="+1">+1 Saint Vincent & the Grenadines</option>
-                                        <option value="+685">+685 Samoa</option>
-                                        <option value="+378">+378 San Marino</option>
-                                        <option value="+239">+239 Sao Tome & Principe</option>
-                                        <option value="+966">+966 Saudi Arabia</option>
-                                        <option value="+221">+221 Senegal</option>
-                                        <option value="+381">+381 Serbia</option>
-                                        <option value="+248">+248 Seychelles</option>
-                                        <option value="+232">+232 Sierra Leone</option>
-                                        <option value="+65">+65 Singapore</option>
-                                        <option value="+421">+421 Slovakia</option>
-                                        <option value="+386">+386 Slovenia</option>
-                                        <option value="+677">+677 Solomon Islands</option>
-                                        <option value="+252">+252 Somalia</option>
-                                        <option value="+27">+27 South Africa</option>
-                                        <option value="+82">+82 South Korea</option>
-                                        <option value="+211">+211 South Sudan</option>
-                                        <option value="+34">+34 Spain</option>
-                                        <option value="+94">+94 Sri Lanka</option>
-                                        <option value="+249">+249 Sudan</option>
-                                        <option value="+597">+597 Suriname</option>
-                                        <option value="+46">+46 Sweden</option>
-                                        <option value="+41">+41 Switzerland</option>
-                                        <option value="+963">+963 Syria</option>
-                                        <option value="+886">+886 Taiwan</option>
-                                        <option value="+992">+992 Tajikistan</option>
-                                        <option value="+255">+255 Tanzania</option>
-                                        <option value="+66">+66 Thailand</option>
-                                        <option value="+670">+670 Timor-Leste</option>
-                                        <option value="+228">+228 Togo</option>
-                                        <option value="+676">+676 Tonga</option>
-                                        <option value="+1">+1 Trinidad & Tobago</option>
-                                        <option value="+216">+216 Tunisia</option>
-                                        <option value="+90">+90 Turkey</option>
-                                        <option value="+993">+993 Turkmenistan</option>
-                                        <option value="+688">+688 Tuvalu</option>
-                                        <option value="+256">+256 Uganda</option>
-                                        <option value="+380">+380 Ukraine</option>
-                                        <option value="+971">+971 United Arab Emirates</option>
-                                        <option value="+44" selected="selected">+44 United Kingdom</option>
                                         <option value="+1">+1 United States</option>
-                                        <option value="+598">+598 Uruguay</option>
-                                        <option value="+998">+998 Uzbekistan</option>
-                                        <option value="+678">+678 Vanuatu</option>
-                                        <option value="+379">+379 Vatican City</option>
-                                        <option value="+58">+58 Venezuela</option>
-                                        <option value="+84">+84 Vietnam</option>
-                                        <option value="+681">+681 Wallis & Futuna</option>
-                                        <option value="+967">+967 Yemen</option>
-                                        <option value="+260">+260 Zambia</option>
-                                        <option value="+263">+263 Zimbabwe</option>
+                                        <option value="+44" selected="selected">+44 United Kingdom</option>
+                                        <option value="+20">+20 Egypt</option>
+                                        <option value="+91">+91 India</option>
+                                        <option value="+33">+33 France</option>
+                                        <option value="+49">+49 Germany</option>
+                                        <option value="+39">+39 Italy</option>
+                                        <option value="+34">+34 Spain</option>
+                                        <option value="+31">+31 Netherlands</option>
+                                        <option value="+41">+41 Switzerland</option>
+                                        <option value="+43">+43 Austria</option>
+                                        <option value="+45">+45 Denmark</option>
+                                        <option value="+46">+46 Sweden</option>
+                                        <option value="+47">+47 Norway</option>
+                                        <option value="+86">+86 China</option>
+                                        <option value="+81">+81 Japan</option>
+                                        <option value="+61">+61 Australia</option>
+                                        <option value="+55">+55 Brazil</option>
+                                        <option value="+27">+27 South Africa</option>
+                                        <option value="+971">+971 United Arab Emirates</option>
                                     </select>
                                     <input id="booking-phone" name="phone" type="tel" placeholder="WhatsApp number" required pattern="[0-9]+" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
                                 </div>
@@ -6257,7 +6430,6 @@
 
                             <div class="confirmation-section">
                                 <div class="confirmation-row">
-                                    <!-- Checkbox wrapper isolates it from generic .booking-form input rules -->
                                     <div class="checkbox-wrap">
                                         <input type="checkbox" id="email-confirmation" class="confirm-input" />
                                         <span class="custom-checkmark" aria-hidden="true"></span>
@@ -6268,8 +6440,13 @@
                                 </div>
                             </div>
 
-                            <button type="submit" id="book-now-btn" class="btn-claim-discount booking-submit" disabled>Book Now</button>
+                            <button type="button" id="book-now-btn" class="btn-claim-discount booking-submit">Book Now</button>
                         </form>
+
+                        <div class="balance-section">
+                            <span class="balance-amount">80%</span>
+                            <span class="balance-note">(payable by cash or card on arrival.)</span>
+                        </div>
 
                         <p class="trust-copy">For Egyptian transfer contact us: <a href="https://wa.me/447767058307?text=Hello!%20I%20need%20transfer%20information%20for%20the%20boat%20party." target="_blank" rel="noopener noreferrer" style="color:#D4AF37;font-weight:700;text-decoration:none;white-space:nowrap;">&#128242; WhatsApp Us</a></p>
                     </div>
@@ -7635,8 +7812,9 @@ setTimeout(_initSofia, 4000);
                 return;
             }
 
-            // Redirect to Stripe payment
-            window.location.href = 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03';
+            const fallbackLink = 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03';
+            const redirectLink = tripData[activeTrip]?.paymentLink || fallbackLink;
+            window.location.href = redirectLink;
         });
     }
 
@@ -7738,18 +7916,20 @@ setTimeout(_initSofia, 4000);
 
     const tripData = {
         'trip-1': {
-            title: 'AFTER SALTBOX BOAT PARTY',
+            title: 'ADVENTURE BOAT CLUB',
             subtitle: 'Premium day cruise with rooftop bar, pool deck, and sunset party vibes.',
-            ticketPrice: 70,
+            ticketPrice: 80,
             defaultGuests: 2,
             tripDate: 'May 10, 2026',
+            paymentLink: 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03',
         },
         'trip-2': {
             title: 'Adventure Cruise Party',
             subtitle: 'Sunset party adventure with live DJs, VIP lounge, and nonstop refreshment.',
-            ticketPrice: 70,
+            ticketPrice: 80,
             defaultGuests: 2,
             tripDate: '16 May, 2026',
+            paymentLink: 'https://buy.stripe.com/28E14p5PA9kbb9r5V293y06',
         },
     };
 
@@ -7819,6 +7999,27 @@ setTimeout(_initSofia, 4000);
         });
     });
 
+    // Gallery navigation arrows
+    const galleryNavPrev = tripModal ? tripModal.querySelector('.gallery-nav-prev') : null;
+    const galleryNavNext = tripModal ? tripModal.querySelector('.gallery-nav-next') : null;
+
+    if (galleryNavPrev) {
+        galleryNavPrev.addEventListener('click', () => {
+            galleryIndex = (galleryIndex - 1 + gallerySlides.length) % gallerySlides.length;
+            setGallerySlide(galleryIndex);
+            clearInterval(galleryInterval);
+            startGalleryAutoplay();
+        });
+    }
+
+    if (galleryNavNext) {
+        galleryNavNext.addEventListener('click', () => {
+            nextGallerySlide();
+            clearInterval(galleryInterval);
+            startGalleryAutoplay();
+        });
+    }
+
     const mediaCarousel = document.querySelector('.media-carousel');
     const mediaSlides = document.querySelectorAll('.media-slide');
     const mediaDots = document.querySelectorAll('.media-dot');
@@ -7845,6 +8046,12 @@ setTimeout(_initSofia, 4000);
     const nextMediaSlide = () => {
         if (!mediaSlides.length) return;
         mediaIndex = (mediaIndex + 1) % mediaSlides.length;
+        setMediaSlide(mediaIndex);
+    };
+
+    const prevMediaSlide = () => {
+        if (!mediaSlides.length) return;
+        mediaIndex = (mediaIndex - 1 + mediaSlides.length) % mediaSlides.length;
         setMediaSlide(mediaIndex);
     };
 
@@ -7875,6 +8082,23 @@ setTimeout(_initSofia, 4000);
     mediaCarousel?.addEventListener('mouseenter', stopMediaAutoplay);
     mediaCarousel?.addEventListener('mouseleave', startMediaAutoplay);
 
+    const mediaPrevBtn = document.querySelector('.media-nav-prev');
+    const mediaNextBtn = document.querySelector('.media-nav-next');
+    if (mediaPrevBtn) {
+        mediaPrevBtn.addEventListener('click', () => {
+            prevMediaSlide();
+            stopMediaAutoplay();
+            startMediaAutoplay();
+        });
+    }
+    if (mediaNextBtn) {
+        mediaNextBtn.addEventListener('click', () => {
+            nextMediaSlide();
+            stopMediaAutoplay();
+            startMediaAutoplay();
+        });
+    }
+
     startMediaAutoplay();
 
     const stopGalleryAutoplay = () => {
@@ -7897,7 +8121,7 @@ setTimeout(_initSofia, 4000);
         if (bookingAnchor) bookingAnchor.textContent = `€${anchorTotal}`;
         if (bookingPageAnchor) bookingPageAnchor.textContent = `€${anchorTotal}`;
         if (bookingSavings) bookingSavings.textContent = `€${savings}`;
-        if (bookingPageSavings) bookingPageSavings.textContent = `€${savings}`;
+        if (bookingPageSavings) bookingPageSavings.textContent = `20%`;
     };
 
     const tripModalFill = (trip) => {
@@ -7964,22 +8188,6 @@ setTimeout(_initSofia, 4000);
         }
     });
 
-    guestStepButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const action = button.dataset.action;
-            let current = Math.max(1, Number(guestCountInput.value) || 1);
-            if (action === 'increment') {
-                current += 1;
-            } else if (action === 'decrement' && current > 1) {
-                current -= 1;
-            }
-            guestCountInput.value = current;
-            updateBookingTotal();
-        });
-    });
-
-    guestCountInput.addEventListener('input', updateBookingTotal);
-
     const openBookingPage = (trip) => {
         if (trip) {
             activeTrip = trip;
@@ -8004,6 +8212,19 @@ setTimeout(_initSofia, 4000);
         }
         document.body.classList.remove('modal-open');
     };
+
+    // Toggle "What u get" list
+    const offerHeads = document.querySelectorAll('[data-toggle="offer-list"]');
+    offerHeads.forEach(head => {
+        head.addEventListener('click', () => {
+            const targetId = head.getAttribute('data-toggle');
+            const offerList = document.getElementById(targetId);
+            if (offerList) {
+                offerList.classList.toggle('active');
+                head.classList.toggle('active');
+            }
+        });
+    });
 
     modalBookNowButton?.addEventListener('click', () => {
         const tripId = modalBookNowButton.dataset.trip || activeTrip;
@@ -8049,7 +8270,8 @@ setTimeout(_initSofia, 4000);
             return;
         }
 
-        window.location.href = 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03';
+        const paymentLink = tripData[activeTrip]?.paymentLink || 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03';
+        window.location.href = paymentLink;
     });
 
     openMapsButton?.addEventListener('click', () => {
@@ -8212,8 +8434,9 @@ setTimeout(_initSofia, 4000);
                 if (btn) { btn.disabled = false; btn.textContent = originalText; }
             }
 
-            // Redirect to Stripe payment
-            window.location.href = 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03';
+            const fallbackLink = 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03';
+            const redirectLink = tripData[activeTrip]?.paymentLink || fallbackLink;
+            window.location.href = redirectLink;
         });
 
         // Remove red border on input focus
@@ -8243,6 +8466,122 @@ setTimeout(_initSofia, 4000);
         if (typeof autoScroll !== 'undefined')        autoScroll        = !hidden;
         if (typeof feedbackAutoScroll !== 'undefined') feedbackAutoScroll = !hidden;
     });
+
+    // Countdown timer
+    function updateCountdowns() {
+        const timers = document.querySelectorAll('.countdown-timer');
+        timers.forEach(timer => {
+            const targetDate = new Date(timer.dataset.date).getTime();
+            const now = new Date().getTime();
+            const diff = targetDate - now;
+
+            if (diff <= 0) {
+                timer.innerHTML = '<div class="countdown-unit"><span class="cdown-val">00</span><span class="cdown-lbl">DAYS</span></div><span class="cdown-sep">:</span><div class="countdown-unit"><span class="cdown-val">00</span><span class="cdown-lbl">HRS</span></div><span class="cdown-sep">:</span><div class="countdown-unit"><span class="cdown-val">00</span><span class="cdown-lbl">MINS</span></div><span class="cdown-sep">:</span><div class="countdown-unit"><span class="cdown-val">00</span><span class="cdown-lbl">SECS</span></div>';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            timer.querySelectorAll('[data-unit]').forEach(el => {
+                const unit = el.dataset.unit;
+                let value = 0;
+                if (unit === 'd') value = days;
+                else if (unit === 'h') value = hours;
+                else if (unit === 'm') value = minutes;
+                else if (unit === 's') value = seconds;
+                el.textContent = String(value).padStart(2, '0');
+            });
+        });
+    }
+
+    updateCountdowns();
+    setInterval(updateCountdowns, 1000);
+
+    // ── Stripe Payment Link Mapping ──
+    const stripePaymentLinks = {
+        1: 'https://buy.stripe.com/3cIfZj7XI67Z3GZ6Z693y07',
+        2: 'https://buy.stripe.com/5kQ5kFem68g72CV0AI93y08',
+        3: 'https://buy.stripe.com/6oUbJ3guecwn3GZ5V293y09',
+        4: 'https://buy.stripe.com/fZufZj2Do67ZfpHbfm93y0a',
+        5: 'https://buy.stripe.com/dRmbJ32Do0NF7Xfery93y0b',
+        6: 'https://buy.stripe.com/dRm8wRdi27c31yRgzG93y0c',
+        7: 'https://buy.stripe.com/00w28t1zkgMDfpHfvC93y0d',
+        8: 'https://buy.stripe.com/9B63cxcdY9kbb9r6Z693y0e',
+        9: 'https://buy.stripe.com/9B65kF6TEbsj91j6Z693y0f',
+        10: 'https://buy.stripe.com/aFa14pcdY3ZRfpH6Z693y0h'
+    };
+
+    const totalPriceDisplay = document.getElementById('total-price-amount');
+    const bookNowBtn = document.getElementById('book-now-btn');
+
+    function updatePrice() {
+        const quantity = parseInt(guestCountInput.value, 10) || 1;
+        const totalPrice = quantity * 16;
+        if (totalPriceDisplay) {
+            totalPriceDisplay.textContent = '€' + totalPrice;
+        }
+    }
+
+    function handleQuantityChange(e) {
+        const currentValue = parseInt(guestCountInput.value, 10) || 1;
+        let newValue = currentValue;
+
+        if (e.target.dataset.action === 'increment') {
+            if (currentValue < 10) newValue = currentValue + 1;
+        } else if (e.target.dataset.action === 'decrement') {
+            if (currentValue > 1) newValue = currentValue - 1;
+        }
+
+        guestCountInput.value = newValue;
+        updatePrice();
+        updateOrderSummaryPrice();
+    }
+
+    // Use event delegation instead of direct attachment
+    document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('guest-step')) {
+            handleQuantityChange(e);
+        }
+    });
+
+    guestCountInput.addEventListener('input', () => {
+        let value = parseInt(guestCountInput.value, 10) || 1;
+        if (value > 10) value = 10;
+        if (value < 1) value = 1;
+        guestCountInput.value = value;
+        updatePrice();
+        updateOrderSummaryPrice();
+    });
+
+    function updateOrderSummaryPrice() {
+        if (!guestCountInput) return;
+        const quantity = parseInt(guestCountInput.value, 10) || 1;
+        const anchorPrice = 100 * quantity;
+        const offerPrice = 80 * quantity;
+        const bookingPageAnchor = document.getElementById('booking-page-anchor');
+        const bookingPageTotal = document.getElementById('booking-page-total');
+        if (bookingPageAnchor) {
+            bookingPageAnchor.textContent = '€' + anchorPrice;
+        }
+        if (bookingPageTotal) {
+            bookingPageTotal.textContent = '€' + offerPrice;
+        }
+    }
+
+    bookNowBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const quantity = parseInt(guestCountInput.value, 10) || 1;
+        const stripeLink = stripePaymentLinks[quantity];
+        if (stripeLink) {
+            window.location.href = stripeLink;
+        }
+    });
+
+    updatePrice();
+    updateOrderSummaryPrice();
 }); // end requestIdleCallback
 </script>
 
