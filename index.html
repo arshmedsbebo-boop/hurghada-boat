@@ -699,6 +699,14 @@
             will-change: transform;
             animation: float 3s ease-in-out infinite, pulseSoft 2s ease-in-out infinite, goldShimmer 3s ease-in-out infinite;
         }
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes pulseSoft {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.85; }
+        }
         @keyframes goldShimmer {
             0%   { background-position: 0% 0%; }
             50%  { background-position: 100% 0%; }
@@ -4790,7 +4798,7 @@
         }
 
 
-    /* أ¢—‌€أ¢—‌€ Performance optimisations أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€أ¢—‌€ */
+    /* ── Performance optimisations ── */
 
     /* —— Premium Visual Polish —————————————————————————————————————————————— */
 
@@ -5783,13 +5791,6 @@
     <!-- Navigation -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-400 py-6 px-6 md:px-10 lg:px-14" style="background: transparent;">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <!-- Logo -->
-            <a href="#" class="flex items-center gap-2 z-50">
-                <div class="logo-text">
-                    <span class="logo-name">Hurghada</span>
-                    <span class="logo-sub">Boat Party</span>
-                </div>
-            </a>
 
             <!-- Desktop Nav Links -->
             <div class="hidden lg:flex items-center gap-6">
@@ -5849,6 +5850,18 @@
         <!-- Hero Content -->
         <div class="relative z-10 text-center px-4 sm:px-6 max-w-5xl mx-auto pt-16">
 
+            <!-- Title Bar -->
+            <div style="display:inline-flex;align-items:center;gap:12px;margin-bottom:16px;">
+                <span style="display:block;width:50px;height:2px;background:linear-gradient(to right,transparent,#D4AF37);"></span>
+                <span style="color:#D4AF37;font-size:0.8rem;font-weight:700;letter-spacing:0.25em;text-transform:uppercase;">Red Sea · Egypt</span>
+                <span style="display:block;width:50px;height:2px;background:linear-gradient(to left,transparent,#D4AF37);"></span>
+            </div>
+
+            <!-- Main Title -->
+            <h1 style="font-family:Georgia,'Times New Roman',serif;font-size:clamp(2.8rem,8vw,5.5rem);font-weight:700;color:#ffffff;line-height:1.1;margin-bottom:24px;text-shadow:0 2px 30px rgba(0,0,0,0.5);">
+                Hurghada<br><span style="color:#D4AF37;">Boat Party</span>
+            </h1>
+
             <!-- LED neon service bar -->
             <div class="hero-led-bar mb-8">
                 <span class="hero-led-item">Sunset Party</span>
@@ -5885,11 +5898,19 @@
     <section class="relative z-10 overflow-hidden" style="background:#0077BE; padding: 0.9rem 0;">
         <div class="charity-ticker-track">
             <div class=”charity-ticker-inner”>
-                <span class=”charity-ticker-item”>ًںچ½ï¸ڈ&nbsp; Turn your ticket into a meal â€” with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;ًںگ¾&nbsp;&nbsp;&nbsp;&nbsp;âœ¦&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span class=”charity-ticker-item”>ًںچ½ï¸ڈ&nbsp; Turn your ticket into a meal â€” with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;ًںگ¾&nbsp;&nbsp;&nbsp;&nbsp;âœ¦&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class=”charity-ticker-item”>🍽️&nbsp; Turn your ticket into a meal — with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;🐾&nbsp;&nbsp;&nbsp;&nbsp;✦&nbsp;&nbsp;&nbsp;&nbsp;</span>
             </div>
         </div>
     </section>
+    <script>
+        (function(){
+            var inner = document.querySelector('.charity-ticker-inner');
+            if(inner){
+                var item = inner.querySelector('.charity-ticker-item');
+                if(item){ var clone = item.cloneNode(true); clone.setAttribute('aria-hidden','true'); inner.appendChild(clone); }
+            }
+        })();
+    </script>
 
     <!-- Features Section -->
     <section id="features" class="py-12 md:py-16 section-deepsea relative" style="overflow:visible;padding-left:0;padding-right:0;">
@@ -6038,7 +6059,7 @@
                             <div class="trip-card-hero"></div>
                             <div class="trip-card-badge">
                                 <span class="trip-card-badge-day">Session</span>
-                                <span class="trip-card-badge-month">{5} 2026</span>
+                                <span class="trip-card-badge-month">(5) 2026</span>
                             </div>
                             <div class="trip-card-headline">
                                 <div>
@@ -6048,10 +6069,10 @@
                         </div>
                         <div class="trip-card-content">
                             <div class="trip-card-feature-row">
-                                <div class="trip-card-feature-item"><span>🕐 9 AM to 5 PM</span></div>
-                                <div class="trip-card-feature-item"><span>🚐 Free Transfer</span></div>
-                                <div class="trip-card-feature-item"><span>⭐ All-Inclusive</span></div>
-                                <div class="trip-card-feature-item"><span>📅 Every Saturday</span></div>
+                                <div class="trip-card-feature-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0"><circle cx="12" cy="12" r="10" stroke="#D4AF37" stroke-width="2"/><polyline points="12,6 12,12 16,14" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>10 AM – 5 PM</span></div>
+                                <div class="trip-card-feature-item"><svg width="20" height="20" viewBox="0 0 48 48" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0"><rect x="4" y="8" width="34" height="24" rx="3" fill="#D4AF37"/><rect x="4" y="8" width="34" height="24" rx="3" fill="url(#busShadeGold)"/><rect x="6" y="10" width="30" height="10" rx="2" fill="#b8920d" opacity="0.5"/><rect x="8" y="11" width="8" height="8" rx="1" fill="#f5d67a" opacity="0.6"/><rect x="18" y="11" width="8" height="8" rx="1" fill="#f5d67a" opacity="0.6"/><rect x="28" y="11" width="6" height="8" rx="1" fill="#f5d67a" opacity="0.6"/><rect x="4" y="22" width="34" height="2" fill="#a07820"/><rect x="38" y="12" width="6" height="16" rx="2" fill="#c9952f"/><rect x="39" y="14" width="4" height="7" rx="1" fill="#f5d67a" opacity="0.5"/><rect x="4" y="30" width="34" height="4" rx="1" fill="#a07820"/><circle cx="11" cy="36" r="4" fill="#a07820"/><circle cx="11" cy="36" r="2" fill="#D4AF37"/><circle cx="11" cy="36" r="1" fill="#f5d67a"/><circle cx="29" cy="36" r="4" fill="#a07820"/><circle cx="29" cy="36" r="2" fill="#D4AF37"/><circle cx="29" cy="36" r="1" fill="#f5d67a"/><rect x="2" y="14" width="3" height="6" rx="1" fill="#f5d67a" opacity="0.9"/><rect x="40" y="28" width="4" height="3" rx="1" fill="#a07820" opacity="0.9"/><defs><linearGradient id="busShadeGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="white" stop-opacity="0.25"/><stop offset="100%" stop-color="black" stop-opacity="0.15"/></linearGradient></defs></svg><span>Free Transfer</span></div>
+                                <div class="trip-card-feature-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#D4AF37" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#D4AF37" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="2" x2="16" y2="6" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/><rect x="7" y="13" width="3" height="3" rx="0.5" fill="#D4AF37"/><rect x="11" y="13" width="3" height="3" rx="0.5" fill="#D4AF37"/><rect x="15" y="13" width="3" height="3" rx="0.5" fill="#D4AF37"/></svg><span>Every Saturday</span></div>
+                                <div class="trip-card-feature-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#D4AF37" stroke="#D4AF37" stroke-width="1.5" stroke-linejoin="round"/></svg><span>All-Inclusive</span></div>
                             </div>
                             <div class="trip-card-countdown">
                                 <span class="countdown-label">★ LIMITED TIME OFFER</span>
@@ -6124,7 +6145,7 @@
                                 <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75&fm=webp" alt="Luxury yacht deck" width="800" height="533" loading="eager" decoding="async" fetchpriority="high" srcset="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=400&q=70&fm=webp 400w, https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=72&fm=webp 600w, https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75&fm=webp 800w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px" />
                             </div>
                             <div class="gallery-slide">
-                                       poster="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1200&q=80">
+                                <img src="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=800&q=75&fm=webp" alt="Yacht celebration" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="gallery-slide">
                                 <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=75&fm=webp" alt="VIP yacht interior" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" srcset="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=70&fm=webp 400w, https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=72&fm=webp 600w, https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=75&fm=webp 800w" sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 800px" />
@@ -6225,9 +6246,6 @@
                             <img src="https://i.ibb.co/rf4FhR4W/DSC-6598.jpg" alt="Gallery image 2" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
                         </div>
                         <div class="media-slide">
-                                <!--  -->
-                        </div>
-                        <div class="media-slide">
                             <img src="https://i.ibb.co/gLKbWqFr/DSC-6588.jpg" alt="Gallery image 4" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
                         </div>
                         <div class="media-slide">
@@ -6256,7 +6274,6 @@
                             <button type="button" class="media-dot" data-index="7" aria-label="Show slide 7"></button>
                             <button type="button" class="media-dot" data-index="8" aria-label="Show slide 8"></button>
                             <button type="button" class="media-dot" data-index="9" aria-label="Show slide 9"></button>
-                            <button type="button" class="media-dot" data-index="10" aria-label="Show slide 10"></button>
                         </div>
                     </div>
 
@@ -6276,20 +6293,20 @@
                                     <span style="font-size: 0.75rem; font-weight: 400; color: rgba(255,255,255,0.6); margin-left: auto;">(click to see)</span>
                                 </div>
                                 <div class="offer-pills-list" id="offer-list">
-                                    <div class="offer-pill"><i class="fas fa-check"></i> Free transfer back and forth</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Food made by order</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Cocktail and drinks</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Snorkelling tools</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Snorkelling spot</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Swimming pool</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Submarine</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Life dj all day</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Life jacket</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Security</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Life guard</div>
-                                <div class="offer-pill"><i class="fas fa-check"></i> Chill floor</div>
-                                <div class="offer-pill"><i class="fas fa-restroom"></i> 12 Toilet</div>
-                                    <div class="offer-pill"><i class="fas fa-snowflake"></i> AC</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Free transfer back and forth</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Food made by order</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Cocktail and drinks</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Snorkelling tools</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Snorkelling spot</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Swimming pool</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Submarine</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Life DJ all day</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Life jacket</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Security</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Life guard</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Chill floor</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>12 Toilet</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>AC</div>
                                 </div>
                             </div>
                         </div>
@@ -6303,7 +6320,7 @@
                             <span class="price-anchor" id="booking-page-anchor" style="text-decoration: line-through; color: #ff4444;">€200</span>
                             <span class="price-offer" id="booking-page-total">€160</span>
                         </div>
-                        <div class="price-save-line">💳 Deposit to pay now: <span id="booking-page-savings">20%</span></div>
+                        <div class="price-save-line"><svg width="16" height="16" viewBox="0 0 16 16" style="display:inline; margin-right: 8px; vertical-align: middle;"><rect x="2" y="4" width="12" height="8" rx="1" fill="none" stroke="#D4AF37" stroke-width="1.2"/><rect x="2" y="4" width="12" height="2" fill="#D4AF37"/><circle cx="11" cy="10" r="1" fill="#D4AF37"/></svg><span style="color: rgba(245, 240, 225, 0.82);">Deposit to pay now: <span id="booking-page-savings">20%</span></span></div>
 
                         <form id="booking-page-form" class="booking-form">
                             <div class="guest-counter">
@@ -6316,30 +6333,30 @@
                             </div>
 
                             <label>
-                                <span class="field-label">👤 Full Name</span>
+                                <span class="field-label"><svg width="16" height="16" viewBox="0 0 16 16" style="display:inline; margin-right: 8px; vertical-align: middle;"><circle cx="8" cy="4" r="2.5" fill="#D4AF37"/><path d="M 2 12 Q 2 9 8 9 Q 14 9 14 12 L 14 14 L 2 14 Z" fill="#D4AF37"/></svg><span style="color: rgba(245, 240, 225, 0.82);">Full Name</span></span>
                                 <input id="booking-name" name="full_name" type="text" placeholder="Full Name" required />
                             </label>
                             <label>
-                                <span class="field-label">🏨 Hotel Name</span>
+                                <span class="field-label"><svg width="16" height="16" viewBox="0 0 16 16" style="display:inline; margin-right: 8px; vertical-align: middle;"><rect x="2" y="5" width="3" height="3" fill="#D4AF37"/><rect x="6.5" y="5" width="3" height="3" fill="#D4AF37"/><rect x="11" y="5" width="3" height="3" fill="#D4AF37"/><rect x="2" y="9" width="3" height="3" fill="#D4AF37"/><rect x="6.5" y="9" width="3" height="3" fill="#D4AF37"/><rect x="11" y="9" width="3" height="3" fill="#D4AF37"/><polygon points="2,14 14,14 14,2 8,2 6,4 2,4" fill="none" stroke="#D4AF37" stroke-width="1"/></svg><span style="color: rgba(245, 240, 225, 0.82);">Hotel Name</span></span>
                                 <input id="booking-hotel" name="hotel_name" type="text" placeholder="Hotel Name" required />
                             </label>
                             <label>
-                                <span class="field-label">🚪 Room Number</span>
+                                <span class="field-label"><svg width="16" height="16" viewBox="0 0 16 16" style="display:inline; margin-right: 8px; vertical-align: middle;"><rect x="2" y="2" width="12" height="12" fill="none" stroke="#D4AF37" stroke-width="1.5"/><circle cx="11" cy="8" r="1.5" fill="#D4AF37"/><line x1="2" y1="5" x2="14" y2="5" stroke="#D4AF37" stroke-width="1"/></svg><span style="color: rgba(245, 240, 225, 0.82);">Room Number</span></span>
                                 <input id="booking-room" name="room_number" type="text" placeholder="Room Number" required />
                             </label>
                             <label>
-                                <span class="field-label">📧 Email Address</span>
+                                <span class="field-label"><svg width="16" height="16" viewBox="0 0 16 16" style="display:inline; margin-right: 8px; vertical-align: middle;"><rect x="2" y="4" width="12" height="9" fill="none" stroke="#D4AF37" stroke-width="1.5"/><polyline points="2,4 8,8 14,4" fill="none" stroke="#D4AF37" stroke-width="1.5"/></svg><span style="color: rgba(245, 240, 225, 0.82);">Email Address</span></span>
                                 <input id="booking-email" name="email" type="email" placeholder="Email Address" required />
                             </label>
                             <label>
-                                <span class="field-label">✉️ Confirm Email</span>
+                                <span class="field-label"><svg width="16" height="16" viewBox="0 0 16 16" style="display:inline; margin-right: 8px; vertical-align: middle;"><rect x="2" y="4" width="10" height="8" fill="none" stroke="#D4AF37" stroke-width="1.5"/><polyline points="2,4 7,7 12,4" fill="none" stroke="#D4AF37" stroke-width="1.5"/><path d="M 12 6 L 14 8 L 16 6" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg><span style="color: rgba(245, 240, 225, 0.82);">Confirm Email</span></span>
                                 <div style="position: relative;">
                                     <input id="booking-confirm-email" name="confirm_email" type="email" placeholder="Confirm Email Address" required />
                                     <span class="email-checkmark" style="position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: #D4AF37; font-weight: bold; font-size: 1.1rem; opacity: 0; transition: opacity 0.3s ease;">?</span>
                                 </div>
                             </label>
                             <label class="phone-field">
-                                <span class="field-label">📱 WhatsApp Number</span>
+                                <span class="field-label"><svg width="16" height="16" viewBox="0 0 16 16" style="display:inline; margin-right: 8px; vertical-align: middle;"><path d="M 3 2 L 13 2 Q 14 2 14 3 L 14 13 Q 14 14 13 14 L 3 14 Q 2 14 2 13 L 2 3 Q 2 2 3 2" fill="none" stroke="#D4AF37" stroke-width="1.2"/><line x1="4" y1="4" x2="12" y2="4" stroke="#D4AF37" stroke-width="0.8"/><path d="M 5 6 Q 6 7 7 8" fill="none" stroke="#D4AF37" stroke-width="0.8"/><path d="M 9 6 Q 10 7 11 8" fill="none" stroke="#D4AF37" stroke-width="0.8"/></svg><span style="color: rgba(245, 240, 225, 0.82);">WhatsApp Number</span></span>
                                 <div class="phone-row">
                                     <select id="booking-country" name="country_code" aria-label="Country code">
                                         <option value="+1">+1 United States</option>
@@ -6834,12 +6851,12 @@
         }, { passive: true });
         updatePager(); // initial state
 
-        // —— Tilt effect —” RAF-throttled mousemove (no getBoundingClientRect on every event)
-        const isMobile = () => window.matchMedia('(pointer: coarse)').matches;
+        // —— Tilt effect —“ RAF-throttled mousemove (no getBoundingClientRect on every event)
+        const isMobileTilt = () => window.matchMedia('(pointer: coarse)').matches;
         featureCards.forEach(card => {
             let tiltFrame = null;
             card.addEventListener('mousemove', (e) => {
-                if (isMobile()) return;
+                if (isMobileTilt()) return;
                 if (tiltFrame) return;          // skip if a frame is already queued
                 tiltFrame = requestAnimationFrame(() => {
                     const rect = card.getBoundingClientRect();
@@ -7728,7 +7745,6 @@
     };
 
     const totalPriceDisplay = document.getElementById('total-price-amount');
-    const bookNowBtn = document.getElementById('book-now-btn');
 
     function updatePrice() {
         const quantity = parseInt(guestCountInput.value, 10) || 1;
