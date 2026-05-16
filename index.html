@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#050507">
-    <meta name="color-scheme" content="dark">
+    <meta name="color-scheme" content="dark light">
     <title>Boat Party Hurghada</title>
     <meta name="description" content="AQUATICA Boat Party Hurghada: The most exclusive After Sandbox Event with Luxury Red Sea Cruise, VIP Boat Trips Egypt with snorkeling and diving Hurghada.">
     <!-- Preconnect: high-priority origins first -->
@@ -18,21 +18,25 @@
     <link rel="dns-prefetch" href="https://i.postimg.cc">
     <link rel="dns-prefetch" href="https://images.unsplash.com">
     <link rel="dns-prefetch" href="https://cdn.tailwindcss.com">
-    <!-- LCP preload removed: hero background image not used -->
+    <!-- Preload critical resources -->
+    <link rel="preload" href="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75&fm=webp" as="image" type="image/webp" fetchpriority="high">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" as="style">
+    <link rel="prefetch" href="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=75&fm=webp" as="image" type="image/webp">
     <!-- CSP: basic XSS protection -->
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
 
-    <!-- Fonts — deferred with font-display:swap for fast FCP -->
+    <!-- Fonts â€” deferred with font-display:swap for fast FCP -->
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap"></noscript>
 
-    <!-- Font Awesome — deferred with print trick; icons load after paint -->
-    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.woff2" as="font" type="font/woff2" crossorigin>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'" crossorigin="anonymous" referrerpolicy="no-referrer">
-    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous"></noscript>
+    <!-- Font Awesome - deferred with print trick; icons load after paint -->
+    <link rel=”preload” href=”https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/webfonts/fa-solid-900.woff2” as=”font” type=”font/woff2” crossorigin>
+    <link rel=”stylesheet” href=”https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css” media=”print” onload=”this.media='all'” crossorigin=”anonymous” referrerpolicy=”no-referrer”>
+    <noscript><link rel=”stylesheet” href=”https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css” crossorigin=”anonymous”></noscript>
 
-    <!-- Stripe dns-prefetch (preconnect already above) -->
+    <!-- Stripe dns-prefetch and preconnect for payment -->
     <link rel="dns-prefetch" href="https://js.stripe.com">
+    <link rel="preconnect" href="https://m.stripe.network" crossorigin>
 
     <!-- Tailwind CDN: deferred to avoid blocking FCP -->
     <script defer>
@@ -56,15 +60,15 @@
             }
         }
     </script>
-    <script defer src="https://cdn.tailwindcss.com"></script>
+    <script defer importance="high" src="https://cdn.tailwindcss.com"></script>
 
     <!-- Critical CSS for above-the-fold FCP -->
     <style>
-        *{margin:0;padding:0;box-sizing:border-box}html,body{width:100%;height:100%}body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#050507;color:#fff;line-height:1.5}main{display:block}img{max-width:100%;display:block;height:auto}
+        *{margin:0;padding:0;box-sizing:border-box}html,body{width:100%;height:100%}body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#050507;color:#fff;line-height:1.5;-webkit-font-smoothing:antialiased}main{display:block}img{max-width:100%;display:block;height:auto}
         /* Hero section critical styles */
-        #hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background-color:#000C1F}#hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+        #hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden;background-color:#000C1F;contain:layout style paint}#hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
         /* LED bar critical */
-        .hero-led-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0.5rem 0.35rem;padding:0 1rem}.hero-led-item{font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:clamp(0.72rem,1.8vw,1rem);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#D4AF37}
+        .hero-led-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:0.5rem 0.35rem;padding:0 1rem}.hero-led-item{font-family:'Plus Jakarta Sans',system-ui,sans-serif;font-size:clamp(0.72rem,1.8vw,1rem);font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#D4AF37;will-change:opacity}
     </style>
 
     <!-- Hero LED bar CSS (deferred animations for performance) -->
@@ -133,7 +137,7 @@
         #hero { content-visibility: visible; }
 
         /* Performance optimizations for animations */
-        .hero-led-item, .charity-ticker-inner, .media-nav, #vip-toggle {
+        .hero-led-item, .charity-ticker-inner, .media-nav {
             will-change: auto;
         }
 
@@ -150,7 +154,6 @@
             .charity-ticker-inner { animation: none; }
             .price-badge { animation: none !important; }
             .media-nav { animation: none; }
-            #vip-toggle { animation: none; }
 
             /* Reduce expensive filters and blur on mobile */
             * { backdrop-filter: none !important; -webkit-backdrop-filter: none !important; }
@@ -165,7 +168,7 @@
         }
     </style>
 
-    <!-- Charity ticker CSS — in head so it applies before the section renders -->
+    <!-- Charity ticker CSS â€” in head so it applies before the section renders -->
     <style>
         .charity-ticker-track {
             width: 100%;
@@ -213,9 +216,9 @@
         }
         .font-display, h1, h2, h3 { font-family: Georgia, 'Times New Roman', serif; }
 
-        /* Hide desktop nav links until Tailwind loads — prevents Instagram icon flash */
+        /* Hide desktop nav links until Tailwind loads â€” prevents Instagram icon flash */
         #navbar .hidden { display: none; }
-        /* Ensure hero covers screen immediately — no blank flash */
+        /* Ensure hero covers screen immediately â€” no blank flash */
         #hero {
             position: relative;
             min-height: 100vh;
@@ -226,7 +229,7 @@
             justify-content: center;
             overflow: hidden;
         }
-        /* Nav bar baseline — visible immediately */
+        /* Nav bar baseline â€” visible immediately */
         #navbar {
             position: fixed;
             top: 0; left: 0; right: 0;
@@ -237,7 +240,7 @@
         /* Hamburger always visible on mobile */
         #hamburger { display: block; pointer-events: auto; cursor: pointer; z-index: 50; }
 
-        /* ── Critical Tailwind utilities (above-fold only) ──
+        /* â”€â”€ Critical Tailwind utilities (above-fold only) â”€â”€
            Loaded inline so Tailwind CDN can be safely deferred
            without causing a Flash of Unstyled Content on first paint. */
         .relative{position:relative}.absolute{position:absolute}.fixed{position:fixed}
@@ -347,7 +350,7 @@
         }
 
 
-        /* Hero overlay gradient — cinematic teal shadows + warm amber horizon */
+        /* Hero overlay gradient â€” cinematic teal shadows + warm amber horizon */
         .hero-overlay {
             background: linear-gradient(180deg,
                     rgba(5, 30, 45, 0.45) 0%,
@@ -685,7 +688,7 @@
             }
         }
 
-        /* Price badge glow — metallic gold champagne */
+        /* Price badge glow â€” metallic gold champagne */
         .price-badge {
             background: linear-gradient(135deg, #B8870E 0%, #E8B84B 40%, #D4AF37 60%, #B8870E 100%);
             background-size: 200% 100%;
@@ -699,7 +702,7 @@
             100% { background-position: 0% 0%; }
         }
 
-        /* CTA button — metallic gold / champagne finish */
+        /* CTA button â€” metallic gold / champagne finish */
         .cta-btn {
             background: linear-gradient(135deg, #A0720A 0%, #D4AF37 35%, #F0CC6A 55%, #C9973A 80%, #A0720A 100%);
             background-size: 200% 100%;
@@ -807,7 +810,7 @@
             animation: none;
         }
 
-        /* ── Unified canvas: #features → #trips → #faq ── */
+        /* â”€â”€ Unified canvas: #features â†’ #trips â†’ #faq â”€â”€ */
         :root {
             --bg-midnight: #000C1F;
             --bg-navy:     #001A3D;
@@ -816,7 +819,7 @@
         #features,
         #trips,
         #faq {
-            /* Seamless shared canvas — no visible seams between sections */
+            /* Seamless shared canvas â€” no visible seams between sections */
             background:
                 radial-gradient(ellipse 70% 60% at 50% 50%,
                     rgba(0, 26, 61, 0.55) 0%,
@@ -834,7 +837,7 @@
             overflow: hidden;
         }
 
-        /* Subtle wave texture — toned to midnight blue palette */
+        /* Subtle wave texture â€” toned to midnight blue palette */
         .section-deepsea::before {
             content: '';
             position: absolute;
@@ -852,7 +855,7 @@
             to   { background-position: 720px bottom; }
         }
 
-        /* Second wave — gold tint, very subtle */
+        /* Second wave â€” gold tint, very subtle */
         .section-deepsea::after {
             content: '';
             position: absolute;
@@ -1478,7 +1481,7 @@
             padding: 0 3.75rem;
         }
 
-        /* ── Swipeable track — fully hardware accelerated ── */
+        /* â”€â”€ Swipeable track â€” fully hardware accelerated â”€â”€ */
         .carousel-track {
             display: flex;
             gap: 1.5rem;
@@ -1489,7 +1492,7 @@
             padding-bottom: 1rem;
             scroll-behavior: smooth;
             -webkit-overflow-scrolling: touch;
-            /* GPU compositing — smooth 60fps swipe on all devices */
+            /* GPU compositing â€” smooth 60fps swipe on all devices */
             will-change: scroll-position;
             /* Allow horizontal pan, block vertical hijack */
             touch-action: pan-x;
@@ -1505,7 +1508,7 @@
         .carousel-track::-webkit-scrollbar { display: none; }
         .carousel-track { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Feature cards — horizontal swipe enabled */
+        /* Feature cards â€” horizontal swipe enabled */
         .feature-card {
             pointer-events: auto;
             cursor: grab;
@@ -1514,7 +1517,7 @@
         }
         .feature-card:active { cursor: grabbing; }
 
-        /* ── Desktop arrows ── */
+        /* â”€â”€ Desktop arrows â”€â”€ */
         .carousel-nav {
             position: absolute;
             top: 50%;
@@ -1538,7 +1541,7 @@
                         inset 0 1px 0 rgba(255, 255, 255, 0.07);
             pointer-events: auto;
             touch-action: manipulation;
-            /* Highly transparent by default — won't obscure card text */
+            /* Highly transparent by default â€” won't obscure card text */
             opacity: 0.28;
             will-change: opacity, transform;
         }
@@ -1555,10 +1558,10 @@
         .carousel-nav-left  { left: 0.5rem; }
         .carousel-nav-right { right: 0.5rem; }
 
-        /* ══════════════════════════════════════════════
-           MOBILE CAROUSEL — iPhone 13/14/17 + Samsung
+        /* â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
+           MOBILE CAROUSEL â€” iPhone 13/14/17 + Samsung
            Breakpoint 768px catches ALL phones
-           ══════════════════════════════════════════════ */
+           â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ */
         @media (max-width: 768px) {
 
             /* Shell: relative container with bottom padding for the arrow row */
@@ -1601,14 +1604,14 @@
                 -webkit-backdrop-filter: blur(6px) !important;
             }
 
-            /* ── Navigation arrows: absolutely placed side-by-side below track ── */
+            /* â”€â”€ Navigation arrows: absolutely placed side-by-side below track â”€â”€ */
             .carousel-nav-left,
             .carousel-nav-right {
                 position: absolute !important;
                 top: auto !important;
                 bottom: -30px !important;
                 transform: none !important;
-                /* fully visible on mobile — no desktop-transparency override */
+                /* fully visible on mobile â€” no desktop-transparency override */
                 opacity: 1 !important;
                 width: 52px !important;
                 height: 52px !important;
@@ -1626,7 +1629,7 @@
                 margin: 0 !important;
             }
 
-            /* Left arrow: right of center, right arrow: left of center — 8px gap total */
+            /* Left arrow: right of center, right arrow: left of center â€” 8px gap total */
             .carousel-nav-left  { left: auto !important; right: calc(50% + 4px) !important; }
             .carousel-nav-right { right: auto !important; left: calc(50% + 4px) !important; }
 
@@ -3453,7 +3456,7 @@
             padding: 1.1rem 1.6rem;
             border-radius: 18px;
             border: 3px solid rgba(212, 175, 55, 0.6);
-            /* Satin Gold #D4AF37 — consistent with brand identity */
+            /* Satin Gold #D4AF37 â€” consistent with brand identity */
             background: linear-gradient(135deg,
                 #8C6008 0%, #C9973A 25%, #D4AF37 50%,
                 #F0CC6A 68%, #D4AF37 82%, #A07010 100%);
@@ -3465,7 +3468,7 @@
             text-transform: uppercase;
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
             cursor: pointer;
-            /* GPU layer — no layout shift during animation */
+            /* GPU layer â€” no layout shift during animation */
             transform: translateZ(0);
             will-change: transform, box-shadow;
             transition: transform 0.28s ease, box-shadow 0.28s ease;
@@ -3623,7 +3626,7 @@
             opacity: 1;
         }
 
-        /* ── Booking Confirmation Checkbox ─────────────────────────── */
+        /* â”€â”€ Booking Confirmation Checkbox â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
         .confirmation-section {
             margin: 1.75rem 0 1.5rem;
             padding: 1.1rem 1.1rem;
@@ -3640,7 +3643,7 @@
             cursor: pointer;
         }
 
-        /* Isolated wrapper — immune to .booking-form input generic rules */
+        /* Isolated wrapper â€” immune to .booking-form input generic rules */
         .checkbox-wrap {
             position: relative;
             width: 26px;
@@ -3650,7 +3653,7 @@
             margin-top: 1px;     /* optical alignment with first line of text */
         }
 
-        /* Hidden native checkbox — full-size hit area over the custom box */
+        /* Hidden native checkbox â€” full-size hit area over the custom box */
         .confirm-input {
             /* Override ALL inherited form styles */
             all: unset !important;
@@ -3691,7 +3694,7 @@
             box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.15);
         }
 
-        /* Checked — solid gold fill */
+        /* Checked â€” solid gold fill */
         .confirm-input:checked + .custom-checkmark {
             background: #D4AF37 !important;
             border-color: #D4AF37 !important;
@@ -3716,7 +3719,7 @@
             opacity: 1;
         }
 
-        /* Label text — clicking it also toggles the checkbox via for= */
+        /* Label text â€” clicking it also toggles the checkbox via for= */
         .confirmation-text {
             font-family: 'Plus Jakarta Sans', sans-serif;
             font-size: 0.83rem;
@@ -3729,7 +3732,7 @@
             flex: 1;
         }
 
-        /* Book Now button — dims clearly when locked */
+        /* Book Now button â€” dims clearly when locked */
         .btn-claim-discount.booking-submit:disabled {
             opacity: 0.40;
             cursor: not-allowed;
@@ -4784,9 +4787,9 @@
         }
 
 
-    /* â”€â”€ Performance optimisations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
+    /* أ¢â€‌â‚¬أ¢â€‌â‚¬ Performance optimisations أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬أ¢â€‌â‚¬ */
 
-    /* ── Premium Visual Polish ────────────────────────────────────────────── */
+    /* â”€â”€ Premium Visual Polish â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
     /* Cinematic filter on all gallery / trip card images */
     .trip-card-hero img,
@@ -4845,7 +4848,7 @@
         .discount-ribbon {
             animation-duration: 4s;
         }
-        /* Pause shimmer on mobile — expensive on GPU */
+        /* Pause shimmer on mobile â€” expensive on GPU */
         .btn-liquid-gold::before,
         .btn-claim-discount::before {
             animation: none;
@@ -4865,7 +4868,7 @@
         height: auto;
     }
 
-    /* ── Footer ──────────────────────────────────────────────────────────── */
+    /* â”€â”€ Footer â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     footer {
         background: linear-gradient(180deg,
             #020c18 0%,
@@ -4890,7 +4893,7 @@
         color: rgba(255, 255, 255, 0.52);
     }
 
-    /* Social impact sentence — italicised, warmer white */
+    /* Social impact sentence â€” italicised, warmer white */
     .footer-social-impact {
         font-style: italic;
         color: rgba(240, 204, 106, 0.72);
@@ -4942,7 +4945,7 @@
         border-color: rgba(212, 175, 55, 0.45);
     }
 
-    /* Social icons — gold on hover (icon color + border + bg) */
+    /* Social icons â€” gold on hover (icon color + border + bg) */
     .footer-social-icon {
         width: 38px;
         height: 38px;
@@ -4978,7 +4981,7 @@
     }
     .footer-nav-link:hover { color: #D4AF37; }
 
-    /* Copyright bar — muted grey */
+    /* Copyright bar â€” muted grey */
     .footer-copyright {
         font-family: 'Plus Jakarta Sans', sans-serif;
         font-size: 0.72rem;
@@ -4996,9 +4999,9 @@
         gap: 0.4rem;
     }
 
-    /* ── Performance optimisations ───────────────────────────────────────── */
+    /* â”€â”€ Performance optimisations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
 
-    /* Modal entrance — GPU composited, no layout triggered */
+    /* Modal entrance â€” GPU composited, no layout triggered */
     @keyframes modalSlideUp {
         from { opacity: 0; transform: translateZ(0) translateY(24px) scale(0.97); }
         to   { opacity: 1; transform: translateZ(0) translateY(0)     scale(1);    }
@@ -5010,13 +5013,13 @@
         contain: layout style;
     }
 
-    /* Pause wave animations on mobile — expensive GPU compositing */
+    /* Pause wave animations on mobile â€” expensive GPU compositing */
     @media (max-width: 768px) {
         .section-deepsea::before,
         .section-deepsea::after {
             animation: none;
         }
-        /* Kill 3D tilt perspective on mobile — causes jank */
+        /* Kill 3D tilt perspective on mobile â€” causes jank */
         .feature-card {
             perspective: none !important;
             transform: translateZ(0) !important;
@@ -5032,26 +5035,26 @@
         }
     }
 
-    /* ══════════════════════════════════════════════════════════════
-       MOBILE OVERHAUL — performance, layout, branding, UX
-       ══════════════════════════════════════════════════════════════ */
+    /* â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
+       MOBILE OVERHAUL â€” performance, layout, branding, UX
+       â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ */
     @media (max-width: 768px) {
 
-        /* ── Smooth scroll everywhere on iOS/Android ── */
+        /* â”€â”€ Smooth scroll everywhere on iOS/Android â”€â”€ */
         html, body {
             -webkit-overflow-scrolling: touch;
             overflow-x: hidden;
         }
 
-        /* ── Booking Details page panel ── */
+        /* â”€â”€ Booking Details page panel â”€â”€ */
         .booking-page-panel {
             height: 100%;
-            height: 100dvh;          /* dynamic viewport height — hides browser chrome */
+            height: 100dvh;          /* dynamic viewport height â€” hides browser chrome */
             border-radius: 0;
             overflow-y: auto;
             -webkit-overflow-scrolling: touch;
             overscroll-behavior: contain;
-            /* GPU layer — eliminates scroll jank */
+            /* GPU layer â€” eliminates scroll jank */
             transform: translateZ(0);
             will-change: transform;
             /* Reduce heavy blur on mobile */
@@ -5059,7 +5062,7 @@
             -webkit-backdrop-filter: none !important;
         }
 
-        /* ── Trip modal panel ── */
+        /* â”€â”€ Trip modal panel â”€â”€ */
         .trip-modal-panel {
             border-radius: 24px 24px 0 0;
             width: 100%;
@@ -5074,7 +5077,7 @@
             padding: 0;
         }
 
-        /* ── Gallery & media images — GPU composited ── */
+        /* â”€â”€ Gallery & media images â€” GPU composited â”€â”€ */
         .gallery-slide img,
         .media-slide img,
         .experience-gallery img,
@@ -5086,7 +5089,7 @@
             will-change: transform;
         }
 
-        /* ── What's Included cards — reduce blur cost on mobile ── */
+        /* â”€â”€ What's Included cards â€” reduce blur cost on mobile â”€â”€ */
         .feature-card {
             min-width: calc(85vw);
             max-width: calc(85vw);
@@ -5099,7 +5102,7 @@
             transform: translateZ(0) translateY(-4px) !important;
         }
 
-        /* ── Booking form — full width, comfortable spacing ── */
+        /* â”€â”€ Booking form â€” full width, comfortable spacing â”€â”€ */
         .booking-form input:not(.confirm-input),
         .booking-form select,
         .booking-form textarea {
@@ -5108,7 +5111,7 @@
             border-radius: 12px;
         }
 
-        /* ── Book Now button — full-width, thumb-friendly ── */
+        /* â”€â”€ Book Now button â€” full-width, thumb-friendly â”€â”€ */
         .btn-claim-discount,
         .booking-submit {
             min-height: 54px;
@@ -5119,13 +5122,13 @@
             z-index: 1;
         }
 
-        /* ── Guest counter buttons — 44px touch target ── */
+        /* â”€â”€ Guest counter buttons â€” 44px touch target â”€â”€ */
         .guest-counter-controls button {
             min-width: 44px;
             min-height: 44px;
         }
 
-        /* ── Trip card countdown — compact on mobile ── */
+        /* â”€â”€ Trip card countdown â€” compact on mobile â”€â”€ */
         .trip-card-countdown {
             margin-left: -1.3rem;
             margin-right: -1.3rem;
@@ -5133,41 +5136,41 @@
             padding-right: 1rem;
         }
 
-        /* ── Section headings — tighter tracking on small screens ── */
+        /* â”€â”€ Section headings â€” tighter tracking on small screens â”€â”€ */
         .section-title {
             letter-spacing: 0.12em !important;
         }
 
-        /* ── Hero headline ── */
+        /* â”€â”€ Hero headline â”€â”€ */
         .hero-headline {
             letter-spacing: 0.02em;
         }
 
-        /* ── Feature section padding ── */
+        /* â”€â”€ Feature section padding â”€â”€ */
         #features { padding-top: 3rem; padding-bottom: 3rem; }
         #trips     { padding-top: 3.5rem; padding-bottom: 3.5rem; }
         #faq       { padding-top: 3rem; padding-bottom: 3rem; }
 
-        /* ── FAQ items — full comfortable tap area ── */
+        /* â”€â”€ FAQ items â€” full comfortable tap area â”€â”€ */
         .faq-btn { padding: 1.1rem 1.2rem; }
         .faq-icon {
             min-width: 32px;
             min-height: 32px;
         }
 
-        /* ── Footer grid — single column ── */
+        /* â”€â”€ Footer grid â€” single column â”€â”€ */
         .footer-connect-title { margin-bottom: 1.2rem; }
         .footer-contact-item  { gap: 0.75rem; }
 
     }
 
-    /* ══════════════════════════════════════════════════════
-       iPhone 11 → 17  (375px – 430px logical width)
+    /* â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ
+       iPhone 11 â†’ 17  (375px â€“ 430px logical width)
        Targets all Face ID iPhones in portrait mode
-       ══════════════════════════════════════════════════════ */
+       â•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گâ•گ */
     @media (max-width: 430px) {
 
-        /* ── Global ── */
+        /* â”€â”€ Global â”€â”€ */
         html { font-size: 12px; }
         body { overflow-x: hidden; }
 
@@ -5178,9 +5181,6 @@
         footer {
             padding-bottom: max(2.1rem, calc(1rem + env(safe-area-inset-bottom))) !important;
         }
-        #vip-bubble {
-            bottom: max(1rem, calc(0.60rem + env(safe-area-inset-bottom))) !important;
-        }
         .booking-page-panel {
             padding-bottom: env(safe-area-inset-bottom) !important;
         }
@@ -5188,13 +5188,13 @@
             padding-bottom: max(1rem, env(safe-area-inset-bottom)) !important;
         }
 
-        /* ── Navbar ── */
+        /* â”€â”€ Navbar â”€â”€ */
         #navbar {
             padding-left: 1rem !important;
             padding-right: 1rem !important;
         }
 
-        /* ── Hero ── */
+        /* â”€â”€ Hero â”€â”€ */
         #hero { min-height: 100svh; }  /* safe-area aware */
 
         .hero-headline {
@@ -5218,7 +5218,7 @@
             max-width: 320px;
         }
 
-        /* ── What's Included ── */
+        /* â”€â”€ What's Included â”€â”€ */
         #features { padding: 2.5rem 0 2rem !important; }
 
         #features .text-center { padding: 0 1rem; margin-bottom: 2rem !important; }
@@ -5265,7 +5265,7 @@
             margin-top: 1rem !important;
         }
 
-        /* ── Event Section ── */
+        /* â”€â”€ Event Section â”€â”€ */
         #trips { padding: 2.5rem 0.75rem !important; }
 
         #trips .section-title {
@@ -5322,7 +5322,7 @@
             padding: 1.1rem 1.1rem 1rem !important;
         }
 
-        /* ── Feature pills: 2-column grid on iPhone ── */
+        /* â”€â”€ Feature pills: 2-column grid on iPhone â”€â”€ */
         .trip-card-feature-row {
             display: grid !important;
             grid-template-columns: 1fr 1fr !important;
@@ -5342,12 +5342,12 @@
             align-items: center !important;
         }
 
-        /* "Pick up from Elgouna gate" — 3rd item spans full width */
+        /* "Pick up from Elgouna gate" â€” 3rd item spans full width */
         .trip-card-feature-item:nth-child(3) {
             grid-column: 1 / -1 !important;
         }
 
-        /* Countdown — compact for iPhone */
+        /* Countdown â€” compact for iPhone */
         .trip-card-countdown {
             margin-left: -1.1rem !important;
             margin-right: -1.1rem !important;
@@ -5394,7 +5394,7 @@
             border-radius: 12px !important;
         }
 
-        /* ── Trip modal ── */
+        /* â”€â”€ Trip modal â”€â”€ */
         .trip-modal { padding: 0 !important; align-items: flex-end !important; }
 
         .trip-modal-panel {
@@ -5409,7 +5409,7 @@
             letter-spacing: 0.10em !important;
         }
 
-        /* ── Booking page ── */
+        /* â”€â”€ Booking page â”€â”€ */
         .booking-page-panel {
             border-radius: 0 !important;
         }
@@ -5513,7 +5513,7 @@
             font-size: 0.75rem !important;
         }
 
-        /* ── Footer ── */
+        /* â”€â”€ Footer â”€â”€ */
         footer {
             padding-top: 3rem !important;
             padding-left: 1rem !important;
@@ -5533,37 +5533,13 @@
             font-size: 0.78rem !important;
         }
 
-        /* ── Sofia VIP button ── */
-        #vip-bubble {
-            bottom: 1.25rem !important;
-            right: 1rem !important;
-        }
-
-        #vip-toggle {
-            padding: 5px 10px 5px 5px !important;
-            gap: 7px !important;
-        }
-
-        .vip-toggle-name {
-            font-size: 0.66rem !important;
-        }
-
-        .vip-toggle-meta {
-            font-size: 0.54rem !important;
-        }
-
-        #vip-window {
-            width: calc(100vw - 2rem) !important;
-            max-height: min(460px, 72dvh) !important;
-        }
-
-        /* ── Price badge ── */
+        /* â”€â”€ Price badge â”€â”€ */
         .price-badge {
             font-size: 0.85rem !important;
         }
     }
 
-    /* Ultra-compact — iPhone SE / older 375px ── */
+    /* Ultra-compact â€” iPhone SE / older 375px â”€â”€ */
     @media (max-width: 375px) {
         .hero-headline {
             font-size: clamp(1.85rem, 9vw, 2.4rem) !important;
@@ -5578,14 +5554,10 @@
             width: 50px !important;
             height: 50px !important;
         }
-
-        #vip-window {
-            width: calc(100vw - 1.5rem) !important;
-        }
     }
 
 
-    /* ── Carousel Pager (dots + progress bar) ── */
+    /* â”€â”€ Carousel Pager (dots + progress bar) â”€â”€ */
     .carousel-pager {
         display: flex;
         flex-direction: column;
@@ -5644,224 +5616,7 @@
         contain-intrinsic-size: 0 500px;
     }
 
-    /* ── VIP Assistant Chatbot ───────────────────────────────────────────── */
-    #vip-bubble {
-        position: fixed;
-        bottom: 1.75rem;
-        right: 1.75rem;
-        z-index: 9997;
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 10px;
-    }
-    #vip-toggle {
-        width: auto;
-        height: auto;
-        border-radius: 50px;
-        background: linear-gradient(145deg, rgba(8,14,32,0.92) 0%, rgba(2,6,18,0.96) 100%);
-        border: 1px solid rgba(212,175,55,0.55);
-        border-top: 1px solid rgba(240,204,106,0.70);
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        padding: 6px 14px 6px 6px;
-        gap: 9px;
-        box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 0 0 1px rgba(212,175,55,0.10), inset 0 1px 0 rgba(240,204,106,0.12);
-        transition: transform 0.22s ease, box-shadow 0.22s ease;
-        animation: vipWake 5s ease-in-out infinite;
-    }
-    #vip-toggle:hover {
-        animation-play-state: paused;
-        transform: translateY(-2px) scale(1.03);
-        box-shadow: 0 14px 40px rgba(212,175,55,0.25), 0 0 0 3px rgba(212,175,55,0.15), inset 0 1px 0 rgba(255,255,255,0.12);
-    }
-    @keyframes vipWake {
-        0%,70%  { transform: scale(1) translateY(0); box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 0 0 0 rgba(212,175,55,0); }
-        80%     { transform: scale(1.05) translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,0.5), 0 0 0 8px rgba(212,175,55,0.22); }
-        100%    { transform: scale(1) translateY(0); box-shadow: 0 8px 28px rgba(0,0,0,0.5), 0 0 0 0 rgba(212,175,55,0); }
-    }
-    .vip-avatar-wrap { position: relative; width: 36px; height: 36px; flex-shrink: 0; }
-    .vip-avatar-wrap::before {
-        content: '';
-        position: absolute;
-        inset: -2px;
-        border-radius: 50%;
-        background: conic-gradient(#D4AF37, #f0cc6a, #b8941e, #D4AF37);
-        animation: vipSpin 4s linear infinite;
-        z-index: 0;
-    }
-    @keyframes vipSpin { to { transform: rotate(360deg); will-change: auto; } }
-    .vip-avatar {
-        position: relative;
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: center top;
-        border: 2px solid #08101c;
-        display: block;
-        z-index: 1;
-    }
-    .vip-online-dot {
-        position: absolute;
-        bottom: 0; right: 0;
-        width: 9px; height: 9px;
-        background: #22c55e;
-        border-radius: 50%;
-        border: 2px solid #08101c;
-        animation: vipPulse 2.5s infinite;
-        z-index: 2;
-    }
-    @keyframes vipPulse {
-        0%,100% { box-shadow: 0 0 0 0 rgba(34,197,94,0.5); }
-        50%     { box-shadow: 0 0 0 5px rgba(34,197,94,0); }
-    }
-    .vip-toggle-info { display: flex; flex-direction: column; gap: 2px; }
-    .vip-toggle-name { font-size: 0.72rem; font-weight: 700; color: #fff; white-space: nowrap; letter-spacing: 0.02em; }
-    .vip-toggle-meta { font-size: 0.58rem; color: rgba(212,175,55,0.80); white-space: nowrap; }
-
-    #vip-window {
-        width: 340px;
-        max-width: calc(100vw - 32px);
-        background: linear-gradient(160deg, rgba(0,18,48,0.97) 0%, rgba(0,12,31,0.99) 100%);
-        border: 1px solid rgba(212,175,55,0.20);
-        border-top: 1px solid rgba(212,175,55,0.40);
-        border-radius: 20px;
-        box-shadow: 0 24px 64px rgba(0,0,0,0.65), 0 0 0 1px rgba(255,255,255,0.04);
-        overflow: hidden;
-        display: none;
-        flex-direction: column;
-        max-height: min(500px, calc(100vh - 180px));
-        transform-origin: bottom right;
-    }
-    #vip-window.open {
-        display: flex;
-        animation: vipSlideIn 0.26s cubic-bezier(0.34,1.56,0.64,1) forwards;
-    }
-    @keyframes vipSlideIn {
-        from { opacity: 0; transform: scale(0.85) translateY(14px); }
-        to   { opacity: 1; transform: scale(1) translateY(0); }
-    }
-    .vip-header {
-        background: linear-gradient(135deg, #060f22 0%, #0a1830 60%, #0d2040 100%);
-        border-bottom: 1px solid rgba(212,175,55,0.18);
-        padding: 12px 14px;
-        display: flex;
-        align-items: center;
-        gap: 11px;
-    }
-    .vip-header-avatar-wrap { position: relative; flex-shrink: 0; width: 44px; height: 44px; }
-    .vip-header-avatar-wrap::before {
-        content: '';
-        position: absolute;
-        inset: -3px;
-        border-radius: 50%;
-        background: conic-gradient(#D4AF37, #f0cc6a, #b8941e, #D4AF37);
-        animation: vipSpin 4s linear infinite;
-        z-index: 0;
-    }
-    .vip-header-avatar {
-        position: relative;
-        width: 44px; height: 44px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: center top;
-        border: 2.5px solid #060f22;
-        display: block;
-        z-index: 1;
-    }
-    .vip-header-badge {
-        position: absolute; bottom: 0; right: 0;
-        width: 16px; height: 16px;
-        background: linear-gradient(135deg, #D4AF37, #f2d060);
-        border-radius: 50%;
-        border: 2px solid #060f22;
-        display: flex; align-items: center; justify-content: center;
-        font-size: 7px; z-index: 2;
-    }
-    .vip-header-info { flex: 1; }
-    .vip-header-name {
-        font-weight: 800; font-size: 0.95rem;
-        background: linear-gradient(90deg, #ffffff, #f0cc6a);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        background-clip: text; letter-spacing: 0.03em; line-height: 1;
-    }
-    .vip-header-role { font-size: 0.62rem; color: rgba(212,175,55,0.75); letter-spacing: 0.06em; text-transform: uppercase; margin-top: 2px; }
-    .vip-header-status { font-size: 0.68rem; color: #22c55e; display: flex; align-items: center; gap: 4px; margin-top: 2px; }
-    .vip-header-status::before { content: ''; display: inline-block; width: 6px; height: 6px; background: #22c55e; border-radius: 50%; }
-    #vip-close { background: none; border: none; color: rgba(255,255,255,0.40); cursor: pointer; font-size: 1.1rem; padding: 4px; line-height: 1; transition: color 0.2s; }
-    #vip-close:hover { color: #fff; }
-    .vip-msgs {
-        flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; scroll-behavior: smooth;
-    }
-    .vip-msgs::-webkit-scrollbar { width: 3px; }
-    .vip-msgs::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 3px; }
-    .vip-msg {
-        max-width: 84%; font-size: 0.82rem; line-height: 1.6;
-        padding: 9px 13px; border-radius: 14px;
-        animation: vipMsgIn 0.2s ease;
-    }
-    @keyframes vipMsgIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
-    .vip-msg.bot {
-        background: rgba(255,255,255,0.055); border: 1px solid rgba(255,255,255,0.08);
-        color: rgba(255,255,255,0.88); border-bottom-left-radius: 4px; align-self: flex-start;
-    }
-    .vip-msg.user {
-        background: linear-gradient(135deg, #D4AF37, #b8941e); color: #000;
-        font-weight: 600; border-bottom-right-radius: 4px; align-self: flex-end;
-    }
-    .vip-typing {
-        display: flex; align-items: center; gap: 4px;
-        padding: 9px 13px; background: rgba(255,255,255,0.055);
-        border: 1px solid rgba(255,255,255,0.08); border-radius: 14px;
-        border-bottom-left-radius: 4px; align-self: flex-start; width: fit-content;
-    }
-    .vip-typing span {
-        width: 5px; height: 5px; background: rgba(255,255,255,0.5);
-        border-radius: 50%; animation: vipDot 1.2s infinite;
-    }
-    .vip-typing span:nth-child(2) { animation-delay: 0.2s; }
-    .vip-typing span:nth-child(3) { animation-delay: 0.4s; }
-    @keyframes vipDot { 0%,80%,100% { transform: scale(0.7); opacity: 0.4; } 40% { transform: scale(1); opacity: 1; } }
-    .vip-quick {
-        display: flex; flex-wrap: wrap; gap: 6px; padding: 0 14px 10px;
-    }
-    .vip-quick-btn {
-        background: rgba(212,175,55,0.08); border: 1px solid rgba(212,175,55,0.28);
-        color: #D4AF37; font-size: 0.72rem; font-weight: 600; padding: 5px 11px;
-        border-radius: 20px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
-    }
-    .vip-quick-btn:hover { background: rgba(212,175,55,0.18); border-color: rgba(212,175,55,0.55); }
-    .vip-input-row {
-        display: flex; align-items: center; gap: 7px; padding: 10px 12px;
-        border-top: 1px solid rgba(255,255,255,0.06); background: rgba(0,0,0,0.25);
-    }
-    #vip-input {
-        flex: 1; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);
-        border-radius: 20px; padding: 8px 14px; color: #fff; font-size: 0.81rem; outline: none;
-        transition: border-color 0.2s;
-    }
-    #vip-input::placeholder { color: rgba(255,255,255,0.28); }
-    #vip-input:focus { border-color: rgba(212,175,55,0.45); }
-    #vip-send {
-        width: 34px; height: 34px; border-radius: 50%;
-        background: linear-gradient(135deg, #D4AF37, #b8941e);
-        border: none; cursor: pointer; display: flex; align-items: center; justify-content: center;
-        flex-shrink: 0; transition: transform 0.2s, box-shadow 0.2s;
-        box-shadow: 0 4px 12px rgba(212,175,55,0.3);
-    }
-    #vip-send:hover { transform: scale(1.1); box-shadow: 0 6px 18px rgba(212,175,55,0.45); }
-    #vip-send svg { width: 14px; height: 14px; color: #000; }
-    body.modal-open #vip-bubble { display: none; }
-    /* On mobile, move Sofia up slightly so WhatsApp button doesn't overlap */
-    @media (max-width: 768px) {
-        #vip-bubble { bottom: 5.5rem; right: 1.25rem; }
-        #vip-toggle { padding: 5px 12px 5px 5px; }
-    }
-
-
-    /* ── FAQ Section ─────────────────────────────────────────────────────── */
+    /* â”€â”€ FAQ Section â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ */
     /* Background handled by the unified #features/#trips/#faq rule above */
 
     .faq-item {
@@ -6080,7 +5835,7 @@
             loop
             playsinline
             webkit-playsinline
-            preload="auto"
+            preload="metadata"
             >
                 <source src="hero2.mp4" type="video/mp4; codecs='hvc1'">
                 <source src="hero2.mp4" type="video/mp4">
@@ -6114,7 +5869,7 @@
                 </a>
             </div>
 
-            <!-- Scroll indicator — hidden on mobile -->
+            <!-- Scroll indicator â€” hidden on mobile -->
             <div class="mt-14 md:mt-20 animate-bounce hidden sm:block">
                 <svg class="w-8 h-8 mx-auto text-white/70" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -6127,8 +5882,8 @@
     <section class="relative z-10 overflow-hidden" style="background:#0077BE; padding: 0.9rem 0;">
         <div class="charity-ticker-track">
             <div class="charity-ticker-inner">
-                <span class="charity-ticker-item">🍽️&nbsp; Turn your ticket into a meal — with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;🐾&nbsp;&nbsp;&nbsp;&nbsp;✦&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                <span class="charity-ticker-item">🍽️&nbsp; Turn your ticket into a meal — with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;🐾&nbsp;&nbsp;&nbsp;&nbsp;✦&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="charity-ticker-item">ًںچ½ï¸ڈ&nbsp; Turn your ticket into a meal â€” with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;ًںگ¾&nbsp;&nbsp;&nbsp;&nbsp;âœ¦&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <span class="charity-ticker-item">ًںچ½ï¸ڈ&nbsp; Turn your ticket into a meal â€” with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;ًںگ¾&nbsp;&nbsp;&nbsp;&nbsp;âœ¦&nbsp;&nbsp;&nbsp;&nbsp;</span>
             </div>
         </div>
     </section>
@@ -6255,7 +6010,7 @@
 
     <!-- Parties Section -->
     <section id="trips" class="py-20 md:py-28 px-4 relative overflow-hidden">
-        <!-- subtle dot texture — navy only, no orange -->
+        <!-- subtle dot texture â€” navy only, no orange -->
         <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(circle, rgba(0, 80, 160, 0.10) 1px, transparent 1px); background-size: 22px 22px; opacity: 0.35; mix-blend-mode: screen;"></div>
 
         <div class="max-w-5xl mx-auto relative z-10">
@@ -6272,7 +6027,7 @@
                 <div class="trip-card-block">
                     <article class="trip-card reveal" data-trip="trip-1">
                         <div class="trip-card-media">
-                            <video width="100%" height="100%" style="object-fit: cover;" muted autoplay playsinline loop preload="auto" webkit-playsinline>
+                            <video width="100%" height="100%" style="object-fit: cover;" muted autoplay playsinline loop preload="metadata" webkit-playsinline>
                                 <source src="cruise-party2.mp4" type="video/mp4; codecs='hvc1'">
                                 <source src="cruise-party2.mp4" type="video/mp4">
                                 <track kind="captions" srclang="en" label="English" default>
@@ -6296,7 +6051,7 @@
                                 <div class="trip-card-feature-item"><i class="fas fa-calendar" aria-hidden="true"></i><span>Every Saturday</span></div>
                             </div>
                             <div class="trip-card-countdown">
-                                <span class="countdown-label">⏰ LIMITED TIME OFFER</span>
+                                <span class="countdown-label">âڈ° LIMITED TIME OFFER</span>
                                 <div class="countdown-timer" id="countdown-trip-1" data-date="2026-05-23T23:59:59">
                                     <div class="countdown-unit"><span class="cdown-val" data-unit="d">--</span><span class="cdown-lbl">DAYS</span></div>
                                     <span class="cdown-sep">:</span>
@@ -6317,7 +6072,7 @@
                 <div class="trip-card-block">
                     <article class="trip-card reveal" data-trip="trip-2">
                         <div class="trip-card-media" style="position: relative;">
-                            <img src="https://cdn.corenexis.com/files/c/5465928720.jpg" alt="Adventure Cruise Party" loading="lazy" decoding="async" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
+                            <img src="https://cdn.corenexis.com/files/c/5465928720.jpg" alt="Adventure Cruise Party" loading="lazy" decoding="async" width="500" height="500" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
                             <div class="trip-card-hero"></div>
                             <div class="trip-card-headline">
                                 <div>
@@ -6348,7 +6103,7 @@
     </section>
 
     <div id="trip-modal" class="trip-modal" aria-hidden="true">
-        <video autoplay muted loop playsinline webkit-playsinline preload="auto" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
+        <video autoplay muted loop playsinline webkit-playsinline preload="metadata" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: 0;">
             <source src="hero2.mp4" type="video/mp4; codecs='hvc1'">
             <source src="hero2.mp4" type="video/mp4">
         </video>
@@ -6363,16 +6118,16 @@
                     <div class="gallery-shell">
                         <div class="gallery-slider" id="gallery-slider">
                             <div class="gallery-slide active">
-                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75&fm=webp" alt="Luxury yacht deck" width="800" height="533" loading="lazy" decoding="async" />
+                                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=800&q=75&fm=webp" alt="Luxury yacht deck" width="800" height="533" loading="eager" decoding="async" fetchpriority="high" />
                             </div>
                             <div class="gallery-slide">
                                        poster="https://images.unsplash.com/photo-1493558103817-58b2924bce98?auto=format&fit=crop&w=1200&q=80">
                             </div>
                             <div class="gallery-slide">
-                                <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=75&fm=webp" alt="VIP yacht interior" width="800" height="533" loading="lazy" decoding="async" />
+                                <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=75&fm=webp" alt="VIP yacht interior" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                             <div class="gallery-slide">
-                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=75&fm=webp" alt="Sunset party on deck" width="800" height="533" loading="lazy" decoding="async" />
+                                <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=75&fm=webp" alt="Sunset party on deck" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
                             </div>
                         </div>
                         <div class="gallery-pager">
@@ -6404,18 +6159,18 @@
                 <aside class="trip-modal-booking">
                     <div class="booking-card">
                         <span class="booking-badge">Order Summary</span>
-                        <div class="discount-ribbon"><i class="fas fa-tag"></i> 20% OFF — SPECIAL OFFER</div>
+                        <div class="discount-ribbon"><i class="fas fa-tag"></i> 20% OFF â€” SPECIAL OFFER</div>
                         <div style="text-align: center; padding: 1.5rem 0; border-bottom: 1px solid rgba(212, 175, 55, 0.2);">
                             <div style="font-size: 0.8rem; color: rgba(255, 255, 255, 0.7); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.75rem;">Price for 2 Guests</div>
-                            <div style="font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem;" id="booking-total">€160</div>
-                            <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);"><strike style="color: #888;">€200</strike> <span style="color: #4ade80; font-weight: 600; margin-left: 0.75rem;">20% OFF</span></div>
+                            <div style="font-size: clamp(2rem, 5vw, 2.8rem); font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem;" id="booking-total">â‚¬160</div>
+                            <div style="font-size: 0.9rem; color: rgba(255, 255, 255, 0.6);"><strike style="color: #888;">â‚¬200</strike> <span style="color: #4ade80; font-weight: 600; margin-left: 0.75rem;">20% OFF</span></div>
                         </div>
                         <div class="price-row" style="display: none;">
-                            <span class="price-anchor" id="booking-anchor">€200</span>
-                            <span class="price-offer" id="booking-total-old">€160</span>
+                            <span class="price-anchor" id="booking-anchor">â‚¬200</span>
+                            <span class="price-offer" id="booking-total-old">â‚¬160</span>
                         </div>
-                        <div class="price-save-line"><i class="fas fa-piggy-bank"></i> Save <span id="booking-savings">€40</span> when you reserve your spot.</div>
-                        <div class="scarcity-line"><i class="fas fa-fire"></i> Private boat — only 100 spots available.</div>
+                        <div class="price-save-line"><i class="fas fa-piggy-bank"></i> Save <span id="booking-savings">â‚¬40</span> when you reserve your spot.</div>
+                        <div class="scarcity-line"><i class="fas fa-fire"></i> Private boat â€” only 100 spots available.</div>
 
                         <div class="booking-preview">
                             <div class="preview-row">
@@ -6461,16 +6216,16 @@
                             <i class="fas fa-chevron-right"></i>
                         </button>
                         <div class="media-slide active">
-                            <img src="https://i.ibb.co/mVmpZSnx/DSC-6618.jpg" alt="Gallery image 1" width="800" height="533" loading="lazy" decoding="async" />
+                            <img src="https://i.ibb.co/mVmpZSnx/DSC-6618.jpg" alt="Gallery image 1" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
                         </div>
                         <div class="media-slide">
-                            <img src="https://i.ibb.co/rf4FhR4W/DSC-6598.jpg" alt="Gallery image 2" width="800" height="533" loading="lazy" decoding="async" />
+                            <img src="https://i.ibb.co/rf4FhR4W/DSC-6598.jpg" alt="Gallery image 2" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
                         </div>
                         <div class="media-slide">
                                 <!--  -->
                         </div>
                         <div class="media-slide">
-                            <img src="https://i.ibb.co/gLKbWqFr/DSC-6588.jpg" alt="Gallery image 4" width="800" height="533" loading="lazy" decoding="async" />
+                            <img src="https://i.ibb.co/gLKbWqFr/DSC-6588.jpg" alt="Gallery image 4" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
                         </div>
                         <div class="media-slide">
                             <img src="https://i.ibb.co/k25bTX4f/DSC-6551.jpg" alt="Gallery image 5" width="800" height="533" loading="lazy" decoding="async" />
@@ -6542,8 +6297,8 @@
                     <div class="booking-card experience-booking-card">
                         <span class="booking-badge">Order Summary</span>
                         <div class="price-row">
-                            <span class="price-anchor" id="booking-page-anchor" style="text-decoration: line-through; color: #ff4444;">€200</span>
-                            <span class="price-offer" id="booking-page-total">€160</span>
+                            <span class="price-anchor" id="booking-page-anchor" style="text-decoration: line-through; color: #ff4444;">â‚¬200</span>
+                            <span class="price-offer" id="booking-page-total">â‚¬160</span>
                         </div>
                         <div class="price-save-line"><i class="fas fa-credit-card"></i> Deposit to pay now: <span id="booking-page-savings">20%</span></div>
 
@@ -6672,7 +6427,7 @@
                 </div>
 
                 <p class="footer-body-text" style="max-width:34rem;">
-                    Every Saturday, a luxury all-inclusive cruise party on the Red Sea — cocktails, food, live DJs, snorkelling, and a submarine experience. No hidden fees, no compromises.
+                    Every Saturday, a luxury all-inclusive cruise party on the Red Sea â€” cocktails, food, live DJs, snorkelling, and a submarine experience. No hidden fees, no compromises.
                     <span class="footer-social-impact">With every ticket, a hungry cat and dog in Hurghada get fed. Your adventure becomes someone's meal.</span>
                 </p>
 
@@ -6740,739 +6495,13 @@
 
 </footer>
 
-<!-- VIP Assistant Chatbot -->
-<div id="vip-bubble">
-
-    <div id="vip-window" role="dialog" aria-label="Chat with VIP Assistant">
-        <div class="vip-header">
-            <div class="vip-header-avatar-wrap">
-                <img class="vip-header-avatar" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=120&h=120&fit=crop&crop=face" alt="VIP Assistant" width="44" height="44" loading="lazy" decoding="async" />
-                <span class="vip-header-badge">&#10022;</span>
-            </div>
-            <div class="vip-header-info">
-                <div class="vip-header-name">Sofia</div>
-                <div class="vip-header-role">VIP Assistant &middot; After Saltbox Party</div>
-                <div class="vip-header-status">Online &middot; replies instantly</div>
-            </div>
-            <button id="vip-close" aria-label="Close chat">&times;</button>
-        </div>
-
-        <div class="vip-msgs" id="vip-msgs"></div>
-
-        <div class="vip-quick" id="vip-quick">
-            <button class="vip-quick-btn" onclick="vipQuick(this)">What's included?</button>
-            <button class="vip-quick-btn" onclick="vipQuick(this)">What time?</button>
-            <button class="vip-quick-btn" onclick="vipQuick(this)">The DJ?</button>
-            <button class="vip-quick-btn" onclick="vipQuick(this)">How to book?</button>
-            <button class="vip-quick-btn" onclick="vipQuick(this)">Payment methods?</button>
-            <button class="vip-quick-btn" onclick="vipQuick(this)">Is it safe?</button>
-        </div>
-
-        <div class="vip-input-row">
-            <input id="vip-input" type="text" placeholder="Ask me anything about the party&hellip;" autocomplete="off" />
-            <button id="vip-send" aria-label="Send">
-                <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/>
-                </svg>
-            </button>
-        </div>
-    </div>
-
-    <button id="vip-toggle" aria-label="Chat with VIP Assistant">
-        <div class="vip-avatar-wrap">
-            <img class="vip-avatar" src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=80&h=80&fit=crop&crop=face" alt="Sofia VIP Assistant" width="36" height="36" loading="lazy" decoding="async" />
-            <span class="vip-online-dot"></span>
-        </div>
-        <div class="vip-toggle-info">
-            <div class="vip-toggle-name">Sofia &mdash; VIP Assistant</div>
-            <div class="vip-toggle-meta">&#9733; Ask me about the party</div>
-        </div>
-    </button>
-</div>
-
-<script defer>
-/* Sofia VIP chatbot — deferred until first user interaction to avoid TBT */
-(function(){
-'use strict';
-var _initDone=false;
-function _initSofia(){
-if(_initDone)return; _initDone=true;
-var toggle=document.getElementById('vip-toggle'),win=document.getElementById('vip-window'),closeBtn=document.getElementById('vip-close'),msgsEl=document.getElementById('vip-msgs'),inputEl=document.getElementById('vip-input'),sendBtn=document.getElementById('vip-send'),quickEl=document.getElementById('vip-quick'),opened=false,fallbackIdx=0,currentLang='en';
-if(!toggle||!win||!msgsEl)return;
-
-/* ── Language detection ── */
-function detectLang(t){
-    if(/[؀-ۿ]/.test(t))return /[پچژگ]/.test(t)?'fa':'ar';
-    if(/[֐-׿]/.test(t))return 'he';
-    if(/[Ѐ-ӿ]/.test(t))return /[іїєґ]/.test(t)?'uk':'ru';
-    if(/[Ͱ-Ͽ]/.test(t))return 'el';
-    if(/[ऀ-ॿ]/.test(t))return 'hi';
-    if(/[฀-๿]/.test(t))return 'th';
-    if(/[一-鿿]/.test(t))return 'zh';
-    if(/[぀-ヿ]/.test(t))return 'ja';
-    if(/[가-힣]/.test(t))return 'ko';
-    var l=t.toLowerCase();
-    if(/\b(ich|du|wir|und|ist|das|preis|danke|wann|wo)\b/.test(l))return 'de';
-    if(/\b(je|tu|nous|le|la|et|est|quand|merci|prix|où)\b/.test(l))return 'fr';
-    if(/\b(yo|el|la|los|precio|barco|hola|gracias|dónde)\b/.test(l))return 'es';
-    if(/\b(io|tu|noi|il|come|dove|ciao|grazie|prezzo)\b/.test(l))return 'it';
-    if(/\b(ik|je|we|de|het|hoe|waar|prijs|bedankt)\b/.test(l))return 'nl';
-    if(/\b(jag|vi|och|hur|var|pris|tack|boka)\b/.test(l))return 'sv';
-    if(/\b(ben|sen|biz|ve|nerede|fiyat|tekne|teşekkür)\b/.test(l))return 'tr';
-    if(/\b(ja|ty|my|jest|gdzie|kiedy|cena|bilet|dzięki)\b/.test(l))return 'pl';
-    return 'en';
-}
-
-/* ── Keywords (multilingual) ── */
-var KB={
-    included:['includ','everything','ticket','open bar','bar','drink','food','cocktail','all',
-        'شامل','كل شيء','مشروب','طعام','بار','تذكرة',
-        'enthalten','alles','trinken','essen','inbegriffen',
-        'inclus','tout','boisson','nourriture','billet',
-        'включ','всё','еда','напит','билет',
-        'incluido','todo','bebida','comida',
-        'incluso','tutto','bevanda','cibo',
-        '包含','一切','饮料','食物','门票',
-        '含まれ','全て','飲み物','食べ物','チケット',
-        '포함','모든','음료','음식','티켓',
-        'شامل','همه','نوشیدنی','غذا','بلیت',
-        'כולל','הכל','שתייה','אוכל','כרטיס',
-        'включ','все','їжа','напої','квиток',
-        'περιλαμβ','όλα','ποτό','φαγητό','εισιτήριο',
-        'शामिल','सब','पेय','खाना','टिकट',
-        'รวม','ทุกอย่าง','เครื่องดื่ม','อาหาร','ตั๋ว',
-        'inbegrepen','alles','drinken','eten','ticket',
-        'ingår','allt','dryck','mat','biljett',
-        'dahil','her şey','içecek','yemek','bilet',
-        'zawiera','wszystko','napój','jedzenie','bilet'],
-    time:['time','when','start','end','finish','pickup','7','8','2pm','schedule','duration','how long','morning','sunrise',
-        'وقت','متى','بداية','نهاية','موعد','صباح',
-        'zeit','wann','anfang','ende','uhr','morgen',
-        'heure','quand','début','fin','matin',
-        'время','когда','начало','конец','утро',
-        'hora','cuándo','inicio','fin','mañana',
-        'ora','quando','inizio','fine','mattina',
-        '时间','几点','开始','结束','早上',
-        '時間','いつ','開始','終了','朝',
-        '시간','언제','시작','끝','아침',
-        'زمان','کی','شروع','پایان','صبح',
-        'זמן','מתי','התחלה','סיום','בוקר',
-        'час','коли','початок','кінець','ранок',
-        'ώρα','πότε','αρχή','τέλος','πρωί',
-        'समय','कब','शुरू','खत्म','सुबह',
-        'เวลา','เมื่อไหร่','เริ่ม','จบ','เช้า',
-        'tijd','wanneer','begin','einde','ochtend',
-        'tid','när','börja','sluta','morgon',
-        'zaman','ne zaman','başlama','bitiş','sabah',
-        'czas','kiedy','początek','koniec','rano'],
-    dj:['dj','music','kordy','axion','tea','melodic','house','techno','sound','set',
-        'دي جي','موسيقى','ميلوديك','تكنو',
-        'musik','dj','melodic','techno','klang',
-        'musique','dj','mélodique','techno',
-        'музыка','мелодик','техно',
-        'música','dj','melódico','techno',
-        'musica','dj','melodico','techno',
-        '音乐','旋律','科技','DJ',
-        '音楽','メロディック','テクノ','DJ',
-        '음악','멜로딕','테크노','DJ',
-        'موزیک','ملودیک','تکنو',
-        'מוזיקה','מלודי','טכנו',
-        'музика','мелодік','техно',
-        'μουσική','μελωδική','τέκνο',
-        'संगीत','मेलोडिक','टेक्नो',
-        'เพลง','เมโลดิก','เทคโน',
-        'muziek','melodisch','techno',
-        'musik','melodisk','techno',
-        'müzik','melodic','techno',
-        'muzyka','melodic','techno'],
-    sandbox:['sandbox','exclusive','crowd','vip','private','special','who','only for',
-        'ساندبوكس','حصري','خاص','مميز',
-        'sandbox','exklusiv','nur für','besonders',
-        'sandbox','exclusif','pour qui','spécial',
-        'сандбокс','эксклюзив','только для','особый',
-        'sandbox','exclusivo','solo para','especial',
-        'sandbox','esclusivo','solo per','speciale',
-        'sandbox','专属','只限',
-        'サンドボックス','限定','専用',
-        '샌드박스','전용','독점',
-        'سندباکس','انحصاری','مخصوص',
-        'סנדבוקס','בלעדי','מיוחד',
-        'сендбокс','ексклюзив',
-        'sandbox','αποκλειστ',
-        'सैंडबॉक्स','एक्सक्लूसिव',
-        'แซนด์บ็อกซ์','เอกสิทธิ์',
-        'sandbox','exclusief','speciaal',
-        'sandbox','exklusivt','speciell',
-        'sandbox','özel','sadece',
-        'sandbox','ekskluzywny','specjalny'],
-    location:['where','location','marina','hurghada','place','depart','boat','meet',
-        'أين','موقع','مارينا','الغردقة','القارب','انطلاق',
-        'wo','marina','hurghada','abfahrt','ort',
-        'où','marina','hurghada','départ','lieu',
-        'где','марина','хургада','отправление','место',
-        'dónde','marina','hurghada','salida','lugar',
-        'dove','marina','hurghada','partenza','luogo',
-        '哪里','码头','赫尔格达','出发',
-        'どこ','マリーナ','フルガダ','出発',
-        '어디','마리나','흐루가다','출발',
-        'کجا','مارینا','هورگادا','حرکت',
-        'איפה','מרינה','הורגדה','יציאה',
-        'де','марина','хургада','відправлення',
-        'πού','μαρίνα','χουργκάντα','αναχώρηση',
-        'कहाँ','मरीना','हुर्गाडा','प्रस्थान',
-        'ที่ไหน','มารีน่า','เฮอร์กาดา','ออกเดิน',
-        'waar','marina','hurghada','vertrek',
-        'var','marina','hurghada','avfärd',
-        'nerede','marina','hurghada','kalkış',
-        'gdzie','marina','hurghada','odjazd'],
-    capacity:['100','how many','capacity','people','guests','spots','limit','space','private boat',
-        '100','كم شخص','سعة','باخرة خاصة',
-        '100','wie viele','kapazität','privatboot',
-        '100','combien','capacité','bateau privé',
-        '100','сколько','вместимость','частная яхта',
-        '100','cuántos','capacidad','barco privado',
-        '100','quanti','capacità','barca privata',
-        '100','多少人','容量','私人船',
-        '100','何人','定員','プライベートボート',
-        '100','몇명','정원','프라이빗 보트',
-        '100','چند نفر','ظرفیت','قایق خصوصی',
-        '100','כמה אנשים','קיבולת','סירה פרטית',
-        '100','скільки','місткість','приватний катер',
-        '100','πόσα άτομα','χωρητικότητα','ιδιωτικό πλοίο',
-        '100','कितने लोग','क्षमता','प्राइवेट बोट',
-        '100','กี่คน','ความจุ','เรือส่วนตัว',
-        '100','hoeveel','capaciteit','privéboot',
-        '100','hur många','kapacitet','privat båt',
-        '100','kaç kişi','kapasite','özel tekne',
-        '100','ile osób','pojemność','prywatna łódź'],
-    safety:['safe','safety','lifeguard','jacket','life','secure','first aid',
-        'أمان','سلامة','منقذ','سترة نجاة',
-        'sicher','sicherheit','rettungsschwimmer','schwimmweste',
-        'sûr','sécurité','maître-nageur','gilet de sauvetage',
-        'безопас','спасател','жилет',
-        'seguro','seguridad','salvavidas','chaleco',
-        'sicuro','sicurezza','bagnino','giubbotto',
-        '安全','救生员','救生衣',
-        '安全','ライフガード','ライフジャケット',
-        '안전','구조원','구명조끼',
-        'امن','نجات غریق','جلیقه نجات',
-        'בטוח','מציל','חגורת הצלה',
-        'безпечн','рятувальник','жилет',
-        'ασφαλ','ναυαγοσώστης','σωσίβιο',
-        'सुरक्षित','लाइफगार्ड','लाइफ जैकेट',
-        'ปลอดภัย','นักช่วยชีวิต','เสื้อชูชีพ',
-        'veilig','redder','reddingsvest',
-        'säker','livräddare','flytväst',
-        'güvenli','cankurtaran','can yeleği',
-        'bezpieczny','ratownik','kamizelka'],
-    book:['book','reserve','pay','buy','price','cost','how','purchase','signup','€',
-        'احجز','سعر','كيف','ادفع','تذكرة',
-        'buchen','preis','kosten','kaufen','reservieren',
-        'réserver','prix','acheter','comment',
-        'заброн','цена','купить','оплатить',
-        'reservar','precio','comprar','cómo',
-        'prenotare','prezzo','comprare','come',
-        '预订','价格','如何','购买',
-        '予約','価格','購入','方法',
-        '예약','가격','구매','방법',
-        'رزرو','قیمت','خرید','چطور',
-        'להזמין','מחיר','לקנות','איך',
-        'забронювати','ціна','купити',
-        'κράτηση','τιμή','αγορά','πώς',
-        'बुक करें','कीमत','खरीदें','कैसे',
-        'จอง','ราคา','ซื้อ','อย่างไร',
-        'boeken','prijs','kopen','hoe',
-        'boka','pris','köpa','hur',
-        'rezervasyon','fiyat','satın','nasıl',
-        'rezerwacja','cena','kupić','jak'],
-    bring:['bring','need','wear','swimwear','sunscreen','pack','carry','prepare',
-        'ماذا أحضر','ملابس السباحة','واقي شمس',
-        'mitbringen','badeanzug','sonnencreme',
-        'apporter','maillot','crème solaire',
-        'взять','купальник','солнцезащит',
-        'traer','bañador','protector solar',
-        'portare','costume','crema solare',
-        '带什么','泳衣','防晒',
-        '持参','水着','日焼け止め',
-        '가져올','수영복','선크림',
-        'بیاورم','لباس شنا','ضد آفتاب',
-        'להביא','בגד ים','קרם הגנה',
-        'взяти','купальник','сонцезахисний',
-        'φέρω','μαγιό','αντηλιακό',
-        'लाएं','स्विमवियर','सनस्क्रीन',
-        'เอาอะไร','ชุดว่ายน้ำ','กันแดด',
-        'meenemen','zwemkleding','zonnebrand',
-        'ta med','baddräkt','solskydd',
-        'getirmek','mayo','güneş kremi',
-        'zabrać','strój kąpielowy','krem'],
-    transfer:['transfer','pickup','pick up','elgouna','shuttle','ride','45','gate','free',
-        'نقل','الجونة','باص','مجاني','45 دقيقة',
-        'transfer','elgouna','kostenlos','shuttle','45 minuten',
-        'transfert','elgouna','gratuit','navette','45 minutes',
-        'трансфер','эль-гуна','бесплатно','45 минут',
-        'traslado','elgouna','gratis','45 minutos',
-        'trasferimento','elgouna','gratuito','45 minuti',
-        '接送','免费','45分钟',
-        '送迎','無料','45分',
-        '픽업','무료','45분',
-        'ترانسفر','الجونه','رایگان','۴۵ دقیقه',
-        'העברה','חינם','45 דקות',
-        'трансфер','безкоштовно','45 хвилин',
-        'μεταφορά','δωρεάν','45 λεπτά',
-        'ट्रांसफर','मुफ्त','45 मिनट',
-        'รับส่ง','ฟรี','45 นาที',
-        'transfer','gratis','45 minuten',
-        'transfer','gratis','45 minuter',
-        'transfer','ücretsiz','45 dakika',
-        'transfer','darmowy','45 minut'],
-    payment:['pay','payment','method','vodafone','apple pay','applepay','stripe','instapay','insta pay','cash','card','credit','debit','how to pay','ways to pay',
-        'دفع','طرق الدفع','فودافون كاش','ابل باي','سترايب','انستا باي',
-        'bezahlen','zahlung','zahlungsmethode','kreditkarte',
-        'payer','paiement','méthode de paiement','carte',
-        'оплатить','оплата','способ оплаты','карта',
-        'pagar','pago','método de pago','tarjeta',
-        'pagare','pagamento','metodo di pagamento','carta',
-        '支付','付款','方式','信用卡',
-        '支払い','決済','方法',
-        '결제','지불','방법','카드',
-        'پرداخت','روش پرداخت','کارت',
-        'תשלום','שיטת תשלום','כרטיס',
-        'оплатити','оплата','спосіб',
-        'πληρωμή','τρόπος','κάρτα',
-        'भुगतान','पेमेंट','तरीका',
-        'ชำระเงิน','วิธีการ','บัตร',
-        'betalen','betaling','methode','kaart',
-        'betala','betalning','metod','kort',
-        'ödemek','ödeme','yöntem','kart',
-        'płacić','płatność','metoda','karta'],
-};
-
-/* ── Answers in 20 languages ── */
-var G='color:#D4AF37;';
-var ANSWERS_ALL={
-    en:{
-        included:'Your ticket is fully all-exclusive with an <strong style="'+G+'">open bar</strong> 🍹 — unlimited cocktails, drinks &amp; food, free transfer, and live DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. No hidden fees. One ticket = everything! 🎉',
-        time:'Schedule: 🕖 <strong style="'+G+'">Pickup El Gouna Gate 7:00 AM</strong> → 45-min ride → <strong style="'+G+'">Party starts 8:30 AM</strong> (Red Sea sunrise 🌅) → <strong style="'+G+'">Ends 2:00 PM</strong>. 5.5 hours of non-stop energy!',
-        dj:'Live music by <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — curated <strong style="'+G+'">Melodic House &amp; Techno</strong> from sunrise to afternoon. Pure vibes on the open sea! ✨',
-        sandbox:'Yes! The <strong style="'+G+'">After Saltbox Boat Party</strong> is exclusive for the Sandbox crowd 🌟 — the perfect Red Sea after-party. Same community, next level.',
-        location:'Departs from <strong style="'+G+'">Marina Hurghada</strong> 🗺️. Free pickup from <strong style="'+G+'">El Gouna Gate at 7:00 AM</strong> — included in your ticket!',
-        capacity:'This is a <strong style="'+G+'">private boat</strong> limited to <strong style="'+G+'">100 guests only</strong> 🔒. Very intimate. Spots fill fast — book yours now!',
-        safety:'Safety first 🛡️. Every guest gets a life jacket. We have certified lifeguards, security staff, and a first-aid kit on board throughout the trip.',
-        book:'Click <strong style="'+G+'">"Book Now"</strong> on this page 🎟️ — only 100 spots! Or WhatsApp us: <strong style="'+G+'">+447767058307</strong> and we confirm instantly. 🙌',
-        bring:'Just bring 👉 your ID, swimwear &amp; sunscreen. Everything else — open bar, food, transfer — is fully provided. Travel light! ☀️',
-        transfer:'<strong style="'+G+'">FREE pickup from El Gouna Gate at 7:00 AM</strong> ✅. 45-minute ride to Marina Hurghada, fully included. Zero extra cost!',
-        payment:'طرق الدفع المتاحة 💳<br>&#10022; <strong style="color:#D4AF37;">فودافون كاش</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>جميع المدفوعات آمنة ومشفرة. اضغط <strong style="color:#D4AF37;">احجز الآن</strong>! 🔒',
-        payment:'We accept multiple secure payment methods 💳<br>&#10022; <strong style="'+G+'">Vodafone Cash</strong><br>&#10022; <strong style="'+G+'">Apple Pay</strong><br>&#10022; <strong style="'+G+'">Stripe</strong> (all major cards)<br>&#10022; <strong style="'+G+'">InstaPay</strong><br>All payments are encrypted and fully secure. Click <strong style="'+G+'">"Book Now"</strong> to proceed! 🔒',
-    },
-    ar:{
-        included:'تذكرتك تشمل كل شيء — <strong style="'+G+'">بار مفتوح</strong> 🍹 (مشروبات وكوكتيلات غير محدودة)، طعام مجاني، نقل مجاني، ودي جي <strong style="'+G+'">Kordy-Axion & Tea.j</strong>. لا رسوم خفية! 🎉',
-        time:'الجدول: 🕖 <strong style="'+G+'">الالتقاط من بوابة الجونة 7:00 صباحاً</strong> → 45 دقيقة → <strong style="'+G+'">الحفلة تبدأ 8:30 صباحاً</strong> (شروق الشمس 🌅) → <strong style="'+G+'">تنتهي 2:00 ظهراً</strong>.',
-        dj:'الموسيقى حية بواسطة <strong style="'+G+'">Kordy-Axion & Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House & Techno</strong> من الشروق حتى الظهيرة. أجواء لا تُنسى! ✨',
-        sandbox:'نعم! حفلة <strong style="'+G+'">After Saltbox</strong> حصرية لجمهور Sandbox 🌟 — الأفتر بارتي المثالي على البحر الأحمر.',
-        location:'القارب ينطلق من <strong style="'+G+'">مارينا الغردقة</strong> 🗺️. الالتقاط المجاني من <strong style="'+G+'">بوابة الجونة 7:00 صباحاً</strong> — مشمول في التذكرة!',
-        capacity:'هذا <strong style="'+G+'">قارب خاص</strong> بـ <strong style="'+G+'">100 مقعد فقط</strong> 🔒. محدود ومميز جداً — احجز الآن!',
-        safety:'سلامتك أولويتنا 🛡️. كل ضيف يحصل على سترة نجاة، ومنقذون محترفون وطاقم أمن وإسعافات أولية على متن القارب طوال الرحلة.',
-        book:'اضغط <strong style="'+G+'">"احجز الآن"</strong> 🎟️ — 100 مقعد فقط! أو تواصل عبر واتساب: <strong style="'+G+'">+447767058307</strong> وسنؤكد فوراً. 🙌',
-        bring:'أحضر فقط 👉 هويتك، ملابس سباحة، وكريم حماية من الشمس. كل شيء آخر مشمول. سافر خفيفاً! ☀️',
-        transfer:'<strong style="'+G+'">نقل مجاني من بوابة الجونة 7:00 صباحاً</strong> ✅. الرحلة 45 دقيقة إلى مارينا الغردقة. لا تكاليف إضافية!',
-        payment:'Zahlungsarten 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Alle Zahlungen sind verschlüsselt &amp; sicher. Klick <strong style="color:#D4AF37;">Jetzt Buchen</strong>! 🔒',
-    },
-    de:{
-        included:'Deine Karte ist all-inclusive mit <strong style="'+G+'">offener Bar</strong> 🍹 — unbegrenzte Cocktails, Getränke &amp; Essen, kostenloser Transfer, Live-DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. Keine versteckten Gebühren! 🎉',
-        time:'Zeitplan: 🕖 <strong style="'+G+'">Abholung Elgouna Tor 7:00 Uhr</strong> → 45 Minuten → <strong style="'+G+'">Party beginnt 8:30 Uhr</strong> (Sonnenaufgang 🌅) → <strong style="'+G+'">Ende 14:00 Uhr</strong>. 5,5 Stunden non-stop!',
-        dj:'Live-Musik von <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong> vom Sonnenaufgang bis zum Nachmittag. Pure Vibes! ✨',
-        sandbox:'Ja! Die <strong style="'+G+'">After Saltbox Boat Party</strong> ist exklusiv für die Sandbox-Crowd 🌟. Die perfekte Afterparty auf dem Roten Meer.',
-        location:'Das Boot fährt von der <strong style="'+G+'">Marina Hurghada</strong> 🗺️ ab. Kostenlose Abholung am <strong style="'+G+'">Elgouna Tor um 7:00 Uhr</strong> — inklusive!',
-        capacity:'Dies ist ein <strong style="'+G+'">Privatboot</strong> mit nur <strong style="'+G+'">100 Gästen</strong> 🔒. Sehr exklusiv — schnell buchen!',
-        safety:'Sicherheit geht vor 🛡️. Jeder Gast bekommt eine Schwimmweste. Wir haben zertifizierte Rettungsschwimmer, Sicherheitspersonal und einen Erste-Hilfe-Kasten an Bord.',
-        book:'Klicke auf <strong style="'+G+'">"Jetzt Buchen"</strong> 🎟️ — nur 100 Plätze! Oder WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Bring nur 👉 deinen Ausweis, Badezeug &amp; Sonnencreme. Alles andere ist dabei. Leicht reisen! ☀️',
-        transfer:'<strong style="'+G+'">KOSTENLOSE Abholung am Elgouna Tor um 7:00 Uhr</strong> ✅. 45-minütige Fahrt zur Marina — inklusive!',
-        payment:'Modes de paiement 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Paiements chiffrés et sécurisés. Cliquez <strong style="color:#D4AF37;">Réserver</strong>! 🔒',
-    },
-    fr:{
-        included:'Ton billet est tout compris avec un <strong style="'+G+'">open bar</strong> 🍹 — cocktails, boissons &amp; nourriture illimités, transfert gratuit, DJ live <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. Zéro frais cachés! 🎉',
-        time:'Programme: 🕖 <strong style="'+G+'">Départ porte Elgouna 7h00</strong> → 45 min → <strong style="'+G+'">Fête commence 8h30</strong> (lever du soleil 🌅) → <strong style="'+G+'">Fin 14h00</strong>. 5h30 non-stop!',
-        dj:'Musique live par <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong> du lever au soleil jusqu\'à l\'après-midi. Pure ambiance! ✨',
-        sandbox:'Oui! La <strong style="'+G+'">After Saltbox Boat Party</strong> est exclusive pour la communauté Sandbox 🌟.',
-        location:'Le bateau part de la <strong style="'+G+'">Marina Hurghada</strong> 🗺️. Ramassage gratuit à la <strong style="'+G+'">porte Elgouna à 7h00</strong> — inclus!',
-        capacity:'C\'est un <strong style="'+G+'">bateau privé</strong> limité à <strong style="'+G+'">100 personnes</strong> 🔒. Places limitées — réserve maintenant!',
-        safety:'Sécurité prioritaire 🛡️. Gilet de sauvetage pour chaque invité, maîtres-nageurs certifiés, sécurité et trousse de secours à bord.',
-        book:'Clique sur <strong style="'+G+'">"Réserver Maintenant"</strong> 🎟️ — seulement 100 places! WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Apporte juste 👉 ta pièce d\'identité, maillot &amp; crème solaire. Tout le reste est fourni. Voyage léger! ☀️',
-        transfer:'<strong style="'+G+'">Transfert GRATUIT depuis la porte Elgouna à 7h00</strong> ✅. 45 minutes jusqu\'à la Marina — inclus!',
-        payment:'Способы оплаты 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Все платежи зашифрованы. Жми <strong style="color:#D4AF37;">Забронировать</strong>! 🔒',
-    },
-    ru:{
-        included:'Твой билет — всё включено с <strong style="'+G+'">открытым баром</strong> 🍹 — безлимитные коктейли, еда, бесплатный трансфер и DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. Без скрытых платежей! 🎉',
-        time:'Расписание: 🕖 <strong style="'+G+'">Трансфер от ворот Эль-Гуна в 7:00</strong> → 45 мин → <strong style="'+G+'">Вечеринка в 8:30</strong> (рассвет 🌅) → <strong style="'+G+'">Конец в 14:00</strong>. 5,5 часов нон-стоп!',
-        dj:'Живая музыка от <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong> от рассвета до обеда. Чистый вайб! ✨',
-        sandbox:'Да! <strong style="'+G+'">After Saltbox Boat Party</strong> — исключительно для участников Sandbox 🌟.',
-        location:'Лодка отходит от <strong style="'+G+'">Марины Хургады</strong> 🗺️. Бесплатный трансфер от <strong style="'+G+'">ворот Эль-Гуна в 7:00</strong> — включено!',
-        capacity:'Это <strong style="'+G+'">частная яхта</strong> всего на <strong style="'+G+'">100 человек</strong> 🔒. Места заканчиваются — бронируй сейчас!',
-        safety:'Безопасность — приоритет 🛡️. Спасательный жилет для каждого, сертифицированные спасатели и аптечка на борту.',
-        book:'Нажми <strong style="'+G+'">"Забронировать"</strong> 🎟️ — только 100 мест! WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Возьми только 👉 документ, купальник &amp; солнцезащитный крем. Всё остальное уже на борту. ☀️',
-        transfer:'<strong style="'+G+'">БЕСПЛАТНЫЙ трансфер от ворот Эль-Гуна в 7:00</strong> ✅. 45 минут до Марины Хургады — включено!',
-        payment:'Métodos de pago 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Pagos cifrados y seguros. ¡Clic en <strong style="color:#D4AF37;">Reservar</strong>! 🔒',
-    },
-    es:{
-        included:'Tu entrada es todo incluido con <strong style="'+G+'">barra libre</strong> 🍹 — cócteles, bebidas &amp; comida ilimitados, traslado gratis, DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. ¡Sin cargos ocultos! 🎉',
-        time:'Horario: 🕖 <strong style="'+G+'">Recogida puerta Elgouna 7:00 AM</strong> → 45 min → <strong style="'+G+'">Fiesta comienza 8:30 AM</strong> (amanecer 🌅) → <strong style="'+G+'">Termina 2:00 PM</strong>. ¡5,5 horas!',
-        dj:'Música en vivo de <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong> del amanecer a la tarde. ¡Puro ambiente! ✨',
-        sandbox:'¡Sí! La <strong style="'+G+'">After Saltbox Boat Party</strong> es exclusiva para la comunidad Sandbox 🌟.',
-        location:'El barco sale de <strong style="'+G+'">Marina Hurghada</strong> 🗺️. Recogida gratuita en <strong style="'+G+'">puerta Elgouna a las 7:00 AM</strong> — ¡incluido!',
-        capacity:'Es un <strong style="'+G+'">barco privado</strong> limitado a <strong style="'+G+'">100 personas</strong> 🔒. ¡Reserva ahora!',
-        safety:'Seguridad primero 🛡️. Chaleco salvavidas para cada invitado, socorristas certificados, seguridad y botiquín a bordo.',
-        book:'Haz clic en <strong style="'+G+'">"Reservar Ahora"</strong> 🎟️ — solo 100 lugares. WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Solo trae 👉 tu ID, bañador &amp; protector solar. Todo lo demás está incluido. ¡Viaja ligero! ☀️',
-        transfer:'<strong style="'+G+'">Traslado GRATIS desde puerta Elgouna a las 7:00 AM</strong> ✅. 45 min hasta la Marina — ¡incluido!',
-        payment:'Metodi di pagamento 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Pagamenti sicuri e crittografati. Clicca <strong style="color:#D4AF37;">Prenota</strong>! 🔒',
-    },
-    it:{
-        included:'Il tuo biglietto è tutto incluso con <strong style="'+G+'">open bar</strong> 🍹 — cocktail, bevande &amp; cibo illimitati, transfer gratuito e DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. Nessuna spesa nascosta! 🎉',
-        time:'Programma: 🕖 <strong style="'+G+'">Pickup cancello Elgouna ore 7:00</strong> → 45 min → <strong style="'+G+'">Festa inizia alle 8:30</strong> (alba 🌅) → <strong style="'+G+'">Fine alle 14:00</strong>. 5,5 ore non-stop!',
-        dj:'Musica live di <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong> dall\'alba al pomeriggio. Vibes pure! ✨',
-        sandbox:'Sì! La <strong style="'+G+'">After Saltbox Boat Party</strong> è esclusiva per la community Sandbox 🌟.',
-        location:'La barca parte dalla <strong style="'+G+'">Marina Hurghada</strong> 🗺️. Pickup gratuito al <strong style="'+G+'">cancello Elgouna alle 7:00</strong> — incluso!',
-        capacity:'È una <strong style="'+G+'">barca privata</strong> con solo <strong style="'+G+'">100 posti</strong> 🔒. Prenota subito!',
-        safety:'Sicurezza prima di tutto 🛡️. Giubbotto salvagente per ogni ospite, bagnini certificati e kit di pronto soccorso a bordo.',
-        book:'Clicca <strong style="'+G+'">"Prenota Ora"</strong> 🎟️ — solo 100 posti! WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Porta solo 👉 documento, costume &amp; crema solare. Il resto è tutto incluso. Viaggia leggero! ☀️',
-        transfer:'<strong style="'+G+'">Transfer GRATUITO dal cancello Elgouna alle 7:00</strong> ✅. 45 minuti fino alla Marina — incluso!',
-        payment:'支付方式 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>所有支付均加密安全。点击<strong style="color:#D4AF37;">立即预订</strong>！🔒',
-    },
-    zh:{
-        included:'您的票含一切 — <strong style="'+G+'">开放式酒吧</strong> 🍹 无限鸡尾酒、饮料&amp;食物，免费接送，DJ现场演出 <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>。无隐藏费用！🎉',
-        time:'时间表: 🕖 <strong style="'+G+'">El Gouna门 早上7:00接送</strong> → 45分钟车程 → <strong style="'+G+'">派对8:30开始</strong>(日出🌅) → <strong style="'+G+'">下午2:00结束</strong>。5.5小时不间断！',
-        dj:'<strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 现场演出 🎧 — <strong style="'+G+'">旋律浩室 &amp; 泰克诺</strong>，从日出到下午。纯粹的氛围！✨',
-        sandbox:'是的！<strong style="'+G+'">After Saltbox 船派对</strong>专为Sandbox人群🌟 — 红海上的完美后派对。',
-        location:'船从<strong style="'+G+'">赫尔格达码头</strong>出发🗺️。免费接送从<strong style="'+G+'">El Gouna门早上7:00</strong> — 票价已含！',
-        capacity:'这是<strong style="'+G+'">私人船</strong>仅限<strong style="'+G+'">100人</strong> 🔒。名额有限，立即预订！',
-        safety:'安全第一 🛡️。每位客人获得救生衣，持证救生员和急救箱全程在船上。',
-        book:'点击<strong style="'+G+'">"立即预订"</strong> 🎟️ — 仅100个名额！WhatsApp: <strong style="'+G+'">+447767058307</strong>。🙌',
-        bring:'只需带 👉 证件、泳衣和防晒霜。其他一切已包含。轻装出行！☀️',
-        transfer:'<strong style="'+G+'">El Gouna门早上7:00免费接送</strong> ✅。45分钟到赫尔格达码头 — 已包含！',
-        payment:'お支払い方法 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>すべての支払いは暗号化済み。<strong style="color:#D4AF37;">今すぐ予約</strong>！🔒',
-    },
-    ja:{
-        included:'チケットはオールインクルーシブ — <strong style="'+G+'">オープンバー</strong> 🍹（カクテル・食事無制限）、無料送迎、DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>。追加費用なし！🎉',
-        time:'スケジュール: 🕖 <strong style="'+G+'">El Gounaゲート 7:00 AM 送迎</strong> → 45分 → <strong style="'+G+'">パーティー 8:30 AM 開始</strong>（日の出🌅）→ <strong style="'+G+'">14:00 終了</strong>。5.5時間ノンストップ！',
-        dj:'<strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> ライブ 🎧 — <strong style="'+G+'">メロディックハウス &amp; テクノ</strong>。最高のバイブス！✨',
-        sandbox:'はい！<strong style="'+G+'">After Saltbox Boat Party</strong> はSandboxコミュニティ限定 🌟。',
-        location:'フルガダマリーナ出発 🗺️。<strong style="'+G+'">El Gounaゲートから7:00 AM 無料送迎</strong> — 含まれています！',
-        capacity:'<strong style="'+G+'">プライベートボート</strong>、<strong style="'+G+'">100名限定</strong> 🔒。今すぐ予約を！',
-        safety:'安全最優先 🛡️。ライフジャケット提供、認定ライフガードと救急セット常備。',
-        book:'<strong style="'+G+'">"今すぐ予約"</strong>ボタンをクリック 🎟️ — 100名限定！WhatsApp: <strong style="'+G+'">+447767058307</strong>。🙌',
-        bring:'持参物 👉 身分証、水着、日焼け止めのみ。あとは全部込み。軽装でOK！☀️',
-        transfer:'<strong style="'+G+'">El Gounaゲートから7:00 AM 無料送迎</strong> ✅。マリーナまで45分 — 含まれています！',
-        payment:'결제 방법 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>모든 결제는 암호화되어 안전합니다. <strong style="color:#D4AF37;">지금 예약</strong>！🔒',
-    },
-    ko:{
-        included:'티켓은 올인클루시브 — <strong style="'+G+'">오픈바</strong> 🍹（칵테일·음료·음식 무제한）, 무료 픽업, DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. 숨은 비용 없음！🎉',
-        time:'일정: 🕖 <strong style="'+G+'">El Gouna 게이트 오전 7:00 픽업</strong> → 45분 → <strong style="'+G+'">파티 오전 8:30 시작</strong>（일출🌅）→ <strong style="'+G+'">오후 2:00 종료</strong>. 5.5시간 논스톱!',
-        dj:'<strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 라이브 🎧 — <strong style="'+G+'">멜로딕 하우스 &amp; 테크노</strong>. 최고의 분위기！✨',
-        sandbox:'네！<strong style="'+G+'">After Saltbox Boat Party</strong>는 Sandbox 크라우드 전용 🌟.',
-        location:'후루가다 마리나 출발 🗺️. <strong style="'+G+'">El Gouna 게이트 오전 7:00 무료 픽업</strong> — 포함！',
-        capacity:'<strong style="'+G+'">프라이빗 보트</strong>，<strong style="'+G+'">100명 한정</strong> 🔒. 지금 예약하세요！',
-        safety:'안전 최우선 🛡️. 구명조끼 제공, 인증 구조원과 응급 키트 상시 탑재.',
-        book:'<strong style="'+G+'">"지금 예약"</strong> 클릭 🎟️ — 100자리만！WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'가져올 것 👉 신분증, 수영복, 선크림만. 나머지는 전부 포함. 가볍게 오세요！☀️',
-        transfer:'<strong style="'+G+'">El Gouna 게이트 오전 7:00 무료 픽업</strong> ✅. 마리나까지 45분 — 포함！',
-        payment:'روش‌های پرداخت 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>همه پرداخت‌ها رمزگذاری شده‌اند. <strong style="color:#D4AF37;">رزرو کنید</strong>！🔒',
-    },
-    fa:{
-        included:'بلیت شما کاملاً همه‌چیز دارد — <strong style="'+G+'">بار آزاد</strong> 🍹، کوکتل و غذای نامحدود، ترانسفر رایگان، DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. بدون هزینه پنهان！🎉',
-        time:'برنامه: 🕖 <strong style="'+G+'">سوار شدن از دروازه الجونه ساعت ۷:۰۰ صبح</strong> → ۴۵ دقیقه → <strong style="'+G+'">پارتی ۸:۳۰ شروع</strong>（طلوع آفتاب🌅）→ <strong style="'+G+'">پایان ساعت ۱۴:۰۰</strong>.',
-        dj:'موزیک زنده از <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">ملودیک هاوس &amp; تکنو</strong>. ✨',
-        sandbox:'بله！<strong style="'+G+'">After Saltbox Boat Party</strong> فقط برای جمعیت Sandbox است 🌟.',
-        location:'قایق از <strong style="'+G+'">مارینا هورگادا</strong> حرکت می‌کند 🗺️. سرویس رایگان از <strong style="'+G+'">دروازه الجونه ساعت ۷:۰۰</strong>!',
-        capacity:'این یک <strong style="'+G+'">قایق خصوصی</strong> با فقط <strong style="'+G+'">۱۰۰ نفر</strong> است 🔒.',
-        safety:'ایمنی اولویت ماست 🛡️. جلیقه نجات، نجات‌غریق مجاز و کیت کمک‌های اولیه در طول سفر.',
-        book:'روی <strong style="'+G+'">"رزرو کنید"</strong> کلیک کنید 🎟️ — فقط ۱۰۰ جای! واتساپ: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'فقط بیاورید 👉 کارت شناسایی، لباس شنا و ضدآفتاب. بقیه همه موجود است. ☀️',
-        transfer:'<strong style="'+G+'">سرویس رایگان از دروازه الجونه ساعت ۷:۰۰</strong> ✅. ۴۵ دقیقه تا مارینا — شامل!',
-        payment:'שיטות תשלום 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>כל התשלומים מוצפנים ומאובטחים. <strong style="color:#D4AF37;">הזמן עכשיו</strong>！🔒',
-    },
-    he:{
-        included:'הכרטיס שלך כולל הכל — <strong style="'+G+'">בר פתוח</strong> 🍹, קוקטיילים, אוכל, הסעה חינם ו-DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. ללא עלויות נסתרות! 🎉',
-        time:'לוח זמנים: 🕖 <strong style="'+G+'">איסוף שער אל-גונה 7:00 בבוקר</strong> → 45 דקות → <strong style="'+G+'">המסיבה מתחילה 8:30</strong>(זריחה🌅) → <strong style="'+G+'">מסתיים 14:00</strong>.',
-        dj:'מוזיקה חיה של <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong>. ✨',
-        sandbox:'כן! <strong style="'+G+'">After Saltbox Boat Party</strong> בלעדי לקהל Sandbox 🌟.',
-        location:'הסירה יוצאת מ<strong style="'+G+'">מרינה חורגדה</strong> 🗺️. הסעה חינם <strong style="'+G+'">משער אל-גונה 7:00</strong> — כלול!',
-        capacity:'<strong style="'+G+'">סירה פרטית</strong> מוגבלת ל<strong style="'+G+'">100 אורחים בלבד</strong> 🔒. הזמן עכשיו!',
-        safety:'הבטיחות קודמת 🛡️. חגורת הצלה לכל אורח, מציל מוסמך וערכת עזרה ראשונה.',
-        book:'לחץ על <strong style="'+G+'">"הזמן עכשיו"</strong> 🎟️ — רק 100 מקומות! WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'הבא רק 👉 תעודת זהות, בגד ים &amp; קרם הגנה. הכל השאר כלול. ☀️',
-        transfer:'<strong style="'+G+'">הסעה חינם משער אל-גונה 7:00</strong> ✅. 45 דקות למרינה — כלול!',
-        payment:'Способи оплати 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Всі платежі зашифровані. <strong style="color:#D4AF37;">Забронюйте</strong>！🔒',
-    },
-    uk:{
-        included:'Твій квиток — все включено з <strong style="'+G+'">відкритим баром</strong> 🍹 — безлімітні коктейлі, їжа, безкоштовний трансфер і DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. Жодних прихованих платежів! 🎉',
-        time:'Розклад: 🕖 <strong style="'+G+'">Трансфер від воріт Ель-Гуна о 7:00</strong> → 45 хв → <strong style="'+G+'">Вечірка о 8:30</strong>(схід сонця🌅) → <strong style="'+G+'">Кінець о 14:00</strong>.',
-        dj:'Жива музика від <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong>. ✨',
-        sandbox:'Так! <strong style="'+G+'">After Saltbox Boat Party</strong> — виключно для учасників Sandbox 🌟.',
-        location:'Катер відходить від <strong style="'+G+'">Марини Хургади</strong> 🗺️. Безкоштовний трансфер від <strong style="'+G+'">воріт Ель-Гуна о 7:00</strong> — включено!',
-        capacity:'Це <strong style="'+G+'">приватний катер</strong> лише на <strong style="'+G+'">100 осіб</strong> 🔒. Бронюй зараз!',
-        safety:'Безпека — пріоритет 🛡️. Рятувальний жилет для кожного, сертифіковані рятувальники і аптечка на борту.',
-        book:'Натисни <strong style="'+G+'">"Забронювати"</strong> 🎟️ — лише 100 місць! WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Візьми лише 👉 документ, купальник &amp; сонцезахисний крем. Все інше включено. ☀️',
-        transfer:'<strong style="'+G+'">БЕЗКОШТОВНИЙ трансфер від воріт Ель-Гуна о 7:00</strong> ✅. 45 хв до Марини — включено!',
-        payment:'Τρόποι πληρωμής 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Όλες οι πληρωμές κρυπτογραφημένες. <strong style="color:#D4AF37;">Κράτηση</strong>！🔒',
-    },
-    el:{
-        included:'Το εισιτήριό σου είναι all-inclusive με <strong style="'+G+'">open bar</strong> 🍹 — απεριόριστα cocktails, φαγητό, δωρεάν μεταφορά και DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. Μηδέν κρυφές χρεώσεις! 🎉',
-        time:'Πρόγραμμα: 🕖 <strong style="'+G+'">Pickup πύλη Elgouna 7:00 πμ</strong> → 45 λεπτά → <strong style="'+G+'">Πάρτυ 8:30 πμ</strong>(ανατολή🌅) → <strong style="'+G+'">Τέλος 14:00</strong>.',
-        dj:'Live μουσική από <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong>. ✨',
-        sandbox:'Ναι! <strong style="'+G+'">After Saltbox Boat Party</strong> αποκλειστικά για το κοινό Sandbox 🌟.',
-        location:'Αναχώρηση από <strong style="'+G+'">Μαρίνα Χουργκάντα</strong> 🗺️. Δωρεάν μεταφορά από <strong style="'+G+'">πύλη Elgouna στις 7:00</strong> — συμπεριλαμβάνεται!',
-        capacity:'<strong style="'+G+'">Ιδιωτικό πλοίο</strong> με μόνο <strong style="'+G+'">100 άτομα</strong> 🔒. Κράτηση τώρα!',
-        safety:'Ασφάλεια πρώτα 🛡️. Σωσίβιο για κάθε επισκέπτη, πιστοποιημένοι ναυαγοσώστες και κιτ πρώτων βοηθειών.',
-        book:'Κλικ στο <strong style="'+G+'">"Κράτηση Τώρα"</strong> 🎟️ — μόνο 100 θέσεις! WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Φέρε μόνο 👉 ταυτότητα, μαγιό &amp; αντηλιακό. Τα υπόλοιπα παρέχονται. ☀️',
-        transfer:'<strong style="'+G+'">ΔΩΡΕΑΝ μεταφορά από πύλη Elgouna στις 7:00</strong> ✅. 45 λεπτά μέχρι τη Μαρίνα — συμπεριλαμβάνεται!',
-        payment:'भुगतान के तरीके 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>सभी भुगतान एन्क्रिप्टेड हैं। <strong style="color:#D4AF37;">अभी बुक करें</strong>！🔒',
-    },
-    hi:{
-        included:'आपका टिकट पूरी तरह all-inclusive है — <strong style="'+G+'">ओपन बार</strong> 🍹 (अनलिमिटेड कॉकटेल, ड्रिंक्स और खाना), फ्री ट्रांसफर, DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>। कोई छुपी फीस नहीं! 🎉',
-        time:'शेड्यूल: 🕖 <strong style="'+G+'">El Gouna गेट से पिकअप 7:00 AM</strong> → 45 मिनट → <strong style="'+G+'">पार्टी 8:30 AM शुरू</strong>(सूर्योदय🌅) → <strong style="'+G+'">2:00 PM समाप्त</strong>।',
-        dj:'<strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> का लाइव म्यूज़िक 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong>। ✨',
-        sandbox:'हाँ! <strong style="'+G+'">After Saltbox Boat Party</strong> Sandbox क्राउड के लिए एक्सक्लूसिव है 🌟।',
-        location:'बोट <strong style="'+G+'">Marina Hurghada</strong> से रवाना होती है 🗺️। <strong style="'+G+'">El Gouna गेट से 7:00 AM फ्री पिकअप</strong> — टिकट में शामिल!',
-        capacity:'यह एक <strong style="'+G+'">प्राइवेट बोट</strong> है, सिर्फ <strong style="'+G+'">100 सीटें</strong> 🔒। अभी बुक करें!',
-        safety:'सुरक्षा प्राथमिकता 🛡️। हर मेहमान को लाइफ जैकेट, प्रमाणित लाइफगार्ड और फर्स्ट-एड किट।',
-        book:'<strong style="'+G+'">"अभी बुक करें"</strong> पर क्लिक करें 🎟️ — सिर्फ 100 सीटें! WhatsApp: <strong style="'+G+'">+447767058307</strong>। 🙌',
-        bring:'सिर्फ लाएं 👉 ID, स्विमवियर और सनस्क्रीन। बाकी सब शामिल है। ☀️',
-        transfer:'<strong style="'+G+'">El Gouna गेट से 7:00 AM फ्री पिकअप</strong> ✅। Marina तक 45 मिनट — शामिल!',
-        payment:'วิธีชำระเงิน 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>การชำระเงินทั้งหมดปลอดภัย. <strong style="color:#D4AF37;">จองเลย</strong>！🔒',
-    },
-    th:{
-        included:'ตั๋วของคุณครอบคลุมทุกอย่าง — <strong style="'+G+'">บาร์เปิด</strong> 🍹 คอกเทลและอาหารไม่จำกัด รับ-ส่งฟรี และ DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> ไม่มีค่าใช้จ่ายแอบซ่อน！🎉',
-        time:'กำหนดการ: 🕖 <strong style="'+G+'">รับจากประตู El Gouna 7:00 น.</strong> → 45 นาที → <strong style="'+G+'">ปาร์ตี้เริ่ม 8:30 น.</strong>(พระอาทิตย์ขึ้น🌅) → <strong style="'+G+'">สิ้นสุด 14:00 น.</strong>',
-        dj:'ดนตรีสดจาก <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong>. ✨',
-        sandbox:'ใช่！<strong style="'+G+'">After Saltbox Boat Party</strong> สำหรับกลุ่ม Sandbox เท่านั้น 🌟.',
-        location:'เรือออกจาก <strong style="'+G+'">Marina Hurghada</strong> 🗺️. รับฟรีจาก <strong style="'+G+'">ประตู El Gouna 7:00 น.</strong> — รวมในราคาแล้ว！',
-        capacity:'<strong style="'+G+'">เรือส่วนตัว</strong>จำกัด <strong style="'+G+'">100 คนเท่านั้น</strong> 🔒. จองเลย！',
-        safety:'ความปลอดภัยมาก่อน 🛡️. ทุกคนได้เสื้อชูชีพ นักช่วยชีวิตที่ผ่านการรับรอง และชุดปฐมพยาบาล.',
-        book:'คลิก <strong style="'+G+'">"จองเลย"</strong> 🎟️ — 100 ที่นั่งเท่านั้น！WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'นำแค่ 👉 บัตรประจำตัว ชุดว่ายน้ำ และครีมกันแดด อย่างอื่นครบหมด. ☀️',
-        transfer:'<strong style="'+G+'">รับฟรีจากประตู El Gouna 7:00 น.</strong> ✅. 45 นาทีถึง Marina — รวมแล้ว！',
-        payment:'Betaalmethoden 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Alle betalingen zijn beveiligd. Klik <strong style="color:#D4AF37;">Nu Boeken</strong>！🔒',
-    },
-    nl:{
-        included:'Jouw ticket is alles-inclusief met <strong style="'+G+'">open bar</strong> 🍹 — onbeperkte cocktails, eten, gratis transfer en DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. Geen verborgen kosten! 🎉',
-        time:'Schema: 🕖 <strong style="'+G+'">Ophalen Elgouna poort 7:00 uur</strong> → 45 min → <strong style="'+G+'">Feest begint 8:30</strong>(zonsopgang🌅) → <strong style="'+G+'">Einde 14:00</strong>.',
-        dj:'Live muziek van <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong>. ✨',
-        sandbox:'Ja! <strong style="'+G+'">After Saltbox Boat Party</strong> exclusief voor de Sandbox crowd 🌟.',
-        location:'Boot vertrekt vanuit <strong style="'+G+'">Marina Hurghada</strong> 🗺️. Gratis ophalen bij <strong style="'+G+'">Elgouna poort 7:00</strong> — inbegrepen!',
-        capacity:'<strong style="'+G+'">Privéboot</strong> met slechts <strong style="'+G+'">100 plekken</strong> 🔒. Boek nu!',
-        safety:'Veiligheid eerst 🛡️. Reddingsvest voor iedereen, gediplomeerde redder en EHBO-kit aan boord.',
-        book:'Klik op <strong style="'+G+'">"Nu Boeken"</strong> 🎟️ — slechts 100 plekken! WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Neem alleen mee 👉 ID, zwemkleding &amp; zonnebrand. De rest is inbegrepen. ☀️',
-        transfer:'<strong style="'+G+'">GRATIS ophalen bij Elgouna poort 7:00</strong> ✅. 45 min naar de Marina — inbegrepen!',
-        payment:'Betalningsmetoder 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Alla betalningar krypterade. Klicka <strong style="color:#D4AF37;">Boka Nu</strong>！🔒',
-    },
-    sv:{
-        included:'Din biljett är allt-inkluderat med <strong style="'+G+'">öppen bar</strong> 🍹 — obegränsade cocktails, mat, gratis transfer och DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. Inga dolda avgifter! 🎉',
-        time:'Schema: 🕖 <strong style="'+G+'">Hämtning Elgouna porten 7:00</strong> → 45 min → <strong style="'+G+'">Fest börjar 8:30</strong>(soluppgång🌅) → <strong style="'+G+'">Slut 14:00</strong>.',
-        dj:'Livemusik av <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong>. ✨',
-        sandbox:'Ja! <strong style="'+G+'">After Saltbox Boat Party</strong> exklusivt för Sandbox-publiken 🌟.',
-        location:'Båten avgår från <strong style="'+G+'">Marina Hurghada</strong> 🗺️. Gratis hämtning vid <strong style="'+G+'">Elgouna porten 7:00</strong> — inkluderat!',
-        capacity:'<strong style="'+G+'">Privat båt</strong> med bara <strong style="'+G+'">100 platser</strong> 🔒. Boka nu!',
-        safety:'Säkerhet först 🛡️. Flytväst till varje gäst, certifierade livräddare och förstahjälpen-kit ombord.',
-        book:'Klicka på <strong style="'+G+'">"Boka Nu"</strong> 🎟️ — bara 100 platser! WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Ta bara med 👉 ID, baddräkt &amp; solskydd. Allt annat är inkluderat. ☀️',
-        transfer:'<strong style="'+G+'">GRATIS hämtning vid Elgouna porten 7:00</strong> ✅. 45 min till Marina — inkluderat!',
-        payment:'Ödeme yöntemleri 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Tüm ödemeler şifreli ve güvenli. <strong style="color:#D4AF37;">Rezervasyon</strong>！🔒',
-    },
-    tr:{
-        included:'Biletiniz her şeyi kapsıyor — <strong style="'+G+'">açık büfe bar</strong> 🍹 (sınırsız kokteyl, içecek ve yemek), ücretsiz transfer ve DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. Gizli ücret yok! 🎉',
-        time:'Program: 🕖 <strong style="'+G+'">Elgouna kapısından 7:00\'da transfer</strong> → 45 dk → <strong style="'+G+'">Parti 8:30\'da başlar</strong>(gün doğumu🌅) → <strong style="'+G+'">14:00\'da biter</strong>.',
-        dj:'<strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> canlı müzik 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong>. ✨',
-        sandbox:'Evet! <strong style="'+G+'">After Saltbox Boat Party</strong> Sandbox kitlesi için özel 🌟.',
-        location:'Tekne <strong style="'+G+'">Marina Hurghada\'dan</strong> kalkıyor 🗺️. <strong style="'+G+'">Elgouna kapısından 7:00\'da ücretsiz transfer</strong> — dahil!',
-        capacity:'<strong style="'+G+'">Özel tekne</strong>, sadece <strong style="'+G+'">100 kişilik</strong> 🔒. Hemen rezervasyon yap!',
-        safety:'Güvenlik önce gelir 🛡️. Her misafire can yeleği, sertifikalı cankurtaranlar ve ilk yardım kiti.',
-        book:'<strong style="'+G+'">"Hemen Rezervasyon"</strong> butonuna tıkla 🎟️ — sadece 100 yer! WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Sadece 👉 kimlik, mayo &amp; güneş kremi getir. Geri kalan her şey dahil. ☀️',
-        transfer:'<strong style="'+G+'">Elgouna kapısından 7:00\'da ÜCRETSİZ transfer</strong> ✅. Marina\'ya 45 dakika — dahil!',
-        payment:'Metody płatności 💳<br>&#10022; <strong style="color:#D4AF37;">Vodafone Cash</strong><br>&#10022; <strong style="color:#D4AF37;">Apple Pay</strong><br>&#10022; <strong style="color:#D4AF37;">Stripe</strong><br>&#10022; <strong style="color:#D4AF37;">InstaPay</strong><br>Wszystkie płatności zaszyfrowane. Kliknij <strong style="color:#D4AF37;">Zarezerwuj</strong>！🔒',
-    },
-    pl:{
-        included:'Twój bilet jest all-inclusive z <strong style="'+G+'">otwartym barem</strong> 🍹 — nieograniczone koktajle, jedzenie, darmowy transfer i DJ <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong>. Żadnych ukrytych opłat! 🎉',
-        time:'Program: 🕖 <strong style="'+G+'">Odbiór brama Elgouna 7:00</strong> → 45 min → <strong style="'+G+'">Impreza zaczyna się 8:30</strong>(wschód słońca🌅) → <strong style="'+G+'">Koniec 14:00</strong>.',
-        dj:'Muzyka na żywo od <strong style="'+G+'">Kordy-Axion &amp; Tea.j</strong> 🎧 — <strong style="'+G+'">Melodic House &amp; Techno</strong>. ✨',
-        sandbox:'Tak! <strong style="'+G+'">After Saltbox Boat Party</strong> wyłącznie dla społeczności Sandbox 🌟.',
-        location:'Łódź odpływa z <strong style="'+G+'">Marina Hurghada</strong> 🗺️. Darmowy odbiór przy <strong style="'+G+'">bramie Elgouna o 7:00</strong> — wliczone!',
-        capacity:'<strong style="'+G+'">Prywatna łódź</strong> tylko dla <strong style="'+G+'">100 osób</strong> 🔒. Zarezerwuj teraz!',
-        safety:'Bezpieczeństwo na pierwszym miejscu 🛡️. Kamizelka ratunkowa dla każdego, ratownicy i apteczka na pokładzie.',
-        book:'Kliknij <strong style="'+G+'">"Zarezerwuj Teraz"</strong> 🎟️ — tylko 100 miejsc! WhatsApp: <strong style="'+G+'">+447767058307</strong>. 🙌',
-        bring:'Zabierz tylko 👉 dowód, strój kąpielowy &amp; krem. Reszta jest wliczona. ☀️',
-        transfer:'<strong style="'+G+'">BEZPŁATNY odbiór przy bramie Elgouna o 7:00</strong> ✅. 45 min do Mariny — wliczone!',
-    },
-};
-
-var GREET_ALL={
-    en:['Hi! ✨ I\'m <strong style="'+G+'">Sofia</strong>, your VIP Assistant for the After Saltbox Boat Party. Ask me anything! 🥂','I can answer: timings, music, what\'s included, how to book &amp; more! 🌊'],
-    ar:['أهلاً! ✨ أنا <strong style="'+G+'">صوفيا</strong>، مساعدتك VIP لحفلة After Saltbox. اسأليني أي شيء! 🥂','أستطيع الإجابة عن: المواعيد، الموسيقى، ماذا يشمل، والحجز! 🌊'],
-    de:['Hallo! ✨ Ich bin <strong style="'+G+'">Sofia</strong>, deine VIP-Assistentin für die After Saltbox Boat Party. Frag mich alles! 🥂','Ich beantworte: Zeiten, Musik, Leistungen, Buchung &amp; mehr! 🌊'],
-    fr:['Bonjour! ✨ Je suis <strong style="'+G+'">Sofia</strong>, ton assistante VIP pour la After Saltbox Boat Party. Pose toutes tes questions! 🥂','Je réponds à tout: horaires, musique, ce qui est inclus, réservation! 🌊'],
-    ru:['Привет! ✨ Я <strong style="'+G+'">София</strong>, твой VIP-ассистент для After Saltbox Boat Party. Спрашивай всё! 🥂','Отвечу про: время, музыку, что включено, как забронировать! 🌊'],
-    es:['¡Hola! ✨ Soy <strong style="'+G+'">Sofia</strong>, tu Asistente VIP para la After Saltbox Boat Party. ¡Pregúntame lo que quieras! 🥂','Respondo sobre: horarios, música, qué está incluido, cómo reservar! 🌊'],
-    it:['Ciao! ✨ Sono <strong style="'+G+'">Sofia</strong>, la tua Assistente VIP per la After Saltbox Boat Party. Chiedimi tutto! 🥂','Rispondo su: orari, musica, cosa è incluso, come prenotare! 🌊'],
-    zh:['你好！✨ 我是<strong style="'+G+'">Sofia</strong>，你的VIP助手。随时问我! 🥂','我能回答：时间、音乐、包含什么、如何预订！🌊'],
-    ja:['こんにちは！✨ 私は<strong style="'+G+'">Sofia</strong>、VIPアシスタントです。何でも聞いてください！🥂','時間、音楽、内容、予約方法など何でもお答えします！🌊'],
-    ko:['안녕하세요！✨ 저는 <strong style="'+G+'">Sofia</strong>, VIP 어시스턴트입니다. 무엇이든 물어보세요！🥂','시간, 음악, 포함사항, 예약 방법 등 모두 답해드려요！🌊'],
-    fa:['سلام！✨ من <strong style="'+G+'">Sofia</strong> هستم، دستیار VIP شما. هر چیزی بپرسید！🥂','پاسخ می‌دهم: زمان‌بندی، موزیک، چه چیزی شامل است، چطور رزرو کنید！🌊'],
-    he:['שלום！✨ אני <strong style="'+G+'">Sofia</strong>, האסיסטנטית VIP שלך. שאל/י כל שאלה！🥂','אני עונה על: זמנים, מוזיקה, מה כלול, איך להזמין！🌊'],
-    uk:['Привіт！✨ Я <strong style="'+G+'">Софія</strong>, твій VIP-асистент. Питай будь-що！🥂','Відповім про: час, музику, що включено, як забронювати！🌊'],
-    el:['Γεια！✨ Είμαι η <strong style="'+G+'">Sofia</strong>, η VIP Βοηθός σου. Ρώτα οτιδήποτε！🥂','Απαντώ για: ώρες, μουσική, τι περιλαμβάνεται, κράτηση！🌊'],
-    hi:['नमस्ते！✨ मैं <strong style="'+G+'">Sofia</strong> हूँ, आपकी VIP Assistant. कुछ भी पूछें！🥂','समय, संगीत, क्या शामिल है, कैसे बुक करें — सब बताऊँगी！🌊'],
-    th:['สวัสดี！✨ ฉันคือ <strong style="'+G+'">Sofia</strong> ผู้ช่วย VIP ของคุณ ถามได้ทุกอย่าง！🥂','ตอบได้ทุกเรื่อง: เวลา ดนตรี สิ่งที่รวม การจอง！🌊'],
-    nl:['Hallo！✨ Ik ben <strong style="'+G+'">Sofia</strong>, jouw VIP-assistent. Vraag me alles！🥂','Ik beantwoord: tijden, muziek, wat inbegrepen is, hoe te boeken！🌊'],
-    sv:['Hej！✨ Jag är <strong style="'+G+'">Sofia</strong>, din VIP-assistent. Fråga mig vad som helst！🥂','Jag svarar på: tider, musik, vad som ingår, hur man bokar！🌊'],
-    tr:['Merhaba！✨ Ben <strong style="'+G+'">Sofia</strong>, VIP Asistanınız. Sormak istediğiniz her şeyi sorabilirsiniz！🥂','Saatler, müzik, neler dahil, nasıl rezervasyon yapılır — hepsini yanıtlıyorum！🌊'],
-    pl:['Cześć！✨ Jestem <strong style="'+G+'">Sofia</strong>, Twoją asystentką VIP. Pytaj o wszystko！🥂','Odpowiadam na: godziny, muzykę, co jest wliczone, jak rezerwować！🌊'],
-};
-
-var FALLBACK_ALL={
-    en:['For the fastest answer, WhatsApp us: <strong style="'+G+'">+447767058307</strong> — we reply instantly! 🙌','Great question! Click <strong style="'+G+'">"Book Now"</strong> or WhatsApp <strong style="'+G+'">+447767058307</strong>. 🎉'],
-    ar:['للإجابة السريعة، تواصل عبر واتساب: <strong style="'+G+'">+447767058307</strong> — نرد فوراً! 🙌','اضغط <strong style="'+G+'">"احجز الآن"</strong> أو واتساب: <strong style="'+G+'">+447767058307</strong>. 🎉'],
-    de:['Für die schnellste Antwort, WhatsApp: <strong style="'+G+'">+447767058307</strong> — wir antworten sofort! 🙌'],
-    fr:['Pour la réponse la plus rapide, WhatsApp: <strong style="'+G+'">+447767058307</strong> — on répond instantanément! 🙌'],
-    ru:['Для быстрого ответа, WhatsApp: <strong style="'+G+'">+447767058307</strong> — отвечаем мгновенно! 🙌'],
-    es:['Para la respuesta más rápida, WhatsApp: <strong style="'+G+'">+447767058307</strong> — ¡respondemos al instante! 🙌'],
-    it:['Per la risposta più veloce, WhatsApp: <strong style="'+G+'">+447767058307</strong> — rispondiamo subito! 🙌'],
-    zh:['最快回复请WhatsApp: <strong style="'+G+'">+447767058307</strong> — 即时回复！🙌'],
-    ja:['最速の返答はWhatsApp: <strong style="'+G+'">+447767058307</strong> — 即座に返信！🙌'],
-    ko:['빠른 답변은 WhatsApp: <strong style="'+G+'">+447767058307</strong> — 즉시 답변！🙌'],
-    fa:['برای سریع‌ترین پاسخ، واتساپ: <strong style="'+G+'">+447767058307</strong>！🙌'],
-    he:['לתשובה המהירה, WhatsApp: <strong style="'+G+'">+447767058307</strong>！🙌'],
-    uk:['Для швидкої відповіді, WhatsApp: <strong style="'+G+'">+447767058307</strong>！🙌'],
-    el:['Για γρήγορη απάντηση, WhatsApp: <strong style="'+G+'">+447767058307</strong>！🙌'],
-    hi:['तेज़ जवाब के लिए WhatsApp: <strong style="'+G+'">+447767058307</strong>！🙌'],
-    th:['ตอบเร็วที่สุดทาง WhatsApp: <strong style="'+G+'">+447767058307</strong>！🙌'],
-    nl:['Voor het snelste antwoord, WhatsApp: <strong style="'+G+'">+447767058307</strong>！🙌'],
-    sv:['För snabbaste svaret, WhatsApp: <strong style="'+G+'">+447767058307</strong>！🙌'],
-    tr:['En hızlı yanıt için WhatsApp: <strong style="'+G+'">+447767058307</strong>！🙌'],
-    pl:['Najszybsza odpowiedź przez WhatsApp: <strong style="'+G+'">+447767058307</strong>！🙌'],
-};
-
-var GREET_TRIGGERS=['hi','hello','hey','hola','ciao','hallo','salut','yo','sup','salam','merhaba','czesc','hei','привет','مرحبا','שלום','नमस्ते','สวัสดี','你好','こんにちは','안녕','سلام','γεια','cześć','hej'];
-
-function isGreeting(t){
-    var c=t.toLowerCase().trim();
-    for(var i=0;i<GREET_TRIGGERS.length;i++) if(c===GREET_TRIGGERS[i]||c.indexOf(GREET_TRIGGERS[i])===0) return true;
-    return false;
-}
-
-function matchTopic(text){
-    var t=text.toLowerCase();
-    var topics=Object.keys(KB);
-    for(var i=0;i<topics.length;i++){
-        var kws=KB[topics[i]];
-        for(var j=0;j<kws.length;j++) if(kws[j].length>=2&&t.indexOf(kws[j])!==-1) return topics[i];
-    }
-    return null;
-}
-
-function scrollBottom(){msgsEl.scrollTop=msgsEl.scrollHeight;}
-
-function addMsg(html,type){
-    var el=document.createElement('div');
-    el.className='vip-msg '+type;
-    el.innerHTML=html;
-    msgsEl.appendChild(el);
-    scrollBottom();
-}
-
-function showTyping(){
-    var el=document.createElement('div');
-    el.className='vip-typing';
-    el.innerHTML='<span></span><span></span><span></span>';
-    msgsEl.appendChild(el);
-    scrollBottom();
-    return el;
-}
-
-function sofiaReply(userText){
-    var lang=detectLang(userText);
-    currentLang=lang;
-    var answers=ANSWERS_ALL[lang]||ANSWERS_ALL.en;
-    var greets=GREET_ALL[lang]||GREET_ALL.en;
-    var fallbacks=FALLBACK_ALL[lang]||FALLBACK_ALL.en;
-
-    if(isGreeting(userText)){
-        var typing=showTyping();
-        setTimeout(function(){
-            typing.remove();
-            addMsg(greets[0],'bot');
-            setTimeout(function(){addMsg(greets[1],'bot');},700);
-        },600);
-        return;
-    }
-    var topic=matchTopic(userText);
-    var response=topic&&answers[topic]?answers[topic]:fallbacks[fallbackIdx++%fallbacks.length];
-    var typing=showTyping();
-    setTimeout(function(){
-        typing.remove();
-        addMsg(response,'bot');
-    },700+Math.random()*400);
-}
-
-function send(text){
-    text=(text||'').trim();
-    if(!text)return;
-    addMsg(text,'user');
-    inputEl.value='';
-    if(quickEl)quickEl.style.display='none';
-    sofiaReply(text);
-}
-
-window.vipQuick=function(btn){send(btn.textContent);};
-sendBtn.addEventListener('click',function(){send(inputEl.value);});
-inputEl.addEventListener('keydown',function(e){if(e.key==='Enter')send(inputEl.value);});
-
-function openChat(){
-    win.classList.add('open');
-    if(!opened){
-        opened=true;
-        var lang=detectLang(navigator.language||'');
-        currentLang=lang;
-        var greets=GREET_ALL[lang]||GREET_ALL.en;
-        setTimeout(function(){
-            addMsg(greets[0],'bot');
-            setTimeout(function(){addMsg(greets[1],'bot');},900);
-        },300);
-    }
-    setTimeout(function(){inputEl.focus();},350);
-}
-
-function closeChat(){win.classList.remove('open');}
-
-toggle.addEventListener('click',function(){win.classList.contains('open')?closeChat():openChat();});
-closeBtn.addEventListener('click',closeChat);
-} // end _initSofia
-
-/* Trigger init on first touch/click of the toggle button */
-var _t=document.getElementById('vip-toggle');
-if(_t){
-    _t.addEventListener('click',_initSofia,{once:true});
-    _t.addEventListener('touchstart',_initSofia,{once:true,passive:true});
-}
-/* Also init after 4s idle — so it's ready if user scrolls to bottom */
-setTimeout(_initSofia, 4000);
-})();
-</script>
-
-
-<!-- Scripts: deferred and time-sliced — each major block yields the main thread -->
+<!-- Scripts: deferred and time-sliced â€” each major block yields the main thread -->
 <script defer>
 (window.requestIdleCallback || (fn => setTimeout(fn, 0)))(async function() {
     // Yield helper: hands the main thread back between long tasks (kills TBT)
     const yieldToMain = () => new Promise(r => setTimeout(r, 0));
 
-    // ── Block 1: Trip card countdown timers ──
+    // â”€â”€ Block 1: Trip card countdown timers â”€â”€
     (function () {
         function pad(n) { return String(n).padStart(2, '0'); }
 
@@ -7502,9 +6531,9 @@ setTimeout(_initSofia, 4000);
         setInterval(() => timers.forEach(t => updateCountdown(t)), 1000);
     })();
 
-    await yieldToMain(); // ── yield 1 ──
+    await yieldToMain(); // â”€â”€ yield 1 â”€â”€
 
-    // ── Block 2: Navbar ──
+    // â”€â”€ Block 2: Navbar â”€â”€
     const navbar = document.getElementById('navbar');
     const mobileMenu = document.getElementById('mobile-menu');
     const hamburger = document.getElementById('hamburger');
@@ -7523,7 +6552,7 @@ setTimeout(_initSofia, 4000);
 
     normalizeCountryOptions();
 
-    // Scroll handler — RAF-throttled so it never blocks the main thread
+    // Scroll handler â€” RAF-throttled so it never blocks the main thread
     let scrollTicking = false;
     const handleScroll = () => {
         if (window.scrollY > 60) {
@@ -7571,9 +6600,9 @@ setTimeout(_initSofia, 4000);
         });
     });
 
-    await yieldToMain(); // ── yield 2 ──
+    await yieldToMain(); // â”€â”€ yield 2 â”€â”€
 
-    // ── Block 3: Scroll reveal + Carousel ──
+    // â”€â”€ Block 3: Scroll reveal + Carousel â”€â”€
     const revealElements = document.querySelectorAll('.reveal');
     const observerOptions = {
         root: null,
@@ -7596,15 +6625,15 @@ setTimeout(_initSofia, 4000);
 
     revealElements.forEach(el => revealObserver.observe(el));
 
-    // Carousel auto-scroll — pauses when off-screen via IntersectionObserver
+    // Carousel auto-scroll â€” pauses when off-screen via IntersectionObserver
     const carouselTrack = document.querySelector('.carousel-track');
     let featureCards = document.querySelectorAll('.feature-card');
 
     if (carouselTrack && featureCards.length) {
-        // Mobile = touch device OR screen ≤ 768px (covers all iPhone 13/14/17 + Samsung)
+        // Mobile = touch device OR screen â‰¤ 768px (covers all iPhone 13/14/17 + Samsung)
         const isMobileDevice = () => window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
 
-        // Only clone cards on desktop (mobile uses native scroll — no infinite loop needed)
+        // Only clone cards on desktop (mobile uses native scroll â€” no infinite loop needed)
         if (!isMobileDevice()) {
             const originalCards = Array.from(carouselTrack.children);
             originalCards.forEach(card => carouselTrack.appendChild(card.cloneNode(true)));
@@ -7617,7 +6646,7 @@ setTimeout(_initSofia, 4000);
         let userTouching = false;
         const scrollSpeed = 0.85;
 
-        // ── Desktop: continuous pixel-by-pixel RAF scroll ──
+        // â”€â”€ Desktop: continuous pixel-by-pixel RAF scroll â”€â”€
         const resetCarousel = () => {
             if (carouselTrack.scrollLeft >= carouselTrack.scrollWidth / 2)
                 carouselTrack.scrollLeft -= carouselTrack.scrollWidth / 2;
@@ -7631,7 +6660,7 @@ setTimeout(_initSofia, 4000);
         };
         animateCarousel();
 
-        // ── Mobile: card-by-card auto-advance every 3 seconds ──
+        // â”€â”€ Mobile: card-by-card auto-advance every 3 seconds â”€â”€
         let mobileAutoInterval = null;
         let mobileCurrentCard  = 0;
         let userPaused = false;
@@ -7672,7 +6701,7 @@ setTimeout(_initSofia, 4000);
         carouselTrack.addEventListener('mouseenter', () => autoScroll = false);
         carouselTrack.addEventListener('mouseleave', () => { if (!isMobileDevice()) autoScroll = true; });
 
-        // ── TOUCH: pause auto-play, snap card, resume after delay ──
+        // â”€â”€ TOUCH: pause auto-play, snap card, resume after delay â”€â”€
         carouselTrack.addEventListener('touchstart', () => {
             userTouching = true;
             userPaused   = true;
@@ -7703,7 +6732,7 @@ setTimeout(_initSofia, 4000);
             userPaused   = false;
         }, { passive: true });
 
-        // ── ARROWS ──
+        // â”€â”€ ARROWS â”€â”€
         const carouselNavLeft  = document.querySelector('.carousel-nav-left');
         const carouselNavRight = document.querySelector('.carousel-nav-right');
         let carouselNavTimeout;
@@ -7749,7 +6778,7 @@ setTimeout(_initSofia, 4000);
             attachNav(carouselNavRight, 1);
         }
 
-        // ── Pagination dots + progress bar ──
+        // â”€â”€ Pagination dots + progress bar â”€â”€
         const dotsContainer   = document.getElementById('carousel-dots');
         const progressBar     = document.getElementById('carousel-progress-bar');
         const originalCount   = isMobileDevice()
@@ -7794,7 +6823,7 @@ setTimeout(_initSofia, 4000);
             }
         };
 
-        // RAF-throttled scroll listener — fires at most once per frame
+        // RAF-throttled scroll listener â€” fires at most once per frame
         let pagerRafId = null;
         carouselTrack.addEventListener('scroll', () => {
             if (pagerRafId) return;
@@ -7802,7 +6831,7 @@ setTimeout(_initSofia, 4000);
         }, { passive: true });
         updatePager(); // initial state
 
-        // ── Tilt effect — RAF-throttled mousemove (no getBoundingClientRect on every event)
+        // â”€â”€ Tilt effect â€” RAF-throttled mousemove (no getBoundingClientRect on every event)
         const isMobile = () => window.matchMedia('(pointer: coarse)').matches;
         featureCards.forEach(card => {
             let tiltFrame = null;
@@ -7825,7 +6854,7 @@ setTimeout(_initSofia, 4000);
                 card.style.boxShadow = '';
             });
         });
-        // deviceorientation removed — too expensive on mobile, caused scroll jank
+        // deviceorientation removed â€” too expensive on mobile, caused scroll jank
     }
 
     const feedbackTrack = document.querySelector('.feedback-track');
@@ -7962,7 +6991,7 @@ setTimeout(_initSofia, 4000);
 
         updateTimelinePreview(timelineNodes[0]);
         timelineScroll.addEventListener('scroll', updateLineFill, { passive: true });
-        // Debounced resize — prevents layout thrash on every resize pixel
+        // Debounced resize â€” prevents layout thrash on every resize pixel
         let resizeTimer;
         window.addEventListener('resize', () => {
             clearTimeout(resizeTimer);
@@ -7971,9 +7000,9 @@ setTimeout(_initSofia, 4000);
         updateLineFill();
     }
 
-    await yieldToMain(); // ── yield 3 ──
+    await yieldToMain(); // â”€â”€ yield 3 â”€â”€
 
-    // ── Block 4: Booking form submission ──
+    // â”€â”€ Block 4: Booking form submission â”€â”€
     const bookingForm = document.getElementById('bookingForm');
 
     if (bookingForm) {
@@ -8032,9 +7061,9 @@ setTimeout(_initSofia, 4000);
         });
     });
 
-    await yieldToMain(); // ── yield 4 ──
+    await yieldToMain(); // â”€â”€ yield 4 â”€â”€
 
-    // ── Block 5: Parallax + video autoplay ──
+    // â”€â”€ Block 5: Parallax + video autoplay â”€â”€
     // Parallax-like effect on hero video (desktop only ? transform breaks video on mobile)
     const heroVideo = document.getElementById('heroVideo');
     const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || window.innerWidth <= 768;
@@ -8067,9 +7096,9 @@ setTimeout(_initSofia, 4000);
         }
     }
 
-    await yieldToMain(); // ── yield 5 ──
+    await yieldToMain(); // â”€â”€ yield 5 â”€â”€
 
-    // ── Block 6: Trip modal + booking page logic ──
+    // â”€â”€ Block 6: Trip modal + booking page logic â”€â”€
     const tripModal = document.getElementById('trip-modal');
     const tripModalCloseButtons = tripModal ? tripModal.querySelectorAll('.trip-modal-close') : [];
     const tripCards = document.querySelectorAll('.trip-card[data-trip]');
@@ -8297,11 +7326,11 @@ setTimeout(_initSofia, 4000);
         const offerTotal = pricePerGuest * guestCount;
         const anchorTotal = basePricePerGuest * guestCount;
         const savings = anchorTotal - offerTotal;
-        if (bookingTotal) bookingTotal.textContent = `€${offerTotal}`;
-        if (bookingPageTotal) bookingPageTotal.textContent = `€${offerTotal}`;
-        if (bookingAnchor) bookingAnchor.textContent = `€${anchorTotal}`;
-        if (bookingPageAnchor) bookingPageAnchor.textContent = `€${anchorTotal}`;
-        if (bookingSavings) bookingSavings.textContent = `€${savings}`;
+        if (bookingTotal) bookingTotal.textContent = `â‚¬${offerTotal}`;
+        if (bookingPageTotal) bookingPageTotal.textContent = `â‚¬${offerTotal}`;
+        if (bookingAnchor) bookingAnchor.textContent = `â‚¬${anchorTotal}`;
+        if (bookingPageAnchor) bookingPageAnchor.textContent = `â‚¬${anchorTotal}`;
+        if (bookingSavings) bookingSavings.textContent = `â‚¬${savings}`;
         if (bookingPageSavings) bookingPageSavings.textContent = `20%`;
     };
 
@@ -8483,7 +7512,7 @@ setTimeout(_initSofia, 4000);
         const confirmationCheckbox = document.getElementById('email-confirmation');
         const bookNowBtn         = document.getElementById('book-now-btn');
 
-        // Helper — show/hide inline error message below a field
+        // Helper â€” show/hide inline error message below a field
         const setFieldError = (input, message) => {
             const hadError = input.classList.contains('field-error');
             input.classList.toggle('field-error', !!message);
@@ -8626,9 +7655,9 @@ setTimeout(_initSofia, 4000);
         });
     }
 
-    await yieldToMain(); // ── yield 6 ──
+    await yieldToMain(); // â”€â”€ yield 6 â”€â”€
 
-    // ── Block 7: Touch listeners + visibility API ──
+    // â”€â”€ Block 7: Touch listeners + visibility API â”€â”€
     // Mobile: prevent scroll-blocking listeners on the booking panel
     const _bpp = document.querySelector('.booking-page-panel');
     if (_bpp) {
@@ -8641,7 +7670,7 @@ setTimeout(_initSofia, 4000);
         _tmp.addEventListener('touchmove',  () => {}, { passive: true });
     }
 
-    // Pause all auto-scrolling when the tab is hidden — saves CPU/battery
+    // Pause all auto-scrolling when the tab is hidden â€” saves CPU/battery
     document.addEventListener('visibilitychange', () => {
         const hidden = document.hidden;
         if (typeof autoScroll !== 'undefined')        autoScroll        = !hidden;
@@ -8681,7 +7710,7 @@ setTimeout(_initSofia, 4000);
     updateCountdowns();
     setInterval(updateCountdowns, 1000);
 
-    // ── Stripe Payment Link Mapping ──
+    // â”€â”€ Stripe Payment Link Mapping â”€â”€
     const stripePaymentLinks = {
         1: 'https://buy.stripe.com/3cIfZj7XI67Z3GZ6Z693y07',
         2: 'https://buy.stripe.com/5kQ5kFem68g72CV0AI93y08',
@@ -8702,7 +7731,7 @@ setTimeout(_initSofia, 4000);
         const quantity = parseInt(guestCountInput.value, 10) || 1;
         const totalPrice = quantity * 16;
         if (totalPriceDisplay) {
-            totalPriceDisplay.textContent = '€' + totalPrice;
+            totalPriceDisplay.textContent = 'â‚¬' + totalPrice;
         }
     }
 
@@ -8745,10 +7774,10 @@ setTimeout(_initSofia, 4000);
         const bookingPageAnchor = document.getElementById('booking-page-anchor');
         const bookingPageTotal = document.getElementById('booking-page-total');
         if (bookingPageAnchor) {
-            bookingPageAnchor.textContent = '€' + anchorPrice;
+            bookingPageAnchor.textContent = 'â‚¬' + anchorPrice;
         }
         if (bookingPageTotal) {
-            bookingPageTotal.textContent = '€' + offerPrice;
+            bookingPageTotal.textContent = 'â‚¬' + offerPrice;
         }
     }
 
@@ -8774,6 +7803,7 @@ if(document.readyState==='loading'){window.addEventListener('load',enableAnimati
 </script>
 </body>
 </html>
+
 
 
 
