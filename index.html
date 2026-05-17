@@ -1506,8 +1506,8 @@
             -webkit-overflow-scrolling: touch;
             /* GPU compositing —” smooth 60fps swipe on all devices */
             will-change: scroll-position;
-            /* Allow horizontal pan, block vertical hijack */
-            touch-action: pan-x;
+            /* Allow horizontal pan AND vertical page scroll passthrough */
+            touch-action: pan-x pan-y;
             /* Prevent any parent overlay blocking events */
             pointer-events: auto;
             position: relative;
@@ -1520,12 +1520,12 @@
         .carousel-track::-webkit-scrollbar { display: none; }
         .carousel-track { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* Feature cards —” horizontal swipe enabled */
+        /* Feature cards —” horizontal swipe enabled, vertical scroll passes through */
         .feature-card {
             pointer-events: auto;
             cursor: grab;
-            /* pan-x = allow horizontal swiping; critical for carousel on iOS/Android */
-            touch-action: pan-x;
+            /* pan-x pan-y = allow horizontal carousel swipe AND let vertical pans scroll the page body */
+            touch-action: pan-x pan-y;
         }
         .feature-card:active { cursor: grabbing; }
 
@@ -1593,7 +1593,7 @@
                 scroll-snap-type: x mandatory !important;
                 scroll-behavior: smooth !important;
                 overscroll-behavior-x: contain !important;
-                touch-action: pan-x !important;
+                touch-action: pan-x pan-y !important;
                 pointer-events: auto !important;
                 padding-left: 1rem !important;
                 padding-right: 1rem !important;
@@ -1610,7 +1610,7 @@
                 min-width: min(82vw, 300px) !important;
                 max-width: min(82vw, 300px) !important;
                 scroll-snap-align: center !important;
-                touch-action: pan-x !important;
+                touch-action: pan-x pan-y !important;
                 pointer-events: auto !important;
                 backdrop-filter: blur(6px) !important;
                 -webkit-backdrop-filter: blur(6px) !important;
@@ -2014,7 +2014,7 @@
             .feedback-track,
             .timeline-scroll {
                 -webkit-overflow-scrolling: touch;
-                touch-action: pan-x;
+                touch-action: pan-x pan-y;
                 scroll-behavior: auto;
             }
 
@@ -5880,11 +5880,29 @@
                 <span class="hero-led-item">Submarine</span>
             </div>
             <!-- CTA Buttons -->
-            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center px-4 sm:px-0" style="position: relative; z-index: 50;">
-                <button type="button" id="explore-parties-btn" class="cta-btn text-white font-semibold px-8 py-4 rounded-full text-base tracking-wider inline-block w-full sm:w-auto text-center" style="cursor: pointer; position: relative; z-index: 50; border: none; font-family: inherit;" onclick="var t=document.getElementById('trips');if(t){var n=document.getElementById('navbar');var h=(n?n.offsetHeight:80)+20;window.scrollTo({top:t.getBoundingClientRect().top+window.pageYOffset-h,behavior:'smooth'});}">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center items-center px-4 sm:px-0" style="position: relative; z-index: 100; pointer-events: auto;">
+                <a href="#trips" id="explore-parties-btn" class="cta-btn font-semibold px-8 py-4 rounded-full text-base tracking-wider inline-block w-full sm:w-auto text-center" style="cursor: pointer; position: relative; z-index: 100; text-decoration: none; font-family: inherit; pointer-events: auto;">
                     Explore Parties
-                </button>
+                </a>
             </div>
+            <script>
+            (function(){
+                var btn = document.getElementById('explore-parties-btn');
+                if(!btn) return;
+                var scrollToTrips = function(e){
+                    if(e) e.preventDefault();
+                    var t = document.getElementById('trips');
+                    if(!t) return;
+                    var n = document.getElementById('navbar');
+                    var h = (n ? n.offsetHeight : 80) + 20;
+                    var y = t.getBoundingClientRect().top + window.pageYOffset - h;
+                    try { window.scrollTo({top: y, behavior: 'smooth'}); }
+                    catch(_) { window.scrollTo(0, y); }
+                };
+                btn.addEventListener('click', scrollToTrips, false);
+                btn.addEventListener('touchend', scrollToTrips, false);
+            })();
+            </script>
 
             <!-- Scroll indicator —” hidden on mobile -->
             <div class="mt-14 md:mt-20 animate-bounce hidden sm:block">
@@ -5898,8 +5916,8 @@
     <!-- Info Bar ? Charity Ticker -->
     <section class="relative z-10 overflow-hidden" style="background:#0077BE; padding: 0.9rem 0;">
         <div class="charity-ticker-track">
-            <div class=”charity-ticker-inner”>
-                <span class=”charity-ticker-item”>🍽️&nbsp; Turn your ticket into a meal — with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;🐾&nbsp;&nbsp;&nbsp;&nbsp;✦&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <div class="charity-ticker-inner">
+                <span class="charity-ticker-item">🍽️&nbsp; Turn your ticket into a meal — with every purchase, a hungry cat and dog in Hurghada get fed. &nbsp;&nbsp;🐾&nbsp;&nbsp;&nbsp;&nbsp;✦&nbsp;&nbsp;&nbsp;&nbsp;</span>
             </div>
         </div>
     </section>
@@ -5932,7 +5950,7 @@
                     <article class="feature-card" data-feature="4-Floor Luxury Cruise">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M16 38V24a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v14"/><path d="M16 38l-5 8h42l-5-8"/><path d="M21 38V50"/><path d="M43 38V50"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#041828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M16 38V24a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v14"/><path d="M16 38l-5 8h42l-5-8"/><path d="M21 38V50"/><path d="M43 38V50"/></svg>
                             </div>
                             <span class="feature-card-label">01</span>
                         </div>
@@ -5943,7 +5961,7 @@
                     <article class="feature-card" data-feature="Unlimited Drinks">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M24 14h16"/><path d="M20 14l-2 18a8 8 0 0 0 8 8h12a8 8 0 0 0 8-8l-2-18"/><path d="M21 32h22"/><path d="M33 32v18"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#041828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M24 14h16"/><path d="M20 14l-2 18a8 8 0 0 0 8 8h12a8 8 0 0 0 8-8l-2-18"/><path d="M21 32h22"/><path d="M33 32v18"/></svg>
                             </div>
                             <span class="feature-card-label">02</span>
                         </div>
@@ -5954,7 +5972,7 @@
                     <article class="feature-card" data-feature="Unlimited Food">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 26h28"/><path d="M18 34h28"/><path d="M18 42h28"/><path d="M20 18h24a6 6 0 0 1 6 6v20a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V24a6 6 0 0 1 6-6z"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#041828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 26h28"/><path d="M18 34h28"/><path d="M18 42h28"/><path d="M20 18h24a6 6 0 0 1 6 6v20a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V24a6 6 0 0 1 6-6z"/></svg>
                             </div>
                             <span class="feature-card-label">03</span>
                         </div>
@@ -5965,7 +5983,7 @@
                     <article class="feature-card" data-feature="Snorkeling Stops">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 44c4-6 9-9 16-9s12 3 16 9"/><path d="M24 20a8 8 0 1 0 16 0"/><path d="M34 16v20"/><path d="M28 20h12"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#041828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 44c4-6 9-9 16-9s12 3 16 9"/><path d="M24 20a8 8 0 1 0 16 0"/><path d="M34 16v20"/><path d="M28 20h12"/></svg>
                             </div>
                             <span class="feature-card-label">04</span>
                         </div>
@@ -5976,7 +5994,7 @@
                     <article class="feature-card" data-feature="Pool, Bar & Dance Floor">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 22h28"/><path d="M18 30h28"/><path d="M18 38h28"/><path d="M18 46h28"/><path d="M18 22l8-10l8 10"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#041828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M18 22h28"/><path d="M18 30h28"/><path d="M18 38h28"/><path d="M18 46h28"/><path d="M18 22l8-10l8 10"/></svg>
                             </div>
                             <span class="feature-card-label">05</span>
                         </div>
@@ -5987,7 +6005,7 @@
                     <article class="feature-card" data-feature="Live DJ Lineup">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M16 34h32"/><path d="M24 22v24"/><path d="M40 18v28"/><path d="M20 12h24"/><path d="M28 14v8"/><path d="M36 14v8"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#041828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M16 34h32"/><path d="M24 22v24"/><path d="M40 18v28"/><path d="M20 12h24"/><path d="M28 14v8"/><path d="M36 14v8"/></svg>
                             </div>
                             <span class="feature-card-label">06</span>
                         </div>
@@ -5998,7 +6016,7 @@
                     <article class="feature-card" data-feature="VIP Comfort">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M20 18h24"/><path d="M18 30h28"/><path d="M18 42h28"/><path d="M22 18v26"/><path d="M42 18v26"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#041828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M20 18h24"/><path d="M18 30h28"/><path d="M18 42h28"/><path d="M22 18v26"/><path d="M42 18v26"/></svg>
                             </div>
                             <span class="feature-card-label">07</span>
                         </div>
@@ -6009,7 +6027,7 @@
                     <article class="feature-card" data-feature="Free Locker">
                         <div class="feature-card-top">
                             <div class="feature-card-icon" aria-hidden="true">
-                                <svg viewBox="0 0 64 64" fill="none" stroke="#D4AF37" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M24 26v-4a8 8 0 0 1 16 0v4"/><path d="M20 38h24"/><path d="M18 22h28v20a6 6 0 0 1-6 6H24a6 6 0 0 1-6-6V22z"/></svg>
+                                <svg viewBox="0 0 64 64" fill="none" stroke="#041828" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#041828]"><path d="M24 26v-4a8 8 0 0 1 16 0v4"/><path d="M20 38h24"/><path d="M18 22h28v20a6 6 0 0 1-6 6H24a6 6 0 0 1-6-6V22z"/></svg>
                             </div>
                             <span class="feature-card-label">08</span>
                         </div>
@@ -6071,7 +6089,7 @@
                         <div class="trip-card-content">
                             <div class="trip-card-feature-row">
                                 <div class="trip-card-feature-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0"><circle cx="12" cy="12" r="10" stroke="#D4AF37" stroke-width="2"/><polyline points="12,6 12,12 16,14" stroke="#D4AF37" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>10 AM – 5 PM</span></div>
-                                <div class="trip-card-feature-item"><svg width="20" height="20" viewBox="0 0 48 48" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0"><rect x="4" y="8" width="34" height="24" rx="3" fill="#D4AF37"/><rect x="4" y="8" width="34" height="24" rx="3" fill="url(#busShadeGold)"/><rect x="6" y="10" width="30" height="10" rx="2" fill="#b8920d" opacity="0.5"/><rect x="8" y="11" width="8" height="8" rx="1" fill="#f5d67a" opacity="0.6"/><rect x="18" y="11" width="8" height="8" rx="1" fill="#f5d67a" opacity="0.6"/><rect x="28" y="11" width="6" height="8" rx="1" fill="#f5d67a" opacity="0.6"/><rect x="4" y="22" width="34" height="2" fill="#a07820"/><rect x="38" y="12" width="6" height="16" rx="2" fill="#c9952f"/><rect x="39" y="14" width="4" height="7" rx="1" fill="#f5d67a" opacity="0.5"/><rect x="4" y="30" width="34" height="4" rx="1" fill="#a07820"/><circle cx="11" cy="36" r="4" fill="#a07820"/><circle cx="11" cy="36" r="2" fill="#D4AF37"/><circle cx="11" cy="36" r="1" fill="#f5d67a"/><circle cx="29" cy="36" r="4" fill="#a07820"/><circle cx="29" cy="36" r="2" fill="#D4AF37"/><circle cx="29" cy="36" r="1" fill="#f5d67a"/><rect x="2" y="14" width="3" height="6" rx="1" fill="#f5d67a" opacity="0.9"/><rect x="40" y="28" width="4" height="3" rx="1" fill="#a07820" opacity="0.9"/><defs><linearGradient id="busShadeGold" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="white" stop-opacity="0.25"/><stop offset="100%" stop-color="black" stop-opacity="0.15"/></linearGradient></defs></svg><span>Free Transfer</span></div>
+                                <div class="trip-card-feature-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0"><rect x="4" y="3" width="16" height="15" rx="2" stroke="#D4AF37" stroke-width="2"/><line x1="4" y1="10" x2="20" y2="10" stroke="#D4AF37" stroke-width="2"/><rect x="6" y="5" width="3" height="3" rx="0.5" fill="#D4AF37"/><rect x="10.5" y="5" width="3" height="3" rx="0.5" fill="#D4AF37"/><rect x="15" y="5" width="3" height="3" rx="0.5" fill="#D4AF37"/><circle cx="8" cy="20" r="1.5" fill="#D4AF37"/><circle cx="16" cy="20" r="1.5" fill="#D4AF37"/></svg><span>Free Transfer</span></div>
                                 <div class="trip-card-feature-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0"><rect x="3" y="4" width="18" height="18" rx="2" stroke="#D4AF37" stroke-width="2"/><line x1="3" y1="9" x2="21" y2="9" stroke="#D4AF37" stroke-width="2"/><line x1="8" y1="2" x2="8" y2="6" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/><line x1="16" y1="2" x2="16" y2="6" stroke="#D4AF37" stroke-width="2" stroke-linecap="round"/><rect x="7" y="13" width="3" height="3" rx="0.5" fill="#D4AF37"/><rect x="11" y="13" width="3" height="3" rx="0.5" fill="#D4AF37"/><rect x="15" y="13" width="3" height="3" rx="0.5" fill="#D4AF37"/></svg><span>Every Saturday</span></div>
                                 <div class="trip-card-feature-item"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" style="display:inline-block;vertical-align:middle;margin-right:6px;flex-shrink:0"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26" fill="#D4AF37" stroke="#D4AF37" stroke-width="1.5" stroke-linejoin="round"/></svg><span>All-Inclusive</span></div>
                             </div>
@@ -6238,6 +6256,36 @@
                             <img src="https://i.ibb.co/mVmpZSnx/DSC-6618.jpg" alt="Gallery image 1" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
                         </div>
                         <div class="media-slide">
+                            <img src="1245/photo_5783121443880111458_w.jpg" alt="New gallery 1" width="800" height="533" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="media-slide">
+                            <video muted autoplay playsinline loop preload="metadata">
+                                <source src="IMG_4040 (1).MP4" type="video/mp4" />
+                                <track kind="captions" srclang="en" label="English" default>
+                            </video>
+                        </div>
+                        <div class="media-slide">
+                            <img src="1245/photo_5783121443880111459_w.jpg" alt="New gallery 2" width="800" height="533" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="media-slide">
+                            <img src="1245/photo_5783121443880111460_w.jpg" alt="New gallery 3" width="800" height="533" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="media-slide">
+                            <img src="1245/photo_5783121443880111461_w.jpg" alt="New gallery 4" width="800" height="533" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="media-slide">
+                            <img src="1245/photo_5783121443880111462_w.jpg" alt="New gallery 5" width="800" height="533" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="media-slide">
+                            <img src="1245/photo_5783121443880111466_w.jpg" alt="New gallery 6" width="800" height="533" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="media-slide">
+                            <img src="1245/photo_5783121443880111468_w.jpg" alt="New gallery 7" width="800" height="533" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="media-slide">
+                            <img src="1245/photo_5783121443880111469_w.jpg" alt="New gallery 8" width="800" height="533" loading="lazy" decoding="async" />
+                        </div>
+                        <div class="media-slide">
                             <img src="https://i.ibb.co/rf4FhR4W/DSC-6598.jpg" alt="Gallery image 2" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
                         </div>
                         <div class="media-slide">
@@ -6269,6 +6317,13 @@
                             <button type="button" class="media-dot" data-index="7" aria-label="Show slide 7"></button>
                             <button type="button" class="media-dot" data-index="8" aria-label="Show slide 8"></button>
                             <button type="button" class="media-dot" data-index="9" aria-label="Show slide 9"></button>
+                            <button type="button" class="media-dot" data-index="10" aria-label="Show slide 10"></button>
+                            <button type="button" class="media-dot" data-index="11" aria-label="Show slide 11"></button>
+                            <button type="button" class="media-dot" data-index="12" aria-label="Show slide 12"></button>
+                            <button type="button" class="media-dot" data-index="13" aria-label="Show slide 13"></button>
+                            <button type="button" class="media-dot" data-index="14" aria-label="Show slide 14"></button>
+                            <button type="button" class="media-dot" data-index="15" aria-label="Show slide 15"></button>
+                            <button type="button" class="media-dot" data-index="16" aria-label="Show slide 16"></button>
                         </div>
                     </div>
 
@@ -6421,115 +6476,6 @@
 
     </main><!-- /#main-content -->
 
-    <!-- Reviews Section -->
-    <section class="py-12 md:py-16 section-deepsea relative" style="overflow:visible;padding-left:0;padding-right:0;">
-        <div class="section-caustics-video">
-            <div class="absolute inset-0 bg-gradient-to-b from-[#020714]/10 via-[#020714]/40 to-[#020714]/75"></div>
-        </div>
-        <div class="relative z-10 max-w-6xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h2 class="section-title font-display text-4xl sm:text-5xl md:text-6xl tracking-[0.28em] text-white" style="text-shadow: 0 2px 24px rgba(212,175,55,0.2), 0 0 80px rgba(0,80,140,0.25);">What Guests Say</h2>
-                <div class="mt-3 mx-auto" style="width:60px; height:2px; background: linear-gradient(90deg, transparent, #D4AF37, transparent); border-radius:2px;"></div>
-            </div>
-
-            <div class="grid md:grid-cols-3 gap-6">
-                <!-- Review 1 -->
-                <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6">
-                    <div class="flex gap-1 mb-3">⭐⭐⭐⭐⭐</div>
-                    <p class="text-white/80 mb-4">"Amazing boat party! The sunset views, unlimited drinks, and friendly crew made it unforgettable. Definitely booking again!"</p>
-                    <p class="text-white font-semibold text-sm">Sarah Johnson</p>
-                    <p class="text-white/60 text-xs">Verified Guest</p>
-                </div>
-
-                <!-- Review 2 -->
-                <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6">
-                    <div class="flex gap-1 mb-3">⭐⭐⭐⭐⭐</div>
-                    <p class="text-white/80 mb-4">"Best experience in Hurghada! The snorkeling was incredible and the food was delicious. Highly recommended for everyone!"</p>
-                    <p class="text-white font-semibold text-sm">Michael Rodriguez</p>
-                    <p class="text-white/60 text-xs">Verified Guest</p>
-                </div>
-
-                <!-- Review 3 -->
-                <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-xl p-6">
-                    <div class="flex gap-1 mb-3">⭐⭐⭐⭐⭐</div>
-                    <p class="text-white/80 mb-4">"Worth every penny! The crew was so professional and the whole experience was perfectly organized. Loved every moment!"</p>
-                    <p class="text-white font-semibold text-sm">Emma Wilson</p>
-                    <p class="text-white/60 text-xs">Verified Guest</p>
-                </div>
-            </div>
-
-            <!-- Add Your Review CTA -->
-            <div class="flex justify-center mt-10">
-                <button id="add-review-btn" type="button" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-sm font-semibold text-white transition-all duration-300 hover:scale-105" style="background: linear-gradient(135deg, rgba(212,175,55,0.18) 0%, rgba(0,77,140,0.28) 100%); border: 1px solid rgba(212,175,55,0.45); letter-spacing: 0.5px; box-shadow: 0 6px 18px rgba(212,175,55,0.18); backdrop-filter: blur(8px);">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M12 20h9"/>
-                        <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/>
-                    </svg>
-                    Add Your Review
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Add Review Modal -->
-    <div id="add-review-modal" style="display:none; position:fixed; inset:0; z-index:100; align-items:center; justify-content:center; padding:1rem;">
-        <div id="add-review-backdrop" style="position:absolute; inset:0; background:rgba(2,7,20,0.78); backdrop-filter:blur(6px);"></div>
-        <div style="position:relative; z-index:1; max-width:480px; width:100%; background:linear-gradient(135deg, rgba(0,26,51,0.96) 0%, rgba(0,40,80,0.94) 100%); border:1px solid rgba(212,175,55,0.35); border-radius:18px; padding:1.75rem; box-shadow:0 30px 60px rgba(0,0,0,0.5), 0 0 80px rgba(212,175,55,0.12);">
-            <button id="add-review-close" type="button" aria-label="Close" style="position:absolute; top:12px; right:12px; width:32px; height:32px; border-radius:50%; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; cursor:pointer; font-size:1.1rem; line-height:1;">×</button>
-            <h3 style="color:white; font-size:1.4rem; font-weight:600; letter-spacing:0.04em; margin-bottom:0.4rem;">Share Your Experience</h3>
-            <p style="color:rgba(255,255,255,0.65); font-size:0.85rem; margin-bottom:1.2rem;">Tell us about your boat party — your feedback helps future guests.</p>
-            <form id="add-review-form" style="display:flex; flex-direction:column; gap:0.85rem;">
-                <input required type="text" name="name" placeholder="Your name" style="padding:0.7rem 0.9rem; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.9rem; outline:none;">
-                <div style="display:flex; gap:0.35rem; align-items:center;">
-                    <span style="color:rgba(255,255,255,0.7); font-size:0.85rem; margin-right:0.4rem;">Rating:</span>
-                    <div id="rating-stars" style="display:flex; gap:0.2rem; cursor:pointer; font-size:1.4rem; color:rgba(255,255,255,0.25);">
-                        <span data-star="1">★</span><span data-star="2">★</span><span data-star="3">★</span><span data-star="4">★</span><span data-star="5">★</span>
-                    </div>
-                </div>
-                <textarea required name="review" rows="4" placeholder="Write your review..." style="padding:0.7rem 0.9rem; border-radius:10px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.12); color:white; font-size:0.9rem; outline:none; resize:vertical; font-family:inherit;"></textarea>
-                <button type="submit" style="margin-top:0.3rem; padding:0.75rem 1rem; border-radius:10px; background:linear-gradient(135deg,#D4AF37 0%,#b8941e 100%); color:#0a1830; font-weight:700; font-size:0.9rem; letter-spacing:0.5px; border:none; cursor:pointer;">Submit Review</button>
-            </form>
-        </div>
-    </div>
-
-    <script>
-        (function() {
-            const openBtn = document.getElementById('add-review-btn');
-            const modal = document.getElementById('add-review-modal');
-            const closeBtn = document.getElementById('add-review-close');
-            const backdrop = document.getElementById('add-review-backdrop');
-            const form = document.getElementById('add-review-form');
-            const starsEl = document.getElementById('rating-stars');
-            let rating = 0;
-
-            if (!openBtn || !modal) return;
-
-            const open = () => { modal.style.display = 'flex'; };
-            const close = () => { modal.style.display = 'none'; };
-
-            openBtn.addEventListener('click', open);
-            closeBtn.addEventListener('click', close);
-            backdrop.addEventListener('click', close);
-
-            starsEl.querySelectorAll('span').forEach(s => {
-                s.addEventListener('click', () => {
-                    rating = parseInt(s.dataset.star);
-                    starsEl.querySelectorAll('span').forEach(x => {
-                        x.style.color = parseInt(x.dataset.star) <= rating ? '#D4AF37' : 'rgba(255,255,255,0.25)';
-                    });
-                });
-            });
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                alert('Thank you for your review! It will be published after moderation.');
-                form.reset();
-                rating = 0;
-                starsEl.querySelectorAll('span').forEach(x => x.style.color = 'rgba(255,255,255,0.25)');
-                close();
-            });
-        })();
-    </script>
 
     <!-- Floating Booking Notification (Left, small, cycles every 11s) -->
     <div id="booking-notification" style="position: fixed; bottom: 30px; left: 30px; background: linear-gradient(135deg, rgba(220,38,38,0.85) 0%, rgba(153,27,27,0.92) 100%); border: 1px solid rgba(255,99,99,0.55); border-radius: 12px; padding: 10px 16px; color: white; font-size: 0.8rem; z-index: 40; max-width: 240px; display: none; box-shadow: 0 10px 25px rgba(220,38,38,0.35), 0 0 40px rgba(220,38,38,0.25); backdrop-filter: blur(10px);">
@@ -7994,14 +7940,16 @@
         }
     });
 
-    guestCountInput.addEventListener('input', () => {
-        let value = parseInt(guestCountInput.value, 10) || 1;
-        if (value > 10) value = 10;
-        if (value < 1) value = 1;
-        guestCountInput.value = value;
-        updatePrice();
-        updateOrderSummaryPrice();
-    });
+    if (guestCountInput) {
+        guestCountInput.addEventListener('input', () => {
+            let value = parseInt(guestCountInput.value, 10) || 1;
+            if (value > 10) value = 10;
+            if (value < 1) value = 1;
+            guestCountInput.value = value;
+            updatePrice();
+            updateOrderSummaryPrice();
+        });
+    }
 
     function updateOrderSummaryPrice() {
         if (!guestCountInput) return;
@@ -8018,17 +7966,22 @@
         }
     }
 
-    bookNowBtn.addEventListener('click', (e) => {
-        e.preventDefault();
-        const quantity = parseInt(guestCountInput.value, 10) || 1;
-        const stripeLink = stripePaymentLinks[quantity];
-        if (stripeLink) {
-            window.location.href = stripeLink;
-        }
-    });
+    const bookNowBtnTop = document.getElementById('book-now-btn');
+    if (bookNowBtnTop && guestCountInput) {
+        bookNowBtnTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            const quantity = parseInt(guestCountInput.value, 10) || 1;
+            const stripeLink = stripePaymentLinks[quantity];
+            if (stripeLink) {
+                window.location.href = stripeLink;
+            }
+        });
+    }
 
-    updatePrice();
-    updateOrderSummaryPrice();
+    if (guestCountInput) {
+        updatePrice();
+        updateOrderSummaryPrice();
+    }
 }); // end requestIdleCallback
 </script>
 
