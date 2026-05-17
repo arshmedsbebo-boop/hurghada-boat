@@ -2818,11 +2818,11 @@
 
         .media-carousel {
             position: relative;
-            aspect-ratio: 16 / 9;
-            min-height: clamp(15rem, 50vw, 28rem);
+            aspect-ratio: 1 / 1;
             width: 100%;
+            max-width: 100%;
             border-radius: clamp(8px, 2vw, 16px);
-            overflow: visible;
+            overflow: hidden;
             border: 1px solid rgba(212, 175, 55, 0.3);
             background: rgba(8, 14, 28, 0.2);
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18);
@@ -2906,6 +2906,7 @@
             transition: opacity 0.9s ease, transform 0.9s ease;
             display: grid;
             place-items: center;
+            overflow: hidden;
         }
 
         .media-slide.active {
@@ -2917,7 +2918,7 @@
         .media-slide video {
             width: 100%;
             height: 100%;
-            object-fit: cover;
+            object-fit: contain;
             object-position: center;
             display: block;
             max-width: 100%;
@@ -3830,9 +3831,6 @@
                 height: clamp(10rem, 35vh, 15rem);
             }
 
-            .media-carousel {
-                min-height: clamp(12rem, 40vh, 22rem);
-            }
 
             .gallery-shell {
                 min-height: clamp(200px, 35vh, 320px);
@@ -3866,9 +3864,6 @@
                 height: clamp(9rem, 30vh, 12rem);
             }
 
-            .media-carousel {
-                min-height: clamp(10rem, 32vh, 16rem);
-            }
 
             .gallery-shell {
                 min-height: clamp(180px, 30vh, 260px);
@@ -5091,11 +5086,16 @@
 
         /* —— Gallery & media images —” GPU composited —— */
         .gallery-slide img,
-        .media-slide img,
         .experience-gallery img,
         .trip-card-media img,
         .trip-card-media video {
             object-fit: cover;
+            width: 100%;
+            transform: translateZ(0);
+            will-change: transform;
+        }
+        .media-slide img {
+            object-fit: contain;
             width: 100%;
             transform: translateZ(0);
             will-change: transform;
@@ -5435,10 +5435,6 @@
             gap: clamp(0.6rem, 2.5vw, 1.5rem) !important;
         }
 
-        .media-carousel {
-            padding: clamp(0.8rem, 2.5vw, 1.5rem) !important;
-            min-height: clamp(14rem, 45vw, 26rem) !important;
-        }
 
         /* Mobile responsive buttons */
         .detail-item, .dropdown-item {
@@ -6253,77 +6249,42 @@
                             <i class="fas fa-chevron-right"></i>
                         </button>
                         <div class="media-slide active">
-                            <img src="https://i.ibb.co/mVmpZSnx/DSC-6618.jpg" alt="Gallery image 1" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
+                            <img src="https://i.ibb.co/PZYpB24f/DSC-6630.jpg" alt="Gallery image 1" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-slide">
-                            <img src="1245/photo_5783121443880111458_w.jpg" alt="New gallery 1" width="800" height="533" loading="lazy" decoding="async" />
+                            <img src="https://cdn.corenexis.com/files/c/8647466720.jpg" alt="Gallery image 2" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-slide">
-                            <video muted autoplay playsinline loop preload="metadata">
-                                <source src="IMG_4040 (1).MP4" type="video/mp4" />
-                                <track kind="captions" srclang="en" label="English" default>
-                            </video>
+                            <img src="https://cdn.corenexis.com/files/c/4661512720.jpg" alt="Gallery image 3" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-slide">
-                            <img src="1245/photo_5783121443880111459_w.jpg" alt="New gallery 2" width="800" height="533" loading="lazy" decoding="async" />
+                            <img src="https://cdn.corenexis.com/files/c/3758515720.jpg" alt="Gallery image 4" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-slide">
-                            <img src="1245/photo_5783121443880111460_w.jpg" alt="New gallery 3" width="800" height="533" loading="lazy" decoding="async" />
+                            <img src="https://cdn.corenexis.com/files/c/9436517720.jpg" alt="Gallery image 5" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-slide">
-                            <img src="1245/photo_5783121443880111461_w.jpg" alt="New gallery 4" width="800" height="533" loading="lazy" decoding="async" />
+                            <img src="https://cdn.corenexis.com/files/c/3227218720.jpg" alt="Gallery image 6" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-slide">
-                            <img src="1245/photo_5783121443880111462_w.jpg" alt="New gallery 5" width="800" height="533" loading="lazy" decoding="async" />
+                            <img src="https://cdn.corenexis.com/files/c/6754716720.jpg" alt="Gallery image 7" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-slide">
-                            <img src="1245/photo_5783121443880111466_w.jpg" alt="New gallery 6" width="800" height="533" loading="lazy" decoding="async" />
+                            <img src="https://cdn.corenexis.com/files/c/6788746720.jpg" alt="Gallery image 8" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-slide">
-                            <img src="1245/photo_5783121443880111468_w.jpg" alt="New gallery 7" width="800" height="533" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="media-slide">
-                            <img src="1245/photo_5783121443880111469_w.jpg" alt="New gallery 8" width="800" height="533" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="media-slide">
-                            <img src="https://i.ibb.co/rf4FhR4W/DSC-6598.jpg" alt="Gallery image 2" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
-                        </div>
-                        <div class="media-slide">
-                            <img src="https://i.ibb.co/gLKbWqFr/DSC-6588.jpg" alt="Gallery image 4" width="800" height="533" loading="lazy" decoding="async" fetchpriority="low" />
-                        </div>
-                        <div class="media-slide">
-                            <img src="https://i.ibb.co/k25bTX4f/DSC-6551.jpg" alt="Gallery image 5" width="800" height="533" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="media-slide">
-                            <img src="https://i.ibb.co/mCp7j6KY/DSC-6522.jpg" alt="Gallery image 6" width="800" height="533" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="media-slide">
-                            <img src="https://i.ibb.co/PZYpB24f/DSC-6630.jpg" alt="Gallery image 8" width="800" height="533" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="media-slide">
-                            <img src="https://i.ibb.co/s9knnTzx/DSC-6620.jpg" alt="Gallery image 9" width="800" height="533" loading="lazy" decoding="async" />
-                        </div>
-                        <div class="media-slide">
-                            <img src="https://i.ibb.co/VcCkGdB3/DSC-6566.jpg" alt="Gallery image 10" width="800" height="533" loading="lazy" decoding="async" />
+                            <img src="https://cdn.corenexis.com/files/c/6178733720.jpg" alt="Gallery image 9" width="800" height="533" loading="lazy" decoding="async" />
                         </div>
                         <div class="media-pager" aria-label="Media navigation">
                             <button type="button" class="media-dot active" data-index="0" aria-label="Show slide 1"></button>
                             <button type="button" class="media-dot" data-index="1" aria-label="Show slide 2"></button>
-                            <button type="button" class="media-dot" data-index="2" aria-label="Show video slide"></button>
-                            <button type="button" class="media-dot" data-index="3" aria-label="Show slide 3"></button>
-                            <button type="button" class="media-dot" data-index="4" aria-label="Show slide 4"></button>
-                            <button type="button" class="media-dot" data-index="5" aria-label="Show slide 5"></button>
-                            <button type="button" class="media-dot" data-index="6" aria-label="Show slide 6"></button>
-                            <button type="button" class="media-dot" data-index="7" aria-label="Show slide 7"></button>
-                            <button type="button" class="media-dot" data-index="8" aria-label="Show slide 8"></button>
-                            <button type="button" class="media-dot" data-index="9" aria-label="Show slide 9"></button>
-                            <button type="button" class="media-dot" data-index="10" aria-label="Show slide 10"></button>
-                            <button type="button" class="media-dot" data-index="11" aria-label="Show slide 11"></button>
-                            <button type="button" class="media-dot" data-index="12" aria-label="Show slide 12"></button>
-                            <button type="button" class="media-dot" data-index="13" aria-label="Show slide 13"></button>
-                            <button type="button" class="media-dot" data-index="14" aria-label="Show slide 14"></button>
-                            <button type="button" class="media-dot" data-index="15" aria-label="Show slide 15"></button>
-                            <button type="button" class="media-dot" data-index="16" aria-label="Show slide 16"></button>
+                            <button type="button" class="media-dot" data-index="2" aria-label="Show slide 3"></button>
+                            <button type="button" class="media-dot" data-index="3" aria-label="Show slide 4"></button>
+                            <button type="button" class="media-dot" data-index="4" aria-label="Show slide 5"></button>
+                            <button type="button" class="media-dot" data-index="5" aria-label="Show slide 6"></button>
+                            <button type="button" class="media-dot" data-index="6" aria-label="Show slide 7"></button>
+                            <button type="button" class="media-dot" data-index="7" aria-label="Show slide 8"></button>
+                            <button type="button" class="media-dot" data-index="8" aria-label="Show slide 9"></button>
                         </div>
                     </div>
 
@@ -6550,7 +6511,7 @@
                         notificationEl.style.display = 'none';
                         messageIndex = (messageIndex + 1) % bookingMessages.length;
                     }, 500);
-                }, 3500);
+                }, 4000);
             }
 
             if (window.innerWidth < 640) {
@@ -6559,7 +6520,7 @@
             }
 
             showNotif();
-            setInterval(showNotif, 15000);
+            setInterval(showNotif, 20000);
         }
 
         if (document.readyState === 'loading') {
