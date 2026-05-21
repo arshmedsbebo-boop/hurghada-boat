@@ -6045,7 +6045,7 @@
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+            <div class="grid grid-cols-1 gap-6 md:gap-8 max-w-md mx-auto">
                 <div class="trip-card-block" id="trip-card-1">
                     <article class="trip-card reveal" data-trip="trip-1">
                         <div class="trip-card-media">
@@ -6061,7 +6061,7 @@
                             </div>
                             <div class="trip-card-headline">
                                 <div>
-                                    <h3 class="font-display text-2xl md:text-3xl">ADVENTURE BOAT CLUB</h3>
+                                    <h3 class="font-display text-2xl md:text-3xl">SALTBOX BOATPARTY</h3>
                                 </div>
                             </div>
                         </div>
@@ -6091,29 +6091,61 @@
                     </article>
                 </div>
 
-                <div class="trip-card-block">
-                    <article class="trip-card reveal" data-trip="trip-2">
-                        <div class="trip-card-media" style="position: relative;">
-                            <img src="https://cdn.corenexis.com/files/c/5465928720.jpg" alt="Adventure Cruise Party" loading="lazy" decoding="async" width="500" height="500" style="width: 100%; height: 100%; object-fit: cover; display: block;" />
-                            <div class="trip-card-hero"></div>
-                            <div style="position: absolute; inset: 0; background: rgba(0, 0, 0, 0.6); display: flex; align-items: center; justify-content: center; border-radius: 12px; backdrop-filter: blur(3px);">
-                                <div style="text-align: center;">
-                                    <div style="font-size: 2rem; font-weight: 700; color: #D4AF37; margin-bottom: 0.5rem;">Coming Soon</div>
-                                    <div style="font-size: 0.95rem; color: #F8F0B2;">Available soon</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="trip-card-content" style="opacity: 0.5; pointer-events: none;">
-                            <div class="trip-card-feature-row">
-                                <div class="trip-card-feature-item"><span>🚐 Free Transfer</span></div>
-                                <div class="trip-card-feature-item"><span>⭐ All-Inclusive</span></div>
-                            </div>
-                            <div class="trip-card-actions">
-                                <button type="button" class="btn-secondary view-itinerary" data-trip="trip-2" disabled style="opacity: 0.5; cursor: not-allowed;">Details</button>
-                            </div>
-                        </div>
-                    </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Q&A / FAQ Section -->
+    <section id="faq" class="py-12 md:py-16 px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <h2 class="section-title font-display text-4xl sm:text-5xl md:text-6xl text-white tracking-wide">Q &amp; A</h2>
+                <p class="text-[#D4AF37] mt-3 text-sm tracking-widest uppercase">Everything you need to know before you board</p>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:0.75rem;">
+                <div class="faq-item">
+                    <button type="button" class="faq-btn" onclick="this.parentElement.classList.toggle('faq-open')"><span class="faq-question">What happens if the weather is bad?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer">If the cruise is cancelled due to weather or marina closure, you get a free reschedule to the next available Saturday OR a full refund. No questions asked. Decisions are made by 8 AM on the day — we'll WhatsApp you immediately.</div>
                 </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-btn" onclick="this.parentElement.classList.toggle('faq-open')"><span class="faq-question">Is alcohol really unlimited?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer">Yes — beer, wine, vodka, gin, rum, tequila, and cocktails (mojito, margarita, piña colada, etc.) flow freely from 10 AM to 5 PM. Premium spirits like Grey Goose or aged whiskey are extra. Soft drinks, water, juices, tea, and coffee are also included.</div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-btn" onclick="this.parentElement.classList.toggle('faq-open')"><span class="faq-question">What is your refund / cancellation policy?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer">The <strong>20% deposit is non-refundable</strong> once paid &mdash; it secures your spot and covers operational costs. You can <strong>reschedule to any other Saturday for free</strong>, anytime. If we cancel due to weather or marina closure, you get a 100% refund.</div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-btn" onclick="this.parentElement.classList.toggle('faq-open')"><span class="faq-question">Is it safe? Are there lifeguards?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer">Yes — certified lifeguard on board, life jackets for every guest, professional crew, and marine first-aid kit. The boat is licensed by the Egyptian Tourism Authority. <span class="faq-trust-badge">Licensed</span> <span class="faq-trust-badge">Insured</span> <span class="faq-trust-badge">Lifeguard on board</span></div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-btn" onclick="this.parentElement.classList.toggle('faq-open')"><span class="faq-question">Can I get seasick? Is the sea rough?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer">The Red Sea around Hurghada is one of the calmest seas in the world — most days are flat. Our route stays in sheltered reef areas. If you're prone to motion sickness, take a Dramamine 30 min before boarding (we keep some on board for free).</div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-btn" onclick="this.parentElement.classList.toggle('faq-open')"><span class="faq-question">What should I bring? What should I wear?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer">Swimsuit, towel (we provide too), sunscreen, sunglasses, and a hat. Cash if you want premium drinks or tips. Phone in a waterproof pouch (we sell them on board for €5). Light jacket for the sunset.</div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-btn" onclick="this.parentElement.classList.toggle('faq-open')"><span class="faq-question">Is it kid-friendly?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer">It's a 21+ party cruise — alcohol, loud DJ, late-afternoon dancing. We don't recommend it for kids under 16. For family trips we run a separate morning snorkel tour — message us on WhatsApp for info.</div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-btn" onclick="this.parentElement.classList.toggle('faq-open')"><span class="faq-question">How many people fit on the boat?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer">Maximum 100 guests — never more. The boat is 4 floors with separate chill, dance, snorkel, and dining areas. It never feels packed.</div>
+                </div>
+                <div class="faq-item">
+                    <button type="button" class="faq-btn" onclick="this.parentElement.classList.toggle('faq-open')"><span class="faq-question">Where do we meet? Is the pickup really free?</span><span class="faq-icon">+</span></button>
+                    <div class="faq-answer">Yes, completely free hotel pickup from any Hurghada hotel at 9 AM, and drop-off after 5 PM. You give us your hotel name in the booking form. Meeting point is Marina Hurghada — pinned location sent via WhatsApp the night before.</div>
+                </div>
+            </div>
+            <div class="faq-cta-wrap">
+                <span class="faq-cta-label">Still got a question?</span>
+                <a class="faq-cta-btn" href="https://wa.me/201124003978" target="_blank" rel="noopener noreferrer">
+                    <svg width="18" height="18" fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347"/></svg>
+                    Message us on WhatsApp
+                </a>
             </div>
         </div>
     </section>
@@ -6279,7 +6311,7 @@
                         <div class="experience-vibes">
                             <div class="vibe-pill"><i class="fas fa-compact-disc"></i> Afro house / melodic house / tech house</div>
                             <div class="vibe-pill"><i class="fas fa-compact-disc"></i> Ampiano / hip hop / reggaeton</div>
-                            <div class="vibe-pill"><i class="fas fa-microphone"></i> live DJ</div>
+                            <div class="vibe-pill"><i class="fas fa-microphone"></i> 3 different live DJs</div>
 
                             <div class="experience-offerings">
                                 <div class="offer-head" data-toggle="offer-list">
@@ -6288,18 +6320,18 @@
                                 </div>
                                 <div class="offer-pills-list" id="offer-list">
                                     <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Free transfer back and forth</div>
-                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Food made by order</div>
-                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Cocktail and drinks</div>
-                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Snorkelling tools</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Food made to order</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Cocktails and drinks</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Snorkelling gear</div>
                                     <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Snorkelling spot</div>
                                     <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Swimming pool</div>
                                     <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Submarine</div>
-                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Life DJ all day</div>
-                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Life jacket</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>3 different live DJs</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Life jackets</div>
                                     <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Security</div>
-                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Life guard</div>
-                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Chill floor</div>
-                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>12 Toilet</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Lifeguard</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>Chill area</div>
+                                    <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>12 toilets</div>
                                     <div class="offer-pill"><span style="color:#D4AF37;font-weight:bold;font-size:1rem;margin-right:4px;">✓</span>AC</div>
                                 </div>
                             </div>
@@ -6377,6 +6409,11 @@
                                     <input id="booking-phone" name="phone" type="tel" placeholder="WhatsApp number" required pattern="[0-9]+" inputmode="numeric" oninput="this.value=this.value.replace(/[^0-9]/g,'')" />
                                 </div>
                             </label>
+                            <label>
+                                <span class="field-label"><svg width="16" height="16" viewBox="0 0 16 16" style="display:inline; margin-right: 8px; vertical-align: middle;"><rect x="2" y="2" width="12" height="12" fill="none" stroke="#D4AF37" stroke-width="1.5"/><line x1="2" y1="6" x2="14" y2="6" stroke="#D4AF37" stroke-width="1.5"/><line x1="5" y1="2" x2="5" y2="14" stroke="#D4AF37" stroke-width="1.5"/></svg><span style="color: rgba(245, 240, 225, 0.82);">Booking Date</span></span>
+                                <select id="booking-date" name="booking_date" required></select>
+                                <small style="display:block; margin-top:0.4rem; color: rgba(255,255,255,0.68); font-size: 0.88rem;">Only Saturdays are available for booking this year.</small>
+                            </label>
 
                             <div class="confirmation-section">
                                 <div class="confirmation-row">
@@ -6439,19 +6476,21 @@
             <div class="md:col-span-2">
                 <div class="flex items-center gap-3 mb-6">
                     <div class="w-0.5 h-11 rounded-full" style="background: linear-gradient(180deg, #D4AF37, rgba(212,175,55,0.15));"></div>
-                    <h3 class="footer-brand-title">Hurghada<br>Boat Party</h3>
+                    <h3 class="footer-brand-title">AQUATICA<br>Hurghada</h3>
                 </div>
 
                 <p class="footer-body-text" style="max-width:34rem;">
-                    Every Saturday, a luxury all-inclusive cruise party on the Red Sea —” cocktails, food, live DJs, snorkelling, and a submarine experience. No hidden fees, no compromises.
-                    <span class="footer-social-impact">With every ticket, a hungry cat and dog in Hurghada get fed. Your adventure becomes someone's meal.</span>
+                    The Red Sea's premier all-inclusive boat party. Every Saturday: live DJs, unlimited cocktails &amp; food, snorkeling stops, and a 4-floor luxury cruise. Free hotel pickup &mdash; no hidden fees.
+                    <span class="footer-social-impact">Every ticket feeds a hungry cat or dog in Hurghada. Your day at sea becomes someone's next meal.</span>
                 </p>
 
                 <!-- Quick nav -->
                 <div class="flex flex-wrap gap-x-6 gap-y-2 mt-7">
                     <a href="#hero" class="footer-nav-link">Home</a>
                     <a href="#features" class="footer-nav-link">Included</a>
-                    <a href="#trips" class="footer-nav-link">Parties</a>
+                    <a href="#trips" class="footer-nav-link">Book</a>
+                    <a href="#faq" class="footer-nav-link">FAQ</a>
+                    <a href="policy.html" target="_blank" class="footer-nav-link">Policy</a>
                 </div>
             </div>
 
@@ -6470,7 +6509,13 @@
                         <span class="footer-contact-icon">
                             <svg style="width:14px;height:14px;" fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         </span>
-                        <a href="https://wa.me/447767058307" target="_blank" rel="noopener noreferrer">+44 7767 058307</a>
+                        <a href="https://wa.me/201124003978" target="_blank" rel="noopener noreferrer">+20 112 400 3978 &middot; Egypt</a>
+                    </li>
+                    <li class="footer-contact-item">
+                        <span class="footer-contact-icon">
+                            <svg style="width:14px;height:14px;" fill="#25D366" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        </span>
+                        <a href="https://wa.me/447767058307" target="_blank" rel="noopener noreferrer">+44 7767 058307 &middot; UK office</a>
                     </li>
                     <li class="footer-contact-item">
                         <span class="footer-contact-icon">
@@ -6485,14 +6530,11 @@
                     <a href="https://www.instagram.com/hurghadaboatparty?igsh=cmNoaHUyOWxmMDd3" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="footer-social-icon">
                         <svg style="width:16px;height:16px;" fill="#D4AF37" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                     </a>
-                    <a href="#" aria-label="Facebook" class="footer-social-icon">
+                    <a href="https://www.facebook.com/share/1Cq24vdVx2/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="footer-social-icon">
                         <svg style="width:16px;height:16px;" fill="#D4AF37" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                     </a>
                     <a href="https://www.tiktok.com/@hurghadapartyboat.com" target="_blank" rel="noopener noreferrer" aria-label="TikTok" class="footer-social-icon">
                         <svg style="width:16px;height:16px;" fill="#D4AF37" viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-                    </a>
-                    <a href="#" aria-label="Twitter / X" class="footer-social-icon">
-                        <svg style="width:16px;height:16px;" fill="#D4AF37" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
                     </a>
                 </div>
             </div>
@@ -6500,7 +6542,7 @@
 
         <!-- Bottom bar -->
         <div class="flex flex-col sm:flex-row items-center justify-between gap-3 pt-8">
-            <p class="footer-copyright">© 2026 Saturday Adventure Cruise Party — All rights reserved.</p>
+            <p class="footer-copyright">© 2026 Aquatica Hurghada &middot; All rights reserved.</p>
             <p class="footer-location">
                 <svg style="width:11px;height:11px;color:rgba(212,175,55,0.40);flex-shrink:0;" fill="none" stroke="#D4AF37" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                 Hurghada, Egypt
@@ -7141,13 +7183,112 @@
     const guestStepButtons = document.querySelectorAll('.guest-step');
     const bookingDateField = document.getElementById('booking-date');
 
+    const saturdayBookingDates = (() => {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const year = today.getFullYear();
+        const rangeStart = new Date(today);
+        const rangeEnd = new Date(year, 11, 31);
+        const nextSaturday = (date) => {
+            const d = new Date(date);
+            d.setHours(0, 0, 0, 0);
+            const offset = (6 - d.getDay() + 7) % 7;
+            if (offset === 0) return d;
+            d.setDate(d.getDate() + offset);
+            return d;
+        };
+        const formatDate = (d) => {
+            const year = d.getFullYear();
+            const month = String(d.getMonth() + 1).padStart(2, '0');
+            const day = String(d.getDate()).padStart(2, '0');
+            return `${year}-${month}-${day}`;
+        };
+        const dates = [];
+        let current = nextSaturday(rangeStart);
+        while (current <= rangeEnd) {
+            dates.push(formatDate(current));
+            current = new Date(current);
+            current.setDate(current.getDate() + 7);
+        }
+        return dates;
+    })();
+
+    const formatLongDate = (value) => {
+        return new Date(value).toLocaleDateString('en-US', {
+            weekday: 'long',
+            month: 'long',
+            day: 'numeric',
+            year: 'numeric'
+        });
+    };
+
+    const populateBookingDateOptions = () => {
+        if (!bookingDateField || bookingDateField.tagName !== 'SELECT') return;
+        bookingDateField.innerHTML = '';
+        saturdayBookingDates.forEach((date) => {
+            const option = document.createElement('option');
+            option.value = date;
+            option.textContent = formatLongDate(date);
+            bookingDateField.appendChild(option);
+        });
+    };
+
+    const isSaturdayValue = (value) => {
+        if (!value) return false;
+        const date = new Date(value);
+        return !Number.isNaN(date.getTime()) && date.getDay() === 6;
+    };
+
+    const normalizeBookingDateValue = () => {
+        if (!bookingDateField) return;
+        const currentValue = bookingDateField.value;
+        if (!currentValue || !isSaturdayValue(currentValue)) {
+            const today = currentValue ? new Date(currentValue) : new Date();
+            today.setHours(0, 0, 0, 0);
+            const offset = (6 - today.getDay() + 7) % 7;
+            if (offset !== 0) {
+                today.setDate(today.getDate() + offset);
+            }
+            const normalized = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+            bookingDateField.value = saturdayBookingDates.includes(normalized)
+                ? normalized
+                : saturdayBookingDates[0];
+        }
+    };
+
+    const validateBookingDateField = () => {
+        if (!bookingDateField) return;
+        if (!bookingDateField.value) {
+            bookingDateField.setCustomValidity('Please select a Saturday to book.');
+            return;
+        }
+        if (!saturdayBookingDates.includes(bookingDateField.value) || !isSaturdayValue(bookingDateField.value)) {
+            bookingDateField.setCustomValidity('Only Saturdays are available for booking.');
+        } else {
+            bookingDateField.setCustomValidity('');
+        }
+    };
+
+    const initBookingDateField = () => {
+        if (!bookingDateField || !saturdayBookingDates.length) return;
+        populateBookingDateOptions();
+        normalizeBookingDateValue();
+        bookingDateField.addEventListener('change', () => {
+            normalizeBookingDateValue();
+            validateBookingDateField();
+        });
+        validateBookingDateField();
+    };
+
+    initBookingDateField();
+
     const tripData = {
         'trip-1': {
-            title: 'ADVENTURE BOAT CLUB',
+            title: 'SALTBOX BOATPARTY',
             subtitle: 'Premium day cruise with rooftop bar, pool deck, and sunset party vibes.',
             ticketPrice: 80,
             defaultGuests: 2,
-            tripDate: 'May 10, 2026',
+            tripDate: '2026-05-16',
             paymentLink: 'https://buy.stripe.com/cNi9AV6TEcwnb9r97e93y03',
         },
         'trip-2': {
@@ -7155,7 +7296,7 @@
             subtitle: 'Sunset party adventure with live DJs, VIP lounge, and nonstop refreshment.',
             ticketPrice: 80,
             defaultGuests: 2,
-            tripDate: '16 May, 2026',
+            tripDate: '2026-05-23',
             paymentLink: 'https://buy.stripe.com/28E14p5PA9kbb9r5V293y06',
         },
     };
@@ -7372,7 +7513,13 @@
         updateBookingTotal();
         setGallerySlide(0);
         galleryIndex = 0;
-        if (bookingDateField && data.tripDate) bookingDateField.value = data.tripDate;
+        if (bookingDateField) {
+            const preferredDate = (data.tripDate && saturdayBookingDates.includes(data.tripDate))
+                ? data.tripDate
+                : saturdayBookingDates[0];
+            bookingDateField.value = preferredDate;
+            validateBookingDateField();
+        }
     };
 
     const openTripModal = (trip) => {
@@ -7645,7 +7792,9 @@
                 const guests      = guestEl ? parseInt(guestEl.value, 10) || 1 : 1;
                 const currentTrip = typeof activeTrip !== 'undefined' ? activeTrip : 'standard';
                 const tripInfo    = (typeof tripData !== 'undefined' && tripData[currentTrip]) ? tripData[currentTrip] : {};
-                const partyDate   = tripInfo.tripDate || new Date().toLocaleDateString();
+                const today = new Date();
+                const formattedToday = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+                const partyDate   = (bookingDateField && bookingDateField.value) ? bookingDateField.value : (tripInfo.tripDate || formattedToday);
 
                 await fetch('/api/bookings', {
                     method: 'POST',
@@ -7830,10 +7979,4 @@ if(document.readyState==='loading'){window.addEventListener('load',enableAnimati
 </script>
 </body>
 </html>
-
-
-
-
-
-
 
