@@ -8179,8 +8179,8 @@ window.admOpen=function(){
   var frame=document.getElementById('adm-frame');
   var iframe=document.getElementById('adm-iframe');
   if(!iframe.src||iframe.src==='about:blank'||iframe.src===window.location.href){
-    var base=window.location.href.replace(/\/src\/components\/v\.html.*$/,'/admin.html');
-    iframe.src=base;
+    var dir=window.location.href.substring(0,window.location.href.lastIndexOf('/')+1);
+    iframe.src=dir+'admin.html';
   }
   frame.style.display='block';
   document.body.style.overflow='hidden';
